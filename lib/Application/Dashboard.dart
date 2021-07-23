@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:museum_application/Application/About.dart';
+import 'package:museum_application/Application/Animals.dart';
 import 'package:museum_application/Application/SearchAnimal.dart';
 import 'package:museum_application/helper/appcolor.dart';
 import 'package:museum_application/utility/app_dimen.dart';
@@ -22,7 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   FocusNode nodeSearchAnimal = FocusNode();
   TextEditingController controllerSearchAnimal = TextEditingController();
-
 
   // @override
   // void initState() {
@@ -235,11 +235,20 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 hSpacing(hDimen(15)),
-                Icon(
-                  icon,
-                  color: Colors.black,
-                  size: hDimen(40),
-                ),
+                assetPath == null
+                    ? Icon(
+                        icon,
+                        color: Colors.black,
+                        size: hDimen(40),
+                      )
+                    : Container(
+                        height: hDimen(25),
+                        width: hDimen(25),
+                        child: Image.asset(
+                          assetPath,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                 hSpacing(15),
                 Text(
                   labelText,
@@ -296,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Orientation deviceOrientation= MediaQuery.of(context).orientation;
+    Orientation deviceOrientation = MediaQuery.of(context).orientation;
     print(deviceOrientation);
     return Scaffold(
       backgroundColor: AppColor.colorPrimary,
@@ -313,16 +322,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   vSpacing(hDimen(50)),
-                  Text(
-                    "KEYAH GRANDE",
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: hDimen(22),
-                      letterSpacing: hDimen(2),
-                    ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "KEYAH",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: hDimen(20),
+                          letterSpacing: hDimen(3),
+                        ),
+                      ),
+                      Container(
+                        height: hDimen(50),
+                        width: hDimen(45),
+                        child: Image.asset(
+                          "assets/feather2.png",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Text(
+                        "GRANDE",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: hDimen(20),
+                          letterSpacing: hDimen(3),
+                        ),
+                      ),
+                    ],
                   ),
                   vSpacing(hDimen(40)),
                   drawerItem(
+                    assetPath: "assets/Regional Zones.png",
                     labelText: "Regional Zones",
                     isSelected: isHomeSelected,
                     icon: Icons.home,
@@ -338,6 +370,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   vSpacing(hDimen(20)),
                   drawerItem(
+                    assetPath: "assets/Search Animals.png",
                     labelText: "Search Animals",
                     isSelected: isSearchAnimalSelected,
                     icon: Icons.search,
@@ -353,6 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   vSpacing(hDimen(20)),
                   drawerItem(
+                    assetPath: "assets/Map.png",
                     labelText: "Map",
                     isSelected: isMapSelected,
                     icon: Icons.location_on,
@@ -368,6 +402,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   vSpacing(hDimen(20)),
                   drawerItem(
+                    assetPath: "assets/Animals.png",
                     labelText: "Animals",
                     isSelected: isAnimalSelected,
                     icon: Icons.settings,
@@ -383,6 +418,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   vSpacing(hDimen(20)),
                   drawerItem(
+                    assetPath: "assets/About Us.png",
                     labelText: "About Us",
                     isSelected: isAboutSelected,
                     icon: Icons.collections_bookmark_sharp,
@@ -400,27 +436,22 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: hDimen(20),
-                  bottom: hDimen(20),
-                  right: hDimen(20),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0xFFf2f2f2),
+                  borderRadius: BorderRadius.circular(hDimen(35)),
                 ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFf2f2f2),
-                    borderRadius: BorderRadius.circular(hDimen(35)),
-                  ),
-                  child: isHomeSelected
-                      ? homeWidget(
-                          orientation: orientation,
-                        )
-                      : isSearchAnimalSelected
-                          ? SearchAnimal()
-                          : isAboutSelected
-                              ? AboutUsScreen()
-                              : Container(),
-                ),
+                child: isHomeSelected
+                    ? homeWidget(
+                        orientation: orientation,
+                      )
+                    : isSearchAnimalSelected
+                        ? SearchAnimal()
+                        : isAboutSelected
+                            ? AboutUsScreen()
+                            : isAnimalSelected
+                                ? AnimalsScreen()
+                                : Container(),
               ),
             )
           ],

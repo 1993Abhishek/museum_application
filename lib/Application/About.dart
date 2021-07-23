@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:museum_application/helper/appcolor.dart';
 import 'package:museum_application/utility/app_dimen.dart';
 import 'package:museum_application/utility/appview_helper.dart';
 import 'package:museum_application/widgets/customTextfieldwidget.dart';
@@ -72,20 +71,20 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
           ),
         ),
         vSpacing(20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Container(
-                height: hDimen(500),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  physics: BouncingScrollPhysics(),
-                  itemCount: assetPaths.length,
-                  itemBuilder: (context, index) => Stack(
-                    children: [
-                      Card(
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              hSpacing(10),
+              Expanded(
+                child:Stack(
+                  children: [
+                    ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      physics: BouncingScrollPhysics(),
+                      itemCount: assetPaths.length,
+                      itemBuilder: (context, index) => Card(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(hDimen(20))),
                         elevation: 3,
@@ -93,14 +92,16 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                           borderRadius: BorderRadius.circular(hDimen(20)),
                           child: Image.asset(
                             assetPaths[index],
-                            height: hDimen(209),
-                            fit: BoxFit.contain,
+                            // height: hDimen(209),
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      Positioned(
-                        top: hDimen(80),
-                        left: hDimen(10),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left:hDimen(10),),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
                         child: Container(
                           height: hDimen(50),
                           width: hDimen(50),
@@ -115,17 +116,19 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                               size: hDimen(30),
                             ),
                             onPressed: () {
-                              print(index);
-                              setState(() {
-                                index--;
-                              });
+                              // print(index);
+                              // setState(() {
+                              //   index--;
+                              // });
                             },
                           ),
                         ),
                       ),
-                      Positioned(
-                        top: hDimen(80),
-                        right: hDimen(10),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right:hDimen(10),),
+                      child: Align(
+                        alignment: Alignment.centerRight,
                         child: Container(
                           height: hDimen(50),
                           width: hDimen(50),
@@ -140,115 +143,116 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                               size: hDimen(30),
                             ),
                             onPressed: () {
-                              print(index);
-                              setState(() {
-                                index=index+1;
-                              });
-                              print(index);
+                              // print(index);
+                              // setState(() {
+                              //   index=index+1;
+                              // });
+                              // print(index);
                             },
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            hSpacing(hDimen(20)),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "About Keyah Grande",
-                    style: TextStyle(
-                      fontSize: hDimen(25),
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+
+              hSpacing(hDimen(20)),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "About Keyah Grande",
+                      style: TextStyle(
+                        fontSize: hDimen(25),
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  vSpacing(hDimen(20)),
-                  Text(
-                    "Description",
-                    style: TextStyle(
-                      fontSize: hDimen(16),
-                      color: Colors.black,
+                    vSpacing(hDimen(20)),
+                    Text(
+                      "Description",
+                      style: TextStyle(
+                        fontSize: hDimen(16),
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                  vSpacing(hDimen(20)),
-                  Text(
-                    "Contact Us",
-                    style: TextStyle(
-                      fontSize: hDimen(25),
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                    vSpacing(hDimen(20)),
+                    Text(
+                      "Contact Us",
+                      style: TextStyle(
+                        fontSize: hDimen(25),
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  vSpacing(hDimen(20)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: Colors.black87,
-                        size: hDimen(25),
-                      ),
-                      hSpacing(20),
-                      Text(
-                        "Address",
-                        style: TextStyle(
-                          fontSize: hDimen(16),
-                          color: Colors.black,
+                    vSpacing(hDimen(20)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          color: Colors.black87,
+                          size: hDimen(25),
                         ),
-                      ),
-                    ],
-                  ),
-                  vSpacing(hDimen(20)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.mail_outline_rounded,
-                        color: Colors.black87,
-                        size: hDimen(25),
-                      ),
-                      hSpacing(20),
-                      Text(
-                        "theguesthouse@gmail.com",
-                        style: TextStyle(
-                          fontSize: hDimen(16),
-                          color: Colors.black,
+                        hSpacing(20),
+                        Text(
+                          "Address",
+                          style: TextStyle(
+                            fontSize: hDimen(16),
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  vSpacing(hDimen(20)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.phone,
-                        color: Colors.black87,
-                        size: hDimen(25),
-                      ),
-                      hSpacing(20),
-                      Text(
-                        "970.731.1162",
-                        style: TextStyle(
-                          fontSize: hDimen(16),
-                          color: Colors.black,
+                      ],
+                    ),
+                    vSpacing(hDimen(20)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.mail_outline_rounded,
+                          color: Colors.black87,
+                          size: hDimen(25),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          ],
+                        hSpacing(20),
+                        Text(
+                          "theguesthouse@gmail.com",
+                          style: TextStyle(
+                            fontSize: hDimen(16),
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    vSpacing(hDimen(20)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.phone,
+                          color: Colors.black87,
+                          size: hDimen(25),
+                        ),
+                        hSpacing(20),
+                        Text(
+                          "970.731.1162",
+                          style: TextStyle(
+                            fontSize: hDimen(16),
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
         vSpacing(hDimen(20)),
         Container(
@@ -271,6 +275,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
             },
           ),
         ),
+        vSpacing(hDimen(10)),
       ],
     );
   }
