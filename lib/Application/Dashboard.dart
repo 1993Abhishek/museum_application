@@ -252,7 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     labelText,
                     style: TextStyle(
-                      fontSize: hDimen(20),
+                      fontSize: hDimen(18),
                       color: Colors.black87,
                       fontWeight:
                           isSelected ? FontWeight.bold : FontWeight.normal,
@@ -262,14 +262,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          isSelected ? ClipPath(
-            child: Container(
-              height: hDimen(150),
-              width: hDimen(45),
-              color: isSelected ? Color(0xFFf2f2f2) : AppColor.colorPrimary,
-            ),
-            clipper: CustomCLip(),
-          ):Container(),
+          isSelected
+              ? ClipPath(
+                  child: Container(
+                    height: hDimen(150),
+                    width: hDimen(45),
+                    color:
+                        isSelected ? Color(0xFFf2f2f2) : AppColor.colorPrimary,
+                  ),
+                  clipper: CustomCLip(),
+                )
+              : Container(),
         ],
       ),
     );
@@ -446,7 +449,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   color: Color(0xFFf2f2f2),
-                  borderRadius: BorderRadius.circular(hDimen(35)),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(hDimen(40)),
+                    bottomLeft: Radius.circular(hDimen(40)),
+                  ),
                 ),
                 child: isHomeSelected
                     ? homeWidget(
@@ -477,10 +483,12 @@ class CustomCLip extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-    path.relativeMoveTo(0, size.height*0.24);
-    path.quadraticBezierTo(size.width*0.70, size.height*0.28, size.width, 0);
+    path.relativeMoveTo(0, size.height * 0.24);
+    path.quadraticBezierTo(
+        size.width * 0.77, size.height * 0.24, size.width, 0);
     path.lineTo(size.width, size.height);
-    path.quadraticBezierTo(size.width*.75, size.height*0.8, 0, size.height*0.77);
+    path.quadraticBezierTo(
+        size.width * .75, size.height * 0.78, 0, size.height * 0.765);
     path.close();
     return path;
   }
