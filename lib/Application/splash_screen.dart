@@ -26,26 +26,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    // bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-    // bool isLandScape = MediaQuery.of(context).orientation == Orientation.landscape;
-    // print(isPortrait);
-    // print(isLandScape);
     return Scaffold(
-      body:  OrientationBuilder(
-        builder: (context,orientation){
-          print(orientation);
-          return Container(
+      body:  Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image:orientation==Orientation.portrait ? AssetImage(
+                image: AssetImage(
                   "assets/Load.jpg",
-                ):Container(),
+                ),
                 fit: BoxFit.cover,
               ),
             ),
-          );
-        },
-      ),
+          ),
     );
   }
 }
