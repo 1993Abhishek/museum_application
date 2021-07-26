@@ -189,7 +189,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
             ],
           ),
         ),
-        vSpacing(hDimen(15)),
+        vSpacing(hDimen(30)),
         Container(
           // width: hDimen(550),
           height: hDimen(250),

@@ -442,6 +442,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     },
                   ),
+                  Image.asset(
+                    "assets/feather1.png",
+                    width: hDimen(200),
+                    height: hDimen(250),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: hDimen(30),
+                      top: hDimen(10),
+                    ),
+                    child: Text(
+                      "Copyright 2021",
+                      style: TextStyle(
+                        fontSize: hDimen(15),
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

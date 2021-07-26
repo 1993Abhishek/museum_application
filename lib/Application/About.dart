@@ -284,7 +284,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
             },
           ),
         ),
-        vSpacing(hDimen(110)),
+        vSpacing(hDimen(120)),
       ],
     );
   }
