@@ -71,9 +71,9 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
             ),
           ),
         ),
-        vSpacing(20),
+        vSpacing(30),
         Padding(
-          padding: EdgeInsets.only(left:hDimen(15)),
+          padding: EdgeInsets.only(left:hDimen(25)),
           child: Text("Back To Zone Name",style: TextStyle(
             fontSize: hDimen(20),
             color: Colors.black,
@@ -87,7 +87,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              hSpacing(10),
+              hSpacing(20),
               Expanded(
                 child:Stack(
                   children: [
@@ -189,13 +189,13 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
             ],
           ),
         ),
-        vSpacing(hDimen(20)),
+        vSpacing(hDimen(15)),
         Container(
           // width: hDimen(550),
           height: hDimen(250),
           child: ListView.builder(
             padding: EdgeInsets.only(
-              left: hDimen(20),
+              left: hDimen(25),
             ),
             scrollDirection: Axis.horizontal,
             physics: BouncingScrollPhysics(),
@@ -210,7 +210,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
             },
           ),
         ),
-        vSpacing(hDimen(10)),
+        vSpacing(hDimen(85)),
       ],
     );
   }

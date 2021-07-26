@@ -6,11 +6,11 @@ import 'package:museum_application/router.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIOverlays([]);
-  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-  //     .then((_) {
-  //   runApp(Museum());
-  // });
-  runApp(Museum());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
+      .then((_) {
+    runApp(Museum());
+  });
+  // runApp(Museum());
 
 }
 

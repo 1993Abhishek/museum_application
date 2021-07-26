@@ -71,13 +71,13 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
             ),
           ),
         ),
-        vSpacing(20),
+        vSpacing(30),
         Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              hSpacing(10),
+              hSpacing(20),
               Expanded(
                 child: Stack(
                   children: [
@@ -263,7 +263,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
             ],
           ),
         ),
-        vSpacing(hDimen(20)),
+        vSpacing(hDimen(30)),
         Container(
           // width: hDimen(550),
           height: hDimen(250),
@@ -284,7 +284,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
             },
           ),
         ),
-        vSpacing(hDimen(10)),
+        vSpacing(hDimen(110)),
       ],
     );
   }
