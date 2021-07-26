@@ -20,6 +20,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
     "assets/loggerhead.jpg",
     "assets/national_geographic1.jpg"
   ];
+  int index=0;
 
   Widget imageContainer({
     String assetsPath,
@@ -31,7 +32,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(hDimen(25)),
         child: Image.asset(
-          asset == null ? assetsPath : asset,
+          assetsPath,
           fit: BoxFit.cover,
         ),
       ),
@@ -78,28 +79,35 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
             children: [
               hSpacing(10),
               Expanded(
-                child:Stack(
+                child: Stack(
                   children: [
-                    ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      physics: BouncingScrollPhysics(),
-                      itemCount: assetPaths.length,
-                      itemBuilder: (context, index) => Card(
+                     Card(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(hDimen(20))),
+                          borderRadius: BorderRadius.circular(
+                            hDimen(20),
+                          ),
+                        ),
                         elevation: 3,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(hDimen(20)),
-                          child: Image.asset(
-                            assetPaths[index],
-                            // height: hDimen(209),
-                            fit: BoxFit.cover,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              hDimen(20),
+                            ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(hDimen(20)),
+                            child: Image.asset(
+                              assetPaths[index],
+                              // height: hDimen(209),
+                              fit: BoxFit.fitWidth,
+                            ),
                           ),
                         ),
                       ),
-                    ),
                     Padding(
-                      padding: EdgeInsets.only(left:hDimen(10),),
+                      padding: EdgeInsets.only(
+                        left: hDimen(10),
+                      ),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
@@ -116,17 +124,19 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                               size: hDimen(30),
                             ),
                             onPressed: () {
-                              // print(index);
-                              // setState(() {
-                              //   index--;
-                              // });
+                              print(index);
+                              setState(() {
+                                index=(index-1)%assetPaths.length;
+                              });
                             },
                           ),
                         ),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right:hDimen(10),),
+                      padding: EdgeInsets.only(
+                        right: hDimen(10),
+                      ),
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: Container(
@@ -143,11 +153,11 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                               size: hDimen(30),
                             ),
                             onPressed: () {
-                              // print(index);
-                              // setState(() {
-                              //   index=index+1;
-                              // });
-                              // print(index);
+                              print(index);
+                              setState(() {
+                                index=(index+1)%assetPaths.length;
+                              });
+                              print(index);
                             },
                           ),
                         ),
@@ -156,7 +166,6 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                   ],
                 ),
               ),
-
               hSpacing(hDimen(20)),
               Expanded(
                 child: Column(

@@ -59,53 +59,45 @@ class _HomeScreenState extends State<HomeScreen> {
     String description,
     String assetsPath,
   }) {
-    return Container(
-      height: hDimen(700),
-      width: hDimen(500),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
+    return Card(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
           hDimen(20),
         ),
       ),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            hDimen(20),
-          ),
-        ),
-        elevation: 3,
-        child: Padding(
-          padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              vSpacing(hDimen(10)),
-              Center(
-                child: Container(
-                  height: hDimen(100),
-                  width: hDimen(240),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(hDimen(25)),
-                    child: Image.asset(
-                      assetsPath,
-                      fit: BoxFit.cover,
-                    ),
+      elevation: 3,
+      child: Padding(
+        padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            vSpacing(hDimen(10)),
+            Center(
+              child: Container(
+                height: hDimen(100),
+                width: hDimen(240),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(hDimen(25)),
+                  child: Image.asset(
+                    assetsPath,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
-              vSpacing(hDimen(20)),
-              Text(
-                title,
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                  fontSize: hDimen(20),
-                ),
+            ),
+            vSpacing(hDimen(20)),
+            Text(
+              title,
+              style: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+                fontSize: hDimen(20),
               ),
-              vSpacing(hDimen(20)),
-              Text(
+            ),
+            vSpacing(hDimen(20)),
+            Expanded(
+              child: Text(
                 description,
                 style: TextStyle(
                   color: Colors.black,
@@ -113,11 +105,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: hDimen(18),
                 ),
               ),
-              vSpacing(hDimen(20)),
-              exploreButton(),
-              vSpacing(hDimen(20)),
-            ],
-          ),
+            ),
+            vSpacing(hDimen(20)),
+            exploreButton(),
+            vSpacing(hDimen(20)),
+          ],
         ),
       ),
     );
@@ -178,20 +170,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisSpacing: hDimen(20),
                   childAspectRatio: 0.9),
               children: [
-                homeCard(
-                  assetsPath: "assets/loggerhead.jpg",
-                  description: "This is the description",
-                  title: "Zone Name Here",
+                Expanded(
+                  child: homeCard(
+                    assetsPath: "assets/loggerhead.jpg",
+                    description: "This is the description",
+                    title: "Zone Name Here",
+                  ),
                 ),
-                homeCard(
-                  assetsPath: "assets/loggerhead.jpg",
-                  description: "This is the description",
-                  title: "Zone Name Here",
+                Expanded(
+                  child: homeCard(
+                    assetsPath: "assets/loggerhead.jpg",
+                    description: "This is the description",
+                    title: "Zone Name Here",
+                  ),
                 ),
-                homeCard(
-                  assetsPath: "assets/loggerhead.jpg",
-                  description: "This is the description",
-                  title: "Zone Name Here",
+                Expanded(
+                  child: homeCard(
+                    assetsPath: "assets/loggerhead.jpg",
+                    description: "This is the description",
+                    title: "Zone Name Here",
+                  ),
                 ),
               ],
             ),
@@ -211,58 +209,67 @@ class _HomeScreenState extends State<HomeScreen> {
     return GestureDetector(
       onTap: onTap,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            height: hDimen(78),
-            width: hDimen(230),
-            decoration: BoxDecoration(
-              color: isSelected ? Color(0xFFf2f2f2) : AppColor.colorPrimary,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.elliptical(
-                  hDimen(50),
-                  hDimen(50),
-                ),
-                topLeft: Radius.elliptical(
-                  hDimen(50),
-                  hDimen(50),
-                ),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                hSpacing(hDimen(15)),
-                assetPath == null
-                    ? Icon(
-                        icon,
-                        color: Colors.black,
-                        size: hDimen(40),
-                      )
-                    : Container(
-                        height: hDimen(25),
-                        width: hDimen(25),
-                        child: Image.asset(
-                          assetPath,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                hSpacing(15),
-                Text(
-                  labelText,
-                  style: TextStyle(
-                    fontSize: hDimen(20),
-                    color: Colors.black87,
-                    fontWeight:
-                        isSelected ? FontWeight.bold : FontWeight.normal,
+          Expanded(
+            child: Container(
+              height: hDimen(78),
+              // width: hDimen(230),
+              decoration: BoxDecoration(
+                color: isSelected ? Color(0xFFf2f2f2) : AppColor.colorPrimary,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.elliptical(
+                    hDimen(50),
+                    hDimen(50),
+                  ),
+                  topLeft: Radius.elliptical(
+                    hDimen(50),
+                    hDimen(50),
                   ),
                 ),
-              ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  hSpacing(hDimen(15)),
+                  assetPath == null
+                      ? Icon(
+                          icon,
+                          color: Colors.black,
+                          size: hDimen(40),
+                        )
+                      : Container(
+                          height: hDimen(25),
+                          width: hDimen(25),
+                          child: Image.asset(
+                            assetPath,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                  hSpacing(15),
+                  Text(
+                    labelText,
+                    style: TextStyle(
+                      fontSize: hDimen(20),
+                      color: Colors.black87,
+                      fontWeight:
+                          isSelected ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-          isSelected ? semiCircle() : Container(),
+          isSelected ? ClipPath(
+            child: Container(
+              height: hDimen(150),
+              width: hDimen(45),
+              color: isSelected ? Color(0xFFf2f2f2) : AppColor.colorPrimary,
+            ),
+            clipper: CustomCLip(),
+          ):Container(),
         ],
       ),
     );
@@ -368,7 +375,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     },
                   ),
-                  vSpacing(hDimen(20)),
+                  // vSpacing(hDimen(20)),
                   drawerItem(
                     assetPath: "assets/Search Animals.png",
                     labelText: "Search Animals",
@@ -384,7 +391,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     },
                   ),
-                  vSpacing(hDimen(20)),
+                  // vSpacing(hDimen(20)),
                   drawerItem(
                     assetPath: "assets/Map.png",
                     labelText: "Map",
@@ -400,7 +407,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     },
                   ),
-                  vSpacing(hDimen(20)),
+                  // vSpacing(hDimen(20)),
                   drawerItem(
                     assetPath: "assets/Animals.png",
                     labelText: "Animals",
@@ -416,7 +423,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     },
                   ),
-                  vSpacing(hDimen(20)),
+                  // vSpacing(hDimen(20)),
                   drawerItem(
                     assetPath: "assets/About Us.png",
                     labelText: "About Us",
@@ -458,5 +465,23 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+}
+
+class CustomCLip extends CustomClipper<Path> {
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
+  }
+
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.relativeMoveTo(0, size.height*0.24);
+    path.quadraticBezierTo(size.width*0.70, size.height*0.28, size.width, 0);
+    path.lineTo(size.width, size.height);
+    path.quadraticBezierTo(size.width*.75, size.height*0.8, 0, size.height*0.77);
+    path.close();
+    return path;
   }
 }

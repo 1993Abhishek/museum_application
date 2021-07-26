@@ -20,6 +20,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
     "assets/loggerhead.jpg",
     "assets/national_geographic1.jpg"
   ];
+  int imageIndex=0;
 
   Widget imageContainer({
     String assetsPath,
@@ -31,7 +32,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(hDimen(25)),
         child: Image.asset(
-          asset == null ? assetsPath : asset,
+          assetsPath,
           fit: BoxFit.cover,
         ),
       ),
@@ -90,24 +91,19 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
               Expanded(
                 child:Stack(
                   children: [
-                    ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      physics: BouncingScrollPhysics(),
-                      itemCount: assetPaths.length,
-                      itemBuilder: (context, index) => Card(
+                    Card(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(hDimen(20))),
                         elevation: 3,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(hDimen(20)),
                           child: Image.asset(
-                            assetPaths[index],
+                            assetPaths[imageIndex],
                             // height: hDimen(209),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                    ),
                     Padding(
                       padding: EdgeInsets.only(left:hDimen(10),),
                       child: Align(
@@ -126,10 +122,10 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                               size: hDimen(30),
                             ),
                             onPressed: () {
-                              // print(index);
-                              // setState(() {
-                              //   index--;
-                              // });
+                              print(imageIndex);
+                              setState(() {
+                                imageIndex=(imageIndex-1)%assetPaths.length;
+                              });
                             },
                           ),
                         ),
@@ -153,11 +149,9 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                               size: hDimen(30),
                             ),
                             onPressed: () {
-                              // print(index);
-                              // setState(() {
-                              //   index=index+1;
-                              // });
-                              // print(index);
+                              setState(() {
+                                imageIndex=(imageIndex-1)%assetPaths.length;
+                              });
                             },
                           ),
                         ),

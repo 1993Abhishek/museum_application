@@ -220,70 +220,62 @@ class _SearchAnimalState extends State<SearchAnimal> {
     String description,
     String assetsPath,
   }) {
-    return Container(
-      height: hDimen(700),
-      width: hDimen(500),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
+    return Card(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
           hDimen(20),
         ),
       ),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            hDimen(20),
-          ),
-        ),
-        elevation: 3,
-        child: Padding(
-          padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              vSpacing(hDimen(10)),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        zoneName,
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: hDimen(18),
-                        ),
-                      ),
-                      vSpacing(5),
-                      Text(
-                        animalName,
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.bold,
-                          fontSize: hDimen(20),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: hDimen(60),
-                    width: hDimen(60),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(hDimen(10)),
-                      child: Image.asset(
-                        assetsPath,
-                        fit: BoxFit.cover,
+      elevation: 3,
+      child: Padding(
+        padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            vSpacing(hDimen(10)),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      zoneName,
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: hDimen(18),
                       ),
                     ),
+                    vSpacing(5),
+                    Text(
+                      animalName,
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold,
+                        fontSize: hDimen(20),
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  height: hDimen(60),
+                  width: hDimen(60),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(hDimen(10)),
+                    child: Image.asset(
+                      assetsPath,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ],
-              ),
-              vSpacing(hDimen(20)),
-              Text(
+                ),
+              ],
+            ),
+            vSpacing(hDimen(20)),
+            Expanded(
+              child: Text(
                 description,
                 style: TextStyle(
                   color: Colors.black,
@@ -291,11 +283,11 @@ class _SearchAnimalState extends State<SearchAnimal> {
                   fontSize: hDimen(18),
                 ),
               ),
-              vSpacing(hDimen(20)),
-              exploreButton(),
-              vSpacing(hDimen(20)),
-            ],
-          ),
+            ),
+            vSpacing(hDimen(20)),
+            exploreButton(),
+            vSpacing(hDimen(20)),
+          ],
         ),
       ),
     );
@@ -324,23 +316,29 @@ class _SearchAnimalState extends State<SearchAnimal> {
                   crossAxisSpacing: hDimen(20),
                   childAspectRatio: 0.9),
               children: [
-                searchAnimalCard(
-                  assetsPath: "assets/loggerhead.jpg",
-                  description: "This is the description",
-                  zoneName: "Bandipur",
-                  animalName: "Turtle",
+                Expanded(
+                  child: searchAnimalCard(
+                    assetsPath: "assets/loggerhead.jpg",
+                    description: "This is the description",
+                    zoneName: "Bandipur",
+                    animalName: "Turtle",
+                  ),
                 ),
-                searchAnimalCard(
-                  assetsPath: "assets/loggerhead.jpg",
-                  description: "This is the description",
-                  zoneName: "Bandipur",
-                  animalName: "Turtle",
+                Expanded(
+                  child: searchAnimalCard(
+                    assetsPath: "assets/loggerhead.jpg",
+                    description: "This is the description",
+                    zoneName: "Bandipur",
+                    animalName: "Turtle",
+                  ),
                 ),
-                searchAnimalCard(
-                  assetsPath: "assets/loggerhead.jpg",
-                  description: "This is the description",
-                  zoneName: "Bandipur",
-                  animalName: "Turtle",
+                Expanded(
+                  child: searchAnimalCard(
+                    assetsPath: "assets/loggerhead.jpg",
+                    description: "This is the description",
+                    zoneName: "Bandipur",
+                    animalName: "Turtle",
+                  ),
                 ),
               ],
             ),
