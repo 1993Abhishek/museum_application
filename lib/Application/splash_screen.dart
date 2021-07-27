@@ -18,8 +18,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Widget loadingContainer() {
     return Container(
-      height: hDimen(30),
-      width: hDimen(300),
+      height: hDimen(15),
+      width: hDimen(400),
       decoration: BoxDecoration(
         color:Colors.white /*Color(0xFFf2f2f2)*/,
         borderRadius: BorderRadius.circular(hDimen(20)),
@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
           height: hDimen(2),
           width: 1,
           decoration: BoxDecoration(
-            color: Colors.green/*AppColor.colorPrimary*/,
+            color:Color(0xFF99856a),
             borderRadius: BorderRadius.circular(hDimen(20)),
           ),
         ),
