@@ -278,40 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget semiCircle() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: EdgeInsets.all(0),
-          height: hDimen(50),
-          width: hDimen(20),
-          decoration: BoxDecoration(
-            color: Colors.white70,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(
-                hDimen(30),
-              ),
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.all(0),
-          height: hDimen(50),
-          width: hDimen(20),
-          decoration: BoxDecoration(
-            color: Colors.white70,
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(
-                hDimen(30),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -329,118 +296,124 @@ class _HomeScreenState extends State<HomeScreen> {
               width: hDimen(250),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   vSpacing(hDimen(50)),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        "KEYAH",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: hDimen(20),
-                          letterSpacing: hDimen(3),
-                        ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "KEYAH",
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: hDimen(20),
+                              letterSpacing: hDimen(3),
+                            ),
+                          ),
+                          Container(
+                            height: hDimen(50),
+                            width: hDimen(45),
+                            child: Image.asset(
+                              "assets/feather2.png",
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Text(
+                            "GRANDE",
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: hDimen(20),
+                              letterSpacing: hDimen(3),
+                            ),
+                          ),
+                        ],
                       ),
-                      Container(
-                        height: hDimen(50),
-                        width: hDimen(45),
-                        child: Image.asset(
-                          "assets/feather2.png",
-                          fit: BoxFit.cover,
-                        ),
+                      vSpacing(hDimen(40)),
+                      drawerItem(
+                        assetPath: "assets/Regional Zones.png",
+                        labelText: "Regional Zones",
+                        isSelected: isHomeSelected,
+                        icon: Icons.home,
+                        onTap: () {
+                          setState(() {
+                            isHomeSelected = true;
+                            isSearchAnimalSelected = false;
+                            isMapSelected = false;
+                            isAnimalSelected = false;
+                            isAboutSelected = false;
+                          });
+                        },
                       ),
-                      Text(
-                        "GRANDE",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: hDimen(20),
-                          letterSpacing: hDimen(3),
-                        ),
+                      // vSpacing(hDimen(20)),
+                      drawerItem(
+                        assetPath: "assets/Search Animals.png",
+                        labelText: "Search Animals",
+                        isSelected: isSearchAnimalSelected,
+                        icon: Icons.search,
+                        onTap: () {
+                          setState(() {
+                            isHomeSelected = false;
+                            isSearchAnimalSelected = true;
+                            isMapSelected = false;
+                            isAnimalSelected = false;
+                            isAboutSelected = false;
+                          });
+                        },
+                      ),
+                      // vSpacing(hDimen(20)),
+                      drawerItem(
+                        assetPath: "assets/Map.png",
+                        labelText: "Map",
+                        isSelected: isMapSelected,
+                        icon: Icons.location_on,
+                        onTap: () {
+                          setState(() {
+                            isHomeSelected = false;
+                            isSearchAnimalSelected = false;
+                            isMapSelected = true;
+                            isAnimalSelected = false;
+                            isAboutSelected = false;
+                          });
+                        },
+                      ),
+                      // vSpacing(hDimen(20)),
+                      drawerItem(
+                        assetPath: "assets/Animals.png",
+                        labelText: "Animals",
+                        isSelected: isAnimalSelected,
+                        icon: Icons.settings,
+                        onTap: () {
+                          setState(() {
+                            isHomeSelected = false;
+                            isSearchAnimalSelected = false;
+                            isMapSelected = false;
+                            isAnimalSelected = true;
+                            isAboutSelected = false;
+                          });
+                        },
+                      ),
+                      // vSpacing(hDimen(20)),
+                      drawerItem(
+                        assetPath: "assets/About Us.png",
+                        labelText: "About Us",
+                        isSelected: isAboutSelected,
+                        icon: Icons.collections_bookmark_sharp,
+                        onTap: () {
+                          setState(() {
+                            isHomeSelected = false;
+                            isSearchAnimalSelected = false;
+                            isMapSelected = false;
+                            isAnimalSelected = false;
+                            isAboutSelected = true;
+                          });
+                        },
                       ),
                     ],
-                  ),
-                  vSpacing(hDimen(40)),
-                  drawerItem(
-                    assetPath: "assets/Regional Zones.png",
-                    labelText: "Regional Zones",
-                    isSelected: isHomeSelected,
-                    icon: Icons.home,
-                    onTap: () {
-                      setState(() {
-                        isHomeSelected = true;
-                        isSearchAnimalSelected = false;
-                        isMapSelected = false;
-                        isAnimalSelected = false;
-                        isAboutSelected = false;
-                      });
-                    },
-                  ),
-                  // vSpacing(hDimen(20)),
-                  drawerItem(
-                    assetPath: "assets/Search Animals.png",
-                    labelText: "Search Animals",
-                    isSelected: isSearchAnimalSelected,
-                    icon: Icons.search,
-                    onTap: () {
-                      setState(() {
-                        isHomeSelected = false;
-                        isSearchAnimalSelected = true;
-                        isMapSelected = false;
-                        isAnimalSelected = false;
-                        isAboutSelected = false;
-                      });
-                    },
-                  ),
-                  // vSpacing(hDimen(20)),
-                  drawerItem(
-                    assetPath: "assets/Map.png",
-                    labelText: "Map",
-                    isSelected: isMapSelected,
-                    icon: Icons.location_on,
-                    onTap: () {
-                      setState(() {
-                        isHomeSelected = false;
-                        isSearchAnimalSelected = false;
-                        isMapSelected = true;
-                        isAnimalSelected = false;
-                        isAboutSelected = false;
-                      });
-                    },
-                  ),
-                  // vSpacing(hDimen(20)),
-                  drawerItem(
-                    assetPath: "assets/Animals.png",
-                    labelText: "Animals",
-                    isSelected: isAnimalSelected,
-                    icon: Icons.settings,
-                    onTap: () {
-                      setState(() {
-                        isHomeSelected = false;
-                        isSearchAnimalSelected = false;
-                        isMapSelected = false;
-                        isAnimalSelected = true;
-                        isAboutSelected = false;
-                      });
-                    },
-                  ),
-                  // vSpacing(hDimen(20)),
-                  drawerItem(
-                    assetPath: "assets/About Us.png",
-                    labelText: "About Us",
-                    isSelected: isAboutSelected,
-                    icon: Icons.collections_bookmark_sharp,
-                    onTap: () {
-                      setState(() {
-                        isHomeSelected = false;
-                        isSearchAnimalSelected = false;
-                        isMapSelected = false;
-                        isAnimalSelected = false;
-                        isAboutSelected = true;
-                      });
-                    },
                   ),
                   Image.asset(
                     "assets/feather1.png",
@@ -451,6 +424,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.only(
                       left: hDimen(30),
                       top: hDimen(10),
+                      bottom: hDimen(20),
                     ),
                     child: Text(
                       "Copyright 2021",
