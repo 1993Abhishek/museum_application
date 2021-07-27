@@ -414,8 +414,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   Container(
-                    width: hDimen(200),
-                    height: hDimen(250),
+                    width: hDimen(150),
+                    height: hDimen(150),
                     child: Image.asset(
                       "assets/feather1.png",
                       fit: BoxFit.contain,
