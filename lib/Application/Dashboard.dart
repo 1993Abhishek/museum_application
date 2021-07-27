@@ -164,10 +164,11 @@ class _HomeScreenState extends State<HomeScreen> {
             child: GridView(
               physics: BouncingScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: orientation == Orientation.portrait ? 2 : 3,
-                  mainAxisSpacing: hDimen(20),
-                  crossAxisSpacing: hDimen(20),
-                  childAspectRatio: 0.9),
+                crossAxisCount: orientation == Orientation.portrait ? 2 : 3,
+                mainAxisSpacing: hDimen(20),
+                crossAxisSpacing: hDimen(20),
+                childAspectRatio: 0.7,
+              ),
               children: [
                 Expanded(
                   child: homeCard(
@@ -276,8 +277,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -414,15 +413,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  Image.asset(
-                    "assets/feather1.png",
+                  Container(
                     width: hDimen(200),
                     height: hDimen(250),
+                    child: Image.asset(
+                      "assets/feather1.png",
+                      fit: BoxFit.contain,
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(
                       left: hDimen(30),
-                      top: hDimen(10),
+                      // top: hDimen(10),
                       bottom: hDimen(20),
                     ),
                     child: Text(
