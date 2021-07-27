@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            vSpacing(hDimen(20)),
+            vSpacing(hDimen(15)),
             Text(
               title,
               style: TextStyle(
@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 fontSize: hDimen(20),
               ),
             ),
-            vSpacing(hDimen(20)),
+            vSpacing(hDimen(15)),
             Expanded(
               child: Text(
                 description,
@@ -106,7 +106,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            vSpacing(hDimen(20)),
             exploreButton(),
             vSpacing(hDimen(20)),
           ],
