@@ -14,14 +14,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  double finalWidth=300;
+  double finalWidth = 560;
 
   Widget loadingContainer() {
     return Container(
       height: hDimen(15),
-      width: hDimen(400),
+      width: hDimen(560),
       decoration: BoxDecoration(
-        color:Colors.white /*Color(0xFFf2f2f2)*/,
+        color: Colors.white /*Color(0xFFf2f2f2)*/,
         borderRadius: BorderRadius.circular(hDimen(20)),
         border: Border.all(
           color: Color(0xFFf2f2f2),
@@ -29,14 +29,16 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
       child: AnimatedPadding(
-        duration: Duration(seconds: 3,),
-        padding: EdgeInsets.only(right:finalWidth),
+        duration: Duration(
+          seconds: 3,
+        ),
+        padding: EdgeInsets.only(right: finalWidth),
         child: AnimatedContainer(
           duration: Duration(seconds: 3),
           height: hDimen(2),
           width: 1,
           decoration: BoxDecoration(
-            color:Color(0xFF99856a),
+            color: Color(0xFF99856a),
             borderRadius: BorderRadius.circular(hDimen(20)),
           ),
         ),
@@ -46,16 +48,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-
     Timer(Duration(seconds: 1), () {
-      while (finalWidth!=0) {
+      while (finalWidth > 0) {
         setState(() {
-          finalWidth = finalWidth-1;
+          finalWidth = finalWidth - 1;
         });
       }
     });
 
-    Timer(Duration(seconds: 4), () {
+    Timer(
+        Duration(
+          seconds: 4,
+          milliseconds: 280,
+        ), () {
       Navigator.pushReplacementNamed(
         context,
         MuseumRouter.ROUTE_HOME,
@@ -74,7 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  "assets/Load.jpg",
+                  "assets/loader-bg.png",
                 ),
                 fit: BoxFit.cover,
               ),
@@ -82,11 +87,11 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           Padding(
             padding: EdgeInsets.only(
-              bottom: hDimen(20),
+              top: hDimen(170),
             ),
             child: Align(
               child: loadingContainer(),
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.center,
             ),
           ),
         ],
