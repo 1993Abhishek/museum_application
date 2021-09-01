@@ -47,7 +47,7 @@ class CustomTextfieldWidget extends StatefulWidget {
     this.disableBorder=false,
     this.isLebelTextNeeded=true,
     this.suffixWidget,
-    @required this.lebelText,
+    this.lebelText,
     this.isLeftAlignLebel = false,
     this.height,
     this.lebelHeight,

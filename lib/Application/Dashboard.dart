@@ -6,6 +6,13 @@ import 'package:museum_application/helper/appcolor.dart';
 import 'package:museum_application/utility/app_dimen.dart';
 import 'package:museum_application/utility/appview_helper.dart';
 import 'package:museum_application/widgets/customTextfieldwidget.dart';
+import 'package:museum_application/widgets/zone1_animals.dart';
+import 'package:museum_application/widgets/zone2_animals.dart';
+import 'package:museum_application/widgets/zone3_animals.dart';
+import 'package:museum_application/widgets/zone4_animals.dart';
+import 'package:museum_application/widgets/zone5_animals.dart';
+import 'package:museum_application/widgets/zone6_animals.dart';
+import 'package:museum_application/widgets/zone7_animal.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -24,11 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
   FocusNode nodeSearchAnimal = FocusNode();
   TextEditingController controllerSearchAnimal = TextEditingController();
 
-  // @override
-  // void initState() {
-  //
-  //   super.initState();
-  // }
+  bool isZone1Details = false,
+      isZone2Details = false,
+      isZone3Details = false,
+      isZone4Details = false,
+      isZone5Details = false,
+      isZone6Details = false,
+      isZone7Details = false;
 
   Widget exploreButton() {
     return Container(
@@ -58,57 +67,64 @@ class _HomeScreenState extends State<HomeScreen> {
     String title,
     String description,
     String assetsPath,
+    Function onExtend,
   }) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          hDimen(20),
+    return Container(
+      height: hDimen(400),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            hDimen(20),
+          ),
         ),
-      ),
-      elevation: 3,
-      child: Padding(
-        padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            vSpacing(hDimen(10)),
-            Center(
-              child: Container(
-                height: hDimen(100),
-                width: hDimen(240),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(hDimen(25)),
-                  child: Image.asset(
-                    assetsPath,
-                    fit: BoxFit.cover,
+        elevation: 3,
+        child: Padding(
+          padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              vSpacing(hDimen(10)),
+              Center(
+                child: Container(
+                  height: hDimen(170),
+                  width: hDimen(260),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(hDimen(25)),
+                    child: Image.asset(
+                      assetsPath,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
-            ),
-            vSpacing(hDimen(15)),
-            Text(
-              title,
-              style: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: hDimen(20),
-              ),
-            ),
-            vSpacing(hDimen(15)),
-            Expanded(
-              child: Text(
-                description,
+              vSpacing(hDimen(15)),
+              Text(
+                title,
                 style: TextStyle(
-                  color: Colors.black,
-                  // fontWeight: FontWeight.bold,
-                  fontSize: hDimen(18),
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                  fontSize: hDimen(20),
                 ),
               ),
-            ),
-            exploreButton(),
-            vSpacing(hDimen(20)),
-          ],
+              vSpacing(hDimen(15)),
+              Expanded(
+                child: Text(
+                  description,
+                  style: TextStyle(
+                    color: Colors.black,
+                    // fontWeight: FontWeight.bold,
+                    fontSize: hDimen(18),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                child: exploreButton(),
+                onTap: onExtend,
+              ),
+              vSpacing(hDimen(20)),
+            ],
+          ),
         ),
       ),
     );
@@ -156,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextStyle(
               color: Colors.black87,
               fontWeight: FontWeight.bold,
-              fontSize: hDimen(20),
+              fontSize: hDimen(24),
             ),
           ),
           vSpacing(hDimen(20)),
@@ -164,32 +180,117 @@ class _HomeScreenState extends State<HomeScreen> {
             child: GridView(
               physics: BouncingScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: orientation == Orientation.portrait ? 2 : 3,
+                crossAxisCount: orientation == Orientation.landscape ? 3 : 2,
                 mainAxisSpacing: hDimen(20),
                 crossAxisSpacing: hDimen(20),
                 childAspectRatio: 0.7,
               ),
               children: [
-                Expanded(
-                  child: homeCard(
-                    assetsPath: "assets/loggerhead.jpg",
-                    description: "This is the description",
-                    title: "Zone Name Here",
-                  ),
+                homeCard(
+                  assetsPath: "assets/Leopard.jpg",
+                  description: "",
+                  title: "African Diorama: Zone 1",
+                  onExtend: () {
+                    print("Zone 1 Tab");
+                    setState(() {
+                      isZone1Details = true;
+                      isHomeSelected = false;
+                      isSearchAnimalSelected = false;
+                      isMapSelected = false;
+                      isAnimalSelected = false;
+                      isAboutSelected = false;
+                    });
+                  },
                 ),
-                Expanded(
-                  child: homeCard(
-                    assetsPath: "assets/loggerhead.jpg",
-                    description: "This is the description",
-                    title: "Zone Name Here",
-                  ),
+                homeCard(
+                  onExtend: () {
+                    setState(() {
+                      isZone2Details = true;
+                      isHomeSelected = false;
+                      isSearchAnimalSelected = false;
+                      isMapSelected = false;
+                      isAnimalSelected = false;
+                      isAboutSelected = false;
+                    });
+                  },
+                  assetsPath: "assets/Konya Sheep.jpg",
+                  description: "This is the description",
+                  title: "Mountain: Zone 2",
                 ),
-                Expanded(
-                  child: homeCard(
-                    assetsPath: "assets/loggerhead.jpg",
-                    description: "This is the description",
-                    title: "Zone Name Here",
-                  ),
+                homeCard(
+                  assetsPath: "assets/Polar Bear.jpg",
+                  description: "This is the description",
+                  title: "Cave: Zone 3",
+                  onExtend: (){
+                    setState(() {
+                      isZone3Details = true;
+                      isHomeSelected = false;
+                      isSearchAnimalSelected = false;
+                      isMapSelected = false;
+                      isAnimalSelected = false;
+                      isAboutSelected = false;
+                    });
+                  },
+                ),
+                homeCard(
+                  assetsPath: "assets/Zebra Duiker.jpg",
+                  description: "This is the description",
+                  title: 'Jungle: Zone 4',
+                  onExtend: (){
+                    setState(() {
+                      isZone4Details = true;
+                      isHomeSelected = false;
+                      isSearchAnimalSelected = false;
+                      isMapSelected = false;
+                      isAnimalSelected = false;
+                      isAboutSelected = false;
+                    });
+                  },
+                ),
+                homeCard(
+                  assetsPath: "assets/Musk Deer.jpg",
+                  description: "This is the description",
+                  title: 'Stairway Cover: Zone 5',
+                  onExtend: (){
+                    setState(() {
+                      isZone5Details = true;
+                      isHomeSelected = false;
+                      isSearchAnimalSelected = false;
+                      isMapSelected = false;
+                      isAnimalSelected = false;
+                      isAboutSelected = false;
+                    });
+                  },
+                ),
+                homeCard(
+                  assetsPath: "assets/Wood Bison.jpg",
+                  description: "This is the description",
+                  title: 'Mezzanine: Zone 6',
+                  onExtend: (){
+                    setState(() {
+                      isZone6Details = true;
+                      isHomeSelected = false;
+                      isSearchAnimalSelected = false;
+                      isMapSelected = false;
+                      isAnimalSelected = false;
+                      isAboutSelected = false;
+                    });
+                  },
+                ),
+                homeCard(
+                  assetsPath: "assets/Lord Derby Eland.jpg",
+                  description: "This is the description",
+                  title: 'Old Trophy Room: Zone 7',
+                  onExtend: (){
+                    setState(() {
+                      isZone7Details = true;
+                      isHomeSelected = false;
+                      isSearchAnimalSelected = false;
+                      isMapSelected = false;
+                      isAnimalSelected = false;
+                      isAboutSelected = false;
+                    });
+                  },
                 ),
               ],
             ),
@@ -339,6 +440,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         icon: Icons.home,
                         onTap: () {
                           setState(() {
+                            isZone1Details = false;
+                            isZone2Details = false;
+                            isZone3Details = false;
+                            isZone4Details = false;
+                            isZone5Details = false;
+                            isZone6Details = false;
+                            isZone7Details = false;
                             isHomeSelected = true;
                             isSearchAnimalSelected = false;
                             isMapSelected = false;
@@ -355,6 +463,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         icon: Icons.search,
                         onTap: () {
                           setState(() {
+                            isZone1Details = false;
+                            isZone2Details = false;
+                            isZone3Details = false;
+                            isZone4Details = false;
+                            isZone5Details = false;
+                            isZone6Details = false;
+                            isZone7Details = false;
                             isHomeSelected = false;
                             isSearchAnimalSelected = true;
                             isMapSelected = false;
@@ -371,6 +486,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         icon: Icons.location_on,
                         onTap: () {
                           setState(() {
+                            isZone1Details = false;
+                            isZone2Details = false;
+                            isZone3Details = false;
+                            isZone4Details = false;
+                            isZone5Details = false;
+                            isZone6Details = false;
+                            isZone7Details = false;
                             isHomeSelected = false;
                             isSearchAnimalSelected = false;
                             isMapSelected = true;
@@ -387,6 +509,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         icon: Icons.settings,
                         onTap: () {
                           setState(() {
+                            isZone1Details = false;
+                            isZone2Details = false;
+                            isZone3Details = false;
+                            isZone4Details = false;
+                            isZone5Details = false;
+                            isZone6Details = false;
+                            isZone7Details = false;
                             isHomeSelected = false;
                             isSearchAnimalSelected = false;
                             isMapSelected = false;
@@ -403,6 +532,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         icon: Icons.collections_bookmark_sharp,
                         onTap: () {
                           setState(() {
+                            isZone1Details = false;
+                            isZone2Details = false;
+                            isZone3Details = false;
+                            isZone4Details = false;
+                            isZone5Details = false;
+                            isZone6Details = false;
+                            isZone7Details = false;
                             isHomeSelected = false;
                             isSearchAnimalSelected = false;
                             isMapSelected = false;
@@ -446,17 +582,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     bottomLeft: Radius.circular(hDimen(40)),
                   ),
                 ),
-                child: isHomeSelected
-                    ? homeWidget(
-                        orientation: orientation,
-                      )
-                    : isSearchAnimalSelected
-                        ? SearchAnimal()
-                        : isAboutSelected
-                            ? AboutUsScreen()
-                            : isAnimalSelected
-                                ? AnimalsScreen()
-                                : Container(),
+                child: isZone7Details
+                    ? Zone7Animals()
+                    : isZone6Details
+                        ? Zone6Animals()
+                        : isZone5Details
+                            ? Zone5Animals()
+                            : isZone4Details
+                                ? Zone4Animals()
+                                : isZone3Details
+                                    ? Zone3Animals()
+                                    : isZone2Details
+                                        ? Zone2Animals()
+                                        : isZone1Details
+                                            ? Zone1Animals()
+                                            : isHomeSelected
+                                                ? homeWidget(
+                                                    orientation: orientation,
+                                                  )
+                                                : isSearchAnimalSelected
+                                                    ? SearchAnimal()
+                                                    : isAboutSelected
+                                                        ? AboutUsScreen()
+                                                        : isAnimalSelected
+                                                            ? AnimalsScreen()
+                                                            : Container(),
               ),
             )
           ],
