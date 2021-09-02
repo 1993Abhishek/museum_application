@@ -1,12 +1,20 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:museum_application/helper/appcolor.dart';
+import 'package:museum_application/helper/shared_preference_service.dart';
 import 'package:museum_application/utility/app_dimen.dart';
 import 'package:museum_application/utility/appview_helper.dart';
 import 'package:museum_application/widgets/customTextfieldwidget.dart';
 
 class SearchAnimal extends StatefulWidget {
-  const SearchAnimal({Key key}) : super(key: key);
+  final Function onExpand;
+
+  const SearchAnimal({
+    Key key,
+    this.onExpand,
+  }) : super(key: key);
 
   @override
   _SearchAnimalState createState() => _SearchAnimalState();
@@ -209,10 +217,40 @@ class _SearchAnimalState extends State<SearchAnimal> {
     return shortDesc;
   }
 
+  List<String> audioPaths=[];
+
+  Future _initAudios() async {
+    // >> To get paths you need these 2 lines
+    final manifestContent = await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
+
+    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+    // >> To get paths you need these 2 lines
+    final audioPaths = manifestMap.keys
+        .where((String key) => key.contains('audio/'))
+        .where((String key) => key.contains('.mp3'))
+        .toList();
+    print(audioPaths);
+
+    for(var i=0;i<audioPaths.length;i++)
+      {
+        String path= audioPaths[i].replaceAll('%20','');
+        audioPaths.add(path);
+      }
+    setState(() {
+    });
+    print('Audios:${audioPaths}');
+    print('Audios:${audioPaths[0]}');
+    // setState(() {
+    //   someImages = imagePaths;
+    // });
+  }
+
   @override
   void initState() {
     initializeAllLists();
     createMenuItem();
+    _initAudios();
+
     super.initState();
   }
 
@@ -229,15 +267,13 @@ class _SearchAnimalState extends State<SearchAnimal> {
   int selectZone({String selectedZone}) {
     int index = zoneNames.indexOf(selectedZone);
     print(index);
-    if(index==-1)
-    {
+    if (index == -1) {
       print('All');
       setState(() {
-        isSearched=false;
-        isZoneNameSearched=false;
+        isSearched = false;
+        isZoneNameSearched = false;
       });
-    }
-    else if (index < 7) {
+    } else if (index < 7) {
       return index;
     }
     return 100;
@@ -417,7 +453,7 @@ class _SearchAnimalState extends State<SearchAnimal> {
                 } else {
                   setState(() {
                     isSearched = true;
-                    isZoneNameSearched=false;
+                    isZoneNameSearched = false;
                     initialIndex = index;
                   });
                   print('Index Searched Animal:$index');
@@ -475,6 +511,7 @@ class _SearchAnimalState extends State<SearchAnimal> {
     String animalName,
     String description,
     String assetsPath,
+    String audioPath,
   }) {
     return Card(
       shape: RoundedRectangleBorder(
@@ -533,7 +570,9 @@ class _SearchAnimalState extends State<SearchAnimal> {
             vSpacing(hDimen(20)),
             Expanded(
               child: Text(
-                description,
+                shortDescription(
+                  description: description,
+                ),
                 style: TextStyle(
                   color: Colors.black,
                   // fontWeight: FontWeight.bold,
@@ -542,7 +581,29 @@ class _SearchAnimalState extends State<SearchAnimal> {
               ),
             ),
             vSpacing(hDimen(20)),
-            exploreButton(),
+            GestureDetector(
+              child: exploreButton(),
+              onTap: () {
+                print('Hello');
+                SharedPreference.saveStringPreference(
+                  'description',
+                  description,
+                );
+                SharedPreference.saveStringPreference(
+                  'name',
+                  animalName,
+                );
+                SharedPreference.saveStringPreference(
+                  'imgPath',
+                  assetsPath,
+                );
+                SharedPreference.saveStringPreference(
+                  'audioPath',
+                  assetsPath,
+                );
+                widget.onExpand();
+              },
+            ),
             vSpacing(hDimen(20)),
           ],
         ),
@@ -577,9 +638,8 @@ class _SearchAnimalState extends State<SearchAnimal> {
                     height: hDimen(340),
                     width: hDimen(335),
                     child: searchAnimalCard(
-                      description: shortDescription(
-                        description: allAnimalDescriptions[initialIndex],
-                      ),
+                      // audioPath: audioPaths[initialIndex],
+                      description: allAnimalDescriptions[initialIndex],
                       animalName: allAnimalNames[initialIndex],
                       assetsPath: allAnimalImages[initialIndex],
                       zoneName: initialIndex < 10
@@ -613,6 +673,7 @@ class _SearchAnimalState extends State<SearchAnimal> {
                           ),
                           itemBuilder: ((context, index) {
                             return searchAnimalCard(
+                              // audioPath: audioPaths[index],
                               assetsPath: zoneIndex == 0
                                   ? animalImagesZone1[index]
                                   : zoneIndex == 1
@@ -630,26 +691,23 @@ class _SearchAnimalState extends State<SearchAnimal> {
                                                               index]
                                                           : allAnimalNames[
                                                               index],
-                              description: shortDescription(
-                                description: zoneIndex == 0
-                                    ? descriptionsZone1[index]
-                                    : zoneIndex == 1
-                                        ? descriptionsZone2[index]
-                                        : zoneIndex == 2
-                                            ? descriptionsZone3[index]
-                                            : zoneIndex == 3
-                                                ? descriptionsZone4[index]
-                                                : zoneIndex == 4
-                                                    ? descriptionsZone5[index]
-                                                    : zoneIndex == 5
-                                                        ? descriptionsZone6[
-                                                            index]
-                                                        : zoneIndex == 6
-                                                            ? descriptionsZone7[
-                                                                index]
-                                                            : descriptionsZone1[
-                                                                index],
-                              ),
+                              description: zoneIndex == 0
+                                  ? descriptionsZone1[index]
+                                  : zoneIndex == 1
+                                      ? descriptionsZone2[index]
+                                      : zoneIndex == 2
+                                          ? descriptionsZone3[index]
+                                          : zoneIndex == 3
+                                              ? descriptionsZone4[index]
+                                              : zoneIndex == 4
+                                                  ? descriptionsZone5[index]
+                                                  : zoneIndex == 5
+                                                      ? descriptionsZone6[index]
+                                                      : zoneIndex == 6
+                                                          ? descriptionsZone7[
+                                                              index]
+                                                          : descriptionsZone1[
+                                                              index],
                               zoneName: zoneIndex == 0
                                   ? animalNamesZone1[index]
                                   : zoneIndex == 1
@@ -698,10 +756,9 @@ class _SearchAnimalState extends State<SearchAnimal> {
                           ),
                           itemBuilder: ((context, index) {
                             return searchAnimalCard(
+                              // audioPath: audioPaths[index],
                               assetsPath: allAnimalImages[index],
-                              description: shortDescription(
-                                description: allAnimalDescriptions[index],
-                              ),
+                              description: allAnimalDescriptions[index],
                               zoneName: index < 10
                                   ? zoneNames[0]
                                   : index < 16

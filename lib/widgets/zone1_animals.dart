@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:museum_application/helper/appcolor.dart';
+import 'package:museum_application/helper/shared_preference_service.dart';
 import 'package:museum_application/utility/app_dimen.dart';
 import 'package:museum_application/utility/appview_helper.dart';
 import 'package:path_provider/path_provider.dart';
@@ -8,7 +12,8 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 
 class Zone1Animals extends StatefulWidget {
-  const Zone1Animals({Key key}) : super(key: key);
+  final Function onExpand;
+  const Zone1Animals({Key key,this.onExpand,}) : super(key: key);
 
   @override
   _Zone1AnimalsState createState() => _Zone1AnimalsState();
@@ -16,49 +21,49 @@ class Zone1Animals extends StatefulWidget {
 
 class _Zone1AnimalsState extends State<Zone1Animals> {
 
-  AudioPlayer audioPlayer = AudioPlayer(
-    mode: PlayerMode.MEDIA_PLAYER,
-  );
-
-  String mp3Uri;
+  // AudioPlayer audioPlayer = AudioPlayer(
+  //   mode: PlayerMode.MEDIA_PLAYER,
+  // );
+  //
+  // String mp3Uri;
 
   @override
   void initState() {
-    _load();
+    _initAudios();
     super.initState();
   }
 
-  Future<Null> _load() async {
-    final ByteData data = await rootBundle.load(
-      'audio/Zone 1.1 - Leopard.mp3',
-    );
-    Directory tempDir = await getTemporaryDirectory();
-    File tempFile = File('${tempDir.path}/demo.mp3');
-    await tempFile.writeAsBytes(data.buffer.asUint8List(), flush: true);
-    mp3Uri = tempFile.uri.toString();
-    print('finished loading, uri=$mp3Uri');
-    if(mp3Uri.isNotEmpty)
-      {
-        play();
-      }
-    else{
-      print('Error');
-    }
-  }
-
-  void play() async {
-    int result = await audioPlayer.play(
-      mp3Uri,
-      isLocal: true,
-    );
-    if (result == 1) {
-      print('Success');
-    }
-  }
-
-  void stop() async {
-    await audioPlayer.stop();
-  }
+  // Future<Null> _load() async {
+  //   final ByteData data = await rootBundle.load(
+  //     'audio/Zone 1.1 - Leopard.mp3',
+  //   );
+  //   Directory tempDir = await getTemporaryDirectory();
+  //   File tempFile = File('${tempDir.path}/demo.mp3');
+  //   await tempFile.writeAsBytes(data.buffer.asUint8List(), flush: true);
+  //   mp3Uri = tempFile.uri.toString();
+  //   print('finished loading, uri=$mp3Uri');
+  //   if(mp3Uri.isNotEmpty)
+  //     {
+  //       play();
+  //     }
+  //   else{
+  //     print('Error');
+  //   }
+  // }
+  //
+  // void play() async {
+  //   int result = await audioPlayer.play(
+  //     mp3Uri,
+  //     isLocal: true,
+  //   );
+  //   if (result == 1) {
+  //     print('Success');
+  //   }
+  // }
+  //
+  // void stop() async {
+  //   await audioPlayer.stop();
+  // }
 
   List<String> animalImagesZone1 = [
     'assets/Leopard.jpg',
@@ -108,6 +113,148 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
     'Proteles cristata',
     'Erythrocebus patas',
   ];
+
+  Widget exploreButton() {
+    return Container(
+      height: hDimen(40),
+      width: hDimen(100),
+      decoration: BoxDecoration(
+        color: AppColor.colorPrimary,
+        borderRadius: BorderRadius.circular(hDimen(20)),
+        border: Border.all(
+          color: Colors.grey[400],
+          width: 0.0,
+        ),
+      ),
+      child: Center(
+        child: Text(
+          "EXPLORE",
+          style: TextStyle(
+            fontSize: hDimen(15),
+            color: Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
+  Widget searchAnimalCard({
+    String animalName,
+    String description,
+    String assetsPath,
+    String audioPath,
+  }) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          hDimen(20),
+        ),
+      ),
+      elevation: 3,
+      child: Padding(
+        padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            vSpacing(hDimen(10)),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  animalName,
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontSize: hDimen(20),
+                  ),
+                ),
+                Container(
+                  height: hDimen(60),
+                  width: hDimen(60),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(hDimen(10)),
+                    child: Image.asset(
+                      assetsPath,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            vSpacing(hDimen(20)),
+            Expanded(
+              child: Text(
+                shortDescription(
+                  description: description,
+                ),
+                style: TextStyle(
+                  color: Colors.black,
+                  // fontWeight: FontWeight.bold,
+                  fontSize: hDimen(18),
+                ),
+              ),
+            ),
+            vSpacing(hDimen(20)),
+            GestureDetector(
+              child: exploreButton(),
+              onTap: () {
+                print('Hello');
+                SharedPreference.saveStringPreference(
+                  'description',
+                  description,
+                );
+                SharedPreference.saveStringPreference(
+                  'name',
+                  animalName,
+                );
+                SharedPreference.saveStringPreference(
+                  'imgPath',
+                  assetsPath,
+                );
+                SharedPreference.saveStringPreference(
+                  'audioPath',
+                  assetsPath,
+                );
+                widget.onExpand();
+              },
+            ),
+            vSpacing(hDimen(20)),
+          ],
+        ),
+      ),
+    );
+  }
+  String shortDescription({String description}) {
+    String shortDesc = description.substring(0, 250) + '...';
+    return shortDesc;
+  }
+  List<String> audioPaths=[];
+
+  Future _initAudios() async {
+    print('Audios');
+    final manifestContent = await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
+
+    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+    final audioPaths = manifestMap.keys
+        .where((String key) => key.contains('audio/'))
+        .where((String key) => key.contains('.mp3'))
+        .toList();
+    print(audioPaths);
+
+    for(var i=0;i<10;i++)
+    {
+      String path= audioPaths[i].replaceAll('%20','');
+      audioPaths.add(path);
+    }
+    setState(() {
+    });
+    print('Audios:${audioPaths}');
+    print('Audios:${audioPaths[0]}');
+    // setState(() {
+    //   someImages = imagePaths;
+    // });
+  }
 
   Widget bulletIcon() {
     return Container(
@@ -626,29 +773,26 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
           ),
           vSpacing(hDimen(20)),
           Expanded(
-            child: ListView.custom(
-              childrenDelegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(
-                      bottom: hDimen(20),
-                    ),
-                    child: animalDetailCard(
-                      isHartebeast: index == 4 ? true : false,
-                      isTiger: index == 0 ? true : false,
-                      isKudu: index == 1 ? true : false,
-                      isKob: index == 3 ? true : false,
-                      isSable: index == 2 ? true : false,
-                      isMonkey: index == animalNamesZone1.length - 1 ? true : false,
-                      name: animalNamesZone1[index],
-                      italicName: scientificNames[index],
-                      description: descriptionsZone1[index],
-                      imgPath: animalImagesZone1[index],
-                    ),
-                  );
-                },
-                childCount: animalNamesZone1.length,
+            child:
+            GridView.builder(
+              gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisSpacing: hDimen(20),
+                crossAxisSpacing: hDimen(10),
+                crossAxisCount:
+                /*orientation == Orientation.portrait ? 2 :*/ 3,
+                childAspectRatio: 0.9,
               ),
+              itemBuilder: ((context, index) {
+                return searchAnimalCard(
+                  // audioPath: audioPaths[index],
+                  assetsPath: animalImagesZone1[index],
+                  description: descriptionsZone1[index],
+                  animalName: animalImagesZone1[index],
+                );
+              }),
+              itemCount: descriptionsZone1.length,
+              physics: BouncingScrollPhysics(),
             ),
           ),
         ],

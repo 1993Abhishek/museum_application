@@ -4,7 +4,8 @@ import 'package:museum_application/utility/app_dimen.dart';
 import 'package:museum_application/utility/appview_helper.dart';
 
 class Zone4Animals extends StatefulWidget {
-  const Zone4Animals({Key key}) : super(key: key);
+  final Function onExpand;
+  const Zone4Animals({Key key,this.onExpand}) : super(key: key);
 
   @override
   _Zone4AnimalsState createState() => _Zone4AnimalsState();
