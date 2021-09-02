@@ -217,32 +217,22 @@ class _SearchAnimalState extends State<SearchAnimal> {
     return shortDesc;
   }
 
-  List<String> audioPaths=[];
+  List<String> audioPathsF=[];
 
   Future _initAudios() async {
-    // >> To get paths you need these 2 lines
+
     final manifestContent = await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
 
     final Map<String, dynamic> manifestMap = json.decode(manifestContent);
-    // >> To get paths you need these 2 lines
     final audioPaths = manifestMap.keys
         .where((String key) => key.contains('audio/'))
         .where((String key) => key.contains('.mp3'))
         .toList();
     print(audioPaths);
-
-    for(var i=0;i<audioPaths.length;i++)
-      {
-        String path= audioPaths[i].replaceAll('%20','');
-        audioPaths.add(path);
-      }
     setState(() {
+      audioPathsF=audioPaths;
     });
-    print('Audios:${audioPaths}');
-    print('Audios:${audioPaths[0]}');
-    // setState(() {
-    //   someImages = imagePaths;
-    // });
+    print('Audios F:${audioPathsF[0]}');
   }
 
   @override
@@ -620,6 +610,7 @@ class _SearchAnimalState extends State<SearchAnimal> {
     'Mezzanine: Zone 6',
     'Old Trophy Room: Zone 7',
   ];
+bool isLoadingAudios=false;
 
   @override
   Widget build(BuildContext context) {
@@ -631,14 +622,20 @@ class _SearchAnimalState extends State<SearchAnimal> {
           vSpacing(hDimen(50)),
           searchField(),
           vSpacing(hDimen(40)),
-          isSearched
+          isLoadingAudios
+              ? Center(
+            child: CircularProgressIndicator(
+              backgroundColor: AppColor.colorPrimary,
+            ),
+          )
+              :  isSearched
               ? Padding(
                   padding: EdgeInsets.all(hDimen(20)),
                   child: Container(
                     height: hDimen(340),
                     width: hDimen(335),
                     child: searchAnimalCard(
-                      // audioPath: audioPaths[initialIndex],
+                      audioPath: audioPathsF[initialIndex],
                       description: allAnimalDescriptions[initialIndex],
                       animalName: allAnimalNames[initialIndex],
                       assetsPath: allAnimalImages[initialIndex],
@@ -673,7 +670,7 @@ class _SearchAnimalState extends State<SearchAnimal> {
                           ),
                           itemBuilder: ((context, index) {
                             return searchAnimalCard(
-                              // audioPath: audioPaths[index],
+                              audioPath: audioPathsF[index],
                               assetsPath: zoneIndex == 0
                                   ? animalImagesZone1[index]
                                   : zoneIndex == 1
@@ -756,7 +753,7 @@ class _SearchAnimalState extends State<SearchAnimal> {
                           ),
                           itemBuilder: ((context, index) {
                             return searchAnimalCard(
-                              // audioPath: audioPaths[index],
+                              audioPath: audioPathsF[index],
                               assetsPath: allAnimalImages[index],
                               description: allAnimalDescriptions[index],
                               zoneName: index < 10

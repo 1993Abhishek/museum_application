@@ -51,7 +51,6 @@ class _Zone2AnimalsState extends State<Zone2Animals> {
 
   @override
   void initState() {
-    // _load();
     _initAudios();
     super.initState();
   }
@@ -190,15 +189,11 @@ class _Zone2AnimalsState extends State<Zone2Animals> {
         .toList();
     print(audioPaths);
 
-    for (var i = 0; i < 10; i++) {
-      String path = audioPaths[i].replaceAll('%20', '');
-      print('path: $path');
-      audioPathsF.add(path);
-    }
     setState(() {});
     print('Audios:$audioPathsF');
     print('Audios:${audioPathsF[0]}');
     setState(() {
+      audioPathsF=audioPaths;
       isLoadingAudios = false;
     });
     // setState(() {
