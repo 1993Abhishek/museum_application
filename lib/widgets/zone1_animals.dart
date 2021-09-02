@@ -1,10 +1,9 @@
 import 'dart:convert';
-
+import 'package:museum_application/helper/appcolor.dart';
+import 'package:museum_application/helper/shared_preference_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:museum_application/helper/appcolor.dart';
-import 'package:museum_application/helper/shared_preference_service.dart';
 import 'package:museum_application/utility/app_dimen.dart';
 import 'package:museum_application/utility/appview_helper.dart';
 import 'package:path_provider/path_provider.dart';
@@ -13,40 +12,37 @@ import 'package:audioplayers/audioplayers.dart';
 
 class Zone1Animals extends StatefulWidget {
   final Function onExpand;
-  const Zone1Animals({Key key,this.onExpand,}) : super(key: key);
+
+  const Zone1Animals({
+    Key key,
+    this.onExpand,
+  }) : super(key: key);
 
   @override
   _Zone1AnimalsState createState() => _Zone1AnimalsState();
 }
 
 class _Zone1AnimalsState extends State<Zone1Animals> {
+  AudioPlayer audioPlayer = AudioPlayer(
+    mode: PlayerMode.MEDIA_PLAYER,
+  );
 
-  // AudioPlayer audioPlayer = AudioPlayer(
-  //   mode: PlayerMode.MEDIA_PLAYER,
-  // );
-  //
-  // String mp3Uri;
+  String mp3Uri;
 
-  @override
-  void initState() {
-    _initAudios();
-    super.initState();
-  }
+
 
   // Future<Null> _load() async {
   //   final ByteData data = await rootBundle.load(
-  //     'audio/Zone 1.1 - Leopard.mp3',
+  //     'audio/Zone1.1-Leopard.mp3',
   //   );
   //   Directory tempDir = await getTemporaryDirectory();
   //   File tempFile = File('${tempDir.path}/demo.mp3');
   //   await tempFile.writeAsBytes(data.buffer.asUint8List(), flush: true);
   //   mp3Uri = tempFile.uri.toString();
   //   print('finished loading, uri=$mp3Uri');
-  //   if(mp3Uri.isNotEmpty)
-  //     {
-  //       play();
-  //     }
-  //   else{
+  //   if (mp3Uri.isNotEmpty) {
+  //     play();
+  //   } else {
   //     print('Error');
   //   }
   // }
@@ -113,7 +109,12 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
     'Proteles cristata',
     'Erythrocebus patas',
   ];
-
+  @override
+  void initState() {
+    // _load();
+    _initAudios();
+    super.initState();
+  }
   Widget exploreButton() {
     return Container(
       height: hDimen(40),
@@ -137,6 +138,7 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
       ),
     );
   }
+
   Widget searchAnimalCard({
     String animalName,
     String description,
@@ -225,15 +227,21 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
       ),
     );
   }
+
   String shortDescription({String description}) {
     String shortDesc = description.substring(0, 250) + '...';
     return shortDesc;
   }
-  List<String> audioPaths=[];
 
+  List<String> audioPathsF = [];
+  bool isLoadingAudios = false;
   Future _initAudios() async {
     print('Audios');
-    final manifestContent = await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
+    setState(() {
+      isLoadingAudios = true;
+    });
+    final manifestContent =
+    await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
 
     final Map<String, dynamic> manifestMap = json.decode(manifestContent);
     final audioPaths = manifestMap.keys
@@ -242,15 +250,17 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
         .toList();
     print(audioPaths);
 
-    for(var i=0;i<10;i++)
-    {
-      String path= audioPaths[i].replaceAll('%20','');
-      audioPaths.add(path);
+    for (var i = 0; i < 10; i++) {
+      String path = audioPaths[i].replaceAll('%20', '');
+      print('path: $path');
+      audioPathsF.add(path);
     }
+    setState(() {});
+    print('Audios:$audioPathsF');
+    print('Audios:${audioPathsF[0]}');
     setState(() {
+      isLoadingAudios = false;
     });
-    print('Audios:${audioPaths}');
-    print('Audios:${audioPaths[0]}');
     // setState(() {
     //   someImages = imagePaths;
     // });
@@ -773,27 +783,31 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
           ),
           vSpacing(hDimen(20)),
           Expanded(
-            child:
-            GridView.builder(
-              gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(
-                mainAxisSpacing: hDimen(20),
-                crossAxisSpacing: hDimen(10),
-                crossAxisCount:
-                /*orientation == Orientation.portrait ? 2 :*/ 3,
-                childAspectRatio: 0.9,
-              ),
-              itemBuilder: ((context, index) {
-                return searchAnimalCard(
-                  // audioPath: audioPaths[index],
-                  assetsPath: animalImagesZone1[index],
-                  description: descriptionsZone1[index],
-                  animalName: animalImagesZone1[index],
-                );
-              }),
-              itemCount: descriptionsZone1.length,
-              physics: BouncingScrollPhysics(),
-            ),
+            child: isLoadingAudios
+                ? Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: AppColor.colorPrimary,
+                    ),
+                  )
+                : GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisSpacing: hDimen(20),
+                      crossAxisSpacing: hDimen(10),
+                      crossAxisCount:
+                          /*orientation == Orientation.portrait ? 2 :*/ 3,
+                      childAspectRatio: 0.9,
+                    ),
+                    itemBuilder: ((context, index) {
+                      return searchAnimalCard(
+                        audioPath: audioPathsF[index],
+                        assetsPath: animalImagesZone1[index],
+                        description: descriptionsZone1[index],
+                        animalName: animalNamesZone1[index],
+                      );
+                    }),
+                    itemCount: descriptionsZone1.length,
+                    physics: BouncingScrollPhysics(),
+                  ),
           ),
         ],
       ),

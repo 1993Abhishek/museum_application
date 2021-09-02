@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:museum_application/helper/appcolor.dart';
+import 'package:museum_application/helper/shared_preference_service.dart';
 import 'package:museum_application/utility/app_dimen.dart';
 import 'package:museum_application/utility/appview_helper.dart';
 
@@ -22,7 +26,7 @@ class _Zone7AnimalsState extends State<Zone7Animals> {
   List<String> animalNamesZone7 = [
     'Eland: Lord Derby Eland',
     'Nyala: Mountain Nyala',
-    'Buffalo: Dwarf Forest Buffalo',
+    'Buffalo: Dwarf Forest\nBuffalo',
     'Gazelle: Saiga Gazelle',
   ];
   List<String> descriptionsZone7 = [
@@ -37,6 +41,165 @@ class _Zone7AnimalsState extends State<Zone7Animals> {
     'Syncerus caffer nanus',
     'Saiga tatarica',
   ];
+
+  @override
+  void initState() {
+    // _load();
+    _initAudios();
+    super.initState();
+  }
+
+  Widget exploreButton() {
+    return Container(
+      height: hDimen(40),
+      width: hDimen(100),
+      decoration: BoxDecoration(
+        color: AppColor.colorPrimary,
+        borderRadius: BorderRadius.circular(hDimen(20)),
+        border: Border.all(
+          color: Colors.grey[400],
+          width: 0.0,
+        ),
+      ),
+      child: Center(
+        child: Text(
+          "EXPLORE",
+          style: TextStyle(
+            fontSize: hDimen(15),
+            color: Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget searchAnimalCard({
+    String animalName,
+    String description,
+    String assetsPath,
+    String audioPath,
+  }) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          hDimen(20),
+        ),
+      ),
+      elevation: 3,
+      child: Padding(
+        padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            vSpacing(hDimen(10)),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  animalName,
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontSize: hDimen(20),
+                  ),
+                ),
+                Container(
+                  height: hDimen(60),
+                  width: hDimen(60),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(hDimen(10)),
+                    child: Image.asset(
+                      assetsPath,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            vSpacing(hDimen(20)),
+            Expanded(
+              child: Text(
+                shortDescription(
+                  description: description,
+                ),
+                style: TextStyle(
+                  color: Colors.black,
+                  // fontWeight: FontWeight.bold,
+                  fontSize: hDimen(18),
+                ),
+              ),
+            ),
+            vSpacing(hDimen(20)),
+            GestureDetector(
+              child: exploreButton(),
+              onTap: () {
+                print('Hello');
+                SharedPreference.saveStringPreference(
+                  'description',
+                  description,
+                );
+                SharedPreference.saveStringPreference(
+                  'name',
+                  animalName,
+                );
+                SharedPreference.saveStringPreference(
+                  'imgPath',
+                  assetsPath,
+                );
+                SharedPreference.saveStringPreference(
+                  'audioPath',
+                  assetsPath,
+                );
+                widget.onExpand();
+              },
+            ),
+            vSpacing(hDimen(20)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String shortDescription({String description}) {
+    String shortDesc = description.substring(0, 250) + '...';
+    return shortDesc;
+  }
+
+  List<String> audioPathsF = [];
+  bool isLoadingAudios = false;
+  Future _initAudios() async {
+    print('Audios');
+    setState(() {
+      isLoadingAudios = true;
+    });
+    final manifestContent =
+    await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
+
+    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+    final audioPaths = manifestMap.keys
+        .where((String key) => key.contains('audio/'))
+        .where((String key) => key.contains('.mp3'))
+        .toList();
+    print(audioPaths);
+
+    for (var i = 0; i < 10; i++) {
+      String path = audioPaths[i].replaceAll('%20', '');
+      print('path: $path');
+      audioPathsF.add(path);
+    }
+    setState(() {});
+    print('Audios:$audioPathsF');
+    print('Audios:${audioPathsF[0]}');
+    setState(() {
+      isLoadingAudios = false;
+    });
+    // setState(() {
+    //   someImages = imagePaths;
+    // });
+  }
+
 
   Widget bulletIcon() {
     return Container(
@@ -366,27 +529,30 @@ class _Zone7AnimalsState extends State<Zone7Animals> {
           ),
           vSpacing(hDimen(20)),
           Expanded(
-            child: ListView.custom(
-              childrenDelegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(
-                      bottom: hDimen(20),
-                    ),
-                    child: animalDetailCard(
-                      isBuffalo: index == 2 ? true : false,
-                      isDerby: index == 0 ? true : false,
-                      isGazelle: index == 3 ? true : false,
-                      isNyla: index == 1 ? true : false,
-                      name: animalNamesZone7[index],
-                      italicName: scientificNames[index],
-                      description: descriptionsZone7[index],
-                      imgPath: animalImagesZone7[index],
-                    ),
-                  );
-                },
-                childCount: animalNamesZone7.length,
+            child: isLoadingAudios
+                ? Center(
+              child: CircularProgressIndicator(
+                backgroundColor: AppColor.colorPrimary,
               ),
+            )
+                : GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisSpacing: hDimen(20),
+                crossAxisSpacing: hDimen(10),
+                crossAxisCount:
+                /*orientation == Orientation.portrait ? 2 :*/ 3,
+                childAspectRatio: 0.9,
+              ),
+              itemBuilder: ((context, index) {
+                return searchAnimalCard(
+                  audioPath: audioPathsF[index],
+                  assetsPath: animalImagesZone7[index],
+                  description: descriptionsZone7[index],
+                  animalName: animalNamesZone7[index],
+                );
+              }),
+              itemCount: descriptionsZone7.length,
+              physics: BouncingScrollPhysics(),
             ),
           ),
         ],

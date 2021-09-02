@@ -48,8 +48,9 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
     super.initState();
   }
   Future<Null> _load() async {
+    print('Audio Path: $audioPath');
     final ByteData data = await rootBundle.load(
-      'audio/Zone 1.1 - Leopard.mp3',
+      audioPath,
     );
     Directory tempDir = await getTemporaryDirectory();
     File tempFile = File('${tempDir.path}/demo.mp3');
@@ -78,7 +79,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
   void stop() async {
     await audioPlayer.stop();
   }
-
+  String audioPath='';
   void getAnimalDetails() async {
     setState(() {
       isGettingDetails = true;
@@ -87,7 +88,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
         await SharedPreference.getStringPreference('description');
     String animalName = await SharedPreference.getStringPreference('name');
     String imagePath = await SharedPreference.getStringPreference('imgPath');
-    String audioPath = await SharedPreference.getStringPreference('audioPath');
+    audioPath = await SharedPreference.getStringPreference('audioPath');
     if (description.isNotEmpty &&
         animalName.isNotEmpty &&
         imagePath.isNotEmpty &&
