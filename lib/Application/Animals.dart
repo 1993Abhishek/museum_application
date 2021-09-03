@@ -80,6 +80,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
     await audioPlayer.stop();
   }
   String audioPath='';
+
   void getAnimalDetails() async {
     setState(() {
       isGettingDetails = true;
@@ -159,7 +160,10 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
         ),
         vSpacing(30),
         GestureDetector(
-          onTap: widget.onZoneBack,
+          onTap:() {
+            stop();
+            widget.onZoneBack();
+          },
           child: Padding(
             padding: EdgeInsets.only(left: hDimen(25)),
             child: Text(
