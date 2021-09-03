@@ -9,14 +9,14 @@ import 'package:museum_application/utility/appview_helper.dart';
 
 class Zone7Animals extends StatefulWidget {
   final Function onExpand;
-  const Zone7Animals({Key key,this.onExpand}) : super(key: key);
+
+  const Zone7Animals({Key key, this.onExpand}) : super(key: key);
 
   @override
   _Zone7AnimalsState createState() => _Zone7AnimalsState();
 }
 
 class _Zone7AnimalsState extends State<Zone7Animals> {
-
   List<String> animalImagesZone7 = [
     'assets/Lord Derby Eland.jpg',
     'assets/Mountain Nyala .jpg',
@@ -78,6 +78,7 @@ class _Zone7AnimalsState extends State<Zone7Animals> {
     String description,
     String assetsPath,
     String audioPath,
+    String scientificName,
   }) {
     return Card(
       shape: RoundedRectangleBorder(
@@ -152,6 +153,8 @@ class _Zone7AnimalsState extends State<Zone7Animals> {
                   'audioPath',
                   audioPath,
                 );
+                SharedPreference.saveStringPreference(
+                    'scientificName', scientificName);
                 widget.onExpand();
               },
             ),
@@ -167,30 +170,42 @@ class _Zone7AnimalsState extends State<Zone7Animals> {
     return shortDesc;
   }
 
-  List<String> audioPathsF=['audio/Zone1.1-Leopard.mp3', 'audio/Zone1.10-PatasMonkey.mp3', 'audio/Zone1.2-GreaterKudu.mp3', 'audio/Zone1.3-Sable.mp3', 'audio/Zone1.4-UgandaCobb.mp3', 'audio/Zone1.5%20-JacksonHeartBeast.mp3', 'audio/Zone1.6-Gerenuk.mp3', 'audio/Zone1.7-Korrigum.mp3', 'audio/Zone1.8-WildDog.mp3', 'audio/Zone1.9-Aardwolf.mp3', 'audio/Zone2.1-Argali.mp3', 'audio/Zone2.2-Urials.mp3', 'audio/Zone2.3-NorthAmericanDesertBighorn.mp3', 'audio/Zone2.4-Markhor.mp3', 'audio/Zone2.5-Ibex.mp3', 'audio/Zone2.6-Goats.mp3', 'audio/Zone3.1-Bears(Polar).mp3', 'audio/Zone4.1-Duiker.mp3', 'audio/Zone4.2-DuikerAders.mp3', 'audio/Zone4.3-RoyalAntelope.mp3', 'audio/Zone4.4-Bongo.mp3', 'audio/Zone4.5-WaterBuffalo.mp3', 'audio/Zone4.6-GiantForestHog.mp3', 'audio/Zone4.7-BrocketDeer.mp3', 'audio/Zone5.1-MuskDeer.mp3', 'audio/Zone5.2-Lynx.mp3', 'audio/Zone5.3-CaperCaillie.mp3', 'audio/Zone6.1-WoodBison.mp3', 'audio/Zone6.2-Wolf.mp3', 'audio/Zone6.3-Rhino.mp3', 'audio/Zone7.1-Eland.mp3', 'audio/Zone7.2-Nyala.mp3', 'audio/Zone7.3-ForrestBuffalo.mp3', 'audio/Zone7.4-Gazelle.mp3'];
-
-  // bool isLoadingAudios = false;
-  // Future _initAudios() async {
-  //   print('Audios');
-  //   setState(() {
-  //     isLoadingAudios = true;
-  //   });
-  //   final manifestContent =
-  //   await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
-  //
-  //   final Map<String, dynamic> manifestMap = json.decode(manifestContent);
-  //   final audioPaths = manifestMap.keys
-  //       .where((String key) => key.contains('audio/'),)
-  //       .where((String key) => key.contains('.mp3'),)
-  //       .toList();
-  //   print(audioPaths);
-  //   setState(() {
-  //     audioPathsF=audioPaths;
-  //     isLoadingAudios = false;
-  //   });
-  // }
-
-
+  List<String> audioPathsF = [
+    'audio/Zone1.1-Leopard.mp3',
+    'audio/Zone1.10-PatasMonkey.mp3',
+    'audio/Zone1.2-GreaterKudu.mp3',
+    'audio/Zone1.3-Sable.mp3',
+    'audio/Zone1.4-UgandaCobb.mp3',
+    'audio/Zone1.5%20-JacksonHeartBeast.mp3',
+    'audio/Zone1.6-Gerenuk.mp3',
+    'audio/Zone1.7-Korrigum.mp3',
+    'audio/Zone1.8-WildDog.mp3',
+    'audio/Zone1.9-Aardwolf.mp3',
+    'audio/Zone2.1-Argali.mp3',
+    'audio/Zone2.2-Urials.mp3',
+    'audio/Zone2.3-NorthAmericanDesertBighorn.mp3',
+    'audio/Zone2.4-Markhor.mp3',
+    'audio/Zone2.5-Ibex.mp3',
+    'audio/Zone2.6-Goats.mp3',
+    'audio/Zone3.1-Bears(Polar).mp3',
+    'audio/Zone4.1-Duiker.mp3',
+    'audio/Zone4.2-DuikerAders.mp3',
+    'audio/Zone4.3-RoyalAntelope.mp3',
+    'audio/Zone4.4-Bongo.mp3',
+    'audio/Zone4.5-WaterBuffalo.mp3',
+    'audio/Zone4.6-GiantForestHog.mp3',
+    'audio/Zone4.7-BrocketDeer.mp3',
+    'audio/Zone5.1-MuskDeer.mp3',
+    'audio/Zone5.2-Lynx.mp3',
+    'audio/Zone5.3-CaperCaillie.mp3',
+    'audio/Zone6.1-WoodBison.mp3',
+    'audio/Zone6.2-Wolf.mp3',
+    'audio/Zone6.3-Rhino.mp3',
+    'audio/Zone7.1-Eland.mp3',
+    'audio/Zone7.2-Nyala.mp3',
+    'audio/Zone7.3-ForrestBuffalo.mp3',
+    'audio/Zone7.4-Gazelle.mp3'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -214,20 +229,21 @@ class _Zone7AnimalsState extends State<Zone7Animals> {
           ),
           vSpacing(hDimen(20)),
           Expanded(
-            child:GridView.builder(
+            child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 mainAxisSpacing: hDimen(20),
                 crossAxisSpacing: hDimen(10),
                 crossAxisCount:
-                /*orientation == Orientation.portrait ? 2 :*/ 3,
+                    /*orientation == Orientation.portrait ? 2 :*/ 3,
                 childAspectRatio: 0.9,
               ),
               itemBuilder: ((context, index) {
                 return searchAnimalCard(
-                  audioPath: audioPathsF[index],
+                  audioPath: audioPathsF[index + 30],
                   assetsPath: animalImagesZone7[index],
                   description: descriptionsZone7[index],
                   animalName: animalNamesZone7[index],
+                  scientificName: scientificNames[index],
                 );
               }),
               itemCount: descriptionsZone7.length,

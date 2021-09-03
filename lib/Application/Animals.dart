@@ -28,6 +28,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
   TextEditingController controllerSearchAnimal = TextEditingController();
   String initDescription = '';
   String initAnimalName = '';
+  String initScientificName = '';
 
   String asset = "assets/loggerhead.jpg";
   List<String> assetPaths = [
@@ -47,6 +48,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
     getAnimalDetails();
     super.initState();
   }
+
   Future<Null> _load() async {
     print('Audio Path: $audioPath');
     final ByteData data = await rootBundle.load(
@@ -57,11 +59,9 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
     await tempFile.writeAsBytes(data.buffer.asUint8List(), flush: true);
     mp3Uri = tempFile.uri.toString();
     print('finished loading, uri=$mp3Uri');
-    if(mp3Uri.isNotEmpty)
-    {
+    if (mp3Uri.isNotEmpty) {
       play();
-    }
-    else{
+    } else {
       print('Error');
     }
   }
@@ -79,7 +79,8 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
   void stop() async {
     await audioPlayer.stop();
   }
-  String audioPath='';
+
+  String audioPath = '';
 
   void getAnimalDetails() async {
     setState(() {
@@ -90,15 +91,21 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
     String animalName = await SharedPreference.getStringPreference('name');
     String imagePath = await SharedPreference.getStringPreference('imgPath');
     audioPath = await SharedPreference.getStringPreference('audioPath');
+    String scientificName = await SharedPreference.getStringPreference(
+      'scientificName',
+    );
+
     if (description.isNotEmpty &&
         animalName.isNotEmpty &&
         imagePath.isNotEmpty &&
-        audioPath.isNotEmpty) {
+        audioPath.isNotEmpty &&
+        scientificName.isNotEmpty) {
       _load();
       setState(() {
         initDescription = description;
         initAnimalName = animalName;
         asset = imagePath;
+        initScientificName = scientificName;
       });
 
       // print(asset);
@@ -160,7 +167,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
         ),
         vSpacing(30),
         GestureDetector(
-          onTap:() {
+          onTap: () {
             stop();
             widget.onZoneBack();
           },
@@ -275,13 +282,28 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            initAnimalName,
-                            style: TextStyle(
-                              fontSize: hDimen(25),
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                initAnimalName,
+                                style: TextStyle(
+                                  fontSize: hDimen(25),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                ' ($initScientificName)',
+                                style: TextStyle(
+                                  fontSize: hDimen(25),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              )
+                            ],
                           ),
                           vSpacing(hDimen(20)),
                           Text(

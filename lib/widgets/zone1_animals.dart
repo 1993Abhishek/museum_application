@@ -30,37 +30,6 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
   String mp3Uri;
 
 
-
-  // Future<Null> _load() async {
-  //   final ByteData data = await rootBundle.load(
-  //     'audio/Zone1.1-Leopard.mp3',
-  //   );
-  //   Directory tempDir = await getTemporaryDirectory();
-  //   File tempFile = File('${tempDir.path}/demo.mp3');
-  //   await tempFile.writeAsBytes(data.buffer.asUint8List(), flush: true);
-  //   mp3Uri = tempFile.uri.toString();
-  //   print('finished loading, uri=$mp3Uri');
-  //   if (mp3Uri.isNotEmpty) {
-  //     play();
-  //   } else {
-  //     print('Error');
-  //   }
-  // }
-  //
-  // void play() async {
-  //   int result = await audioPlayer.play(
-  //     mp3Uri,
-  //     isLocal: true,
-  //   );
-  //   if (result == 1) {
-  //     print('Success');
-  //   }
-  // }
-  //
-  // void stop() async {
-  //   await audioPlayer.stop();
-  // }
-
   List<String> animalImagesZone1 = [
     'assets/Leopard.jpg',
     'assets/Greater Kudu.jpg',
@@ -143,6 +112,7 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
     String description,
     String assetsPath,
     String audioPath,
+    String scientificName,
   }) {
     return Card(
       shape: RoundedRectangleBorder(
@@ -217,6 +187,8 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
                   'audioPath',
                   audioPath,
                 );
+                SharedPreference.saveStringPreference(
+                    'scientificName', scientificName);
                 widget.onExpand();
               },
             ),
@@ -298,6 +270,7 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
                     ),
                     itemBuilder: ((context, index) {
                       return searchAnimalCard(
+                        scientificName: scientificNames[index],
                         audioPath: audioPathsF[index],
                         assetsPath: animalImagesZone1[index],
                         description: descriptionsZone1[index],
