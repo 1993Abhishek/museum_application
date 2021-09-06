@@ -725,36 +725,38 @@ class _SearchAnimalState extends State<SearchAnimal> {
                   ),
                 )
               : isSearched
-                  ? Padding(
-                      padding: EdgeInsets.all(hDimen(20)),
-                      child: Container(
-                        height: hDimen(340),
-                        width: hDimen(335),
-                        child: searchAnimalCard(
-                          scientificName:
-                              allAnimalScientificNames[initialIndex],
-                          audioPath: audioPathsF[initialIndex],
-                          description: allAnimalDescriptions[initialIndex],
-                          animalName: allAnimalNames[initialIndex],
-                          assetsPath: allAnimalImages[initialIndex],
-                          zoneName: initialIndex < 10
-                              ? zoneNames[0]
-                              : initialIndex < 16
-                                  ? zoneNames[1]
-                                  : initialIndex < 17
-                                      ? zoneNames[2]
-                                      : initialIndex < 24
-                                          ? zoneNames[3]
-                                          : initialIndex < 27
-                                              ? zoneNames[4]
-                                              : initialIndex < 30
-                                                  ? zoneNames[5]
-                                                  : initialIndex < 34
-                                                      ? zoneNames[6]
-                                                      : "animal",
+                  ? SingleChildScrollView(
+                    child: Padding(
+                        padding: EdgeInsets.all(hDimen(20)),
+                        child: Container(
+                          height: hDimen(340),
+                          width: hDimen(335),
+                          child: searchAnimalCard(
+                            scientificName:
+                                allAnimalScientificNames[initialIndex],
+                            audioPath: audioPathsF[initialIndex],
+                            description: allAnimalDescriptions[initialIndex],
+                            animalName: allAnimalNames[initialIndex],
+                            assetsPath: allAnimalImages[initialIndex],
+                            zoneName: initialIndex < 10
+                                ? zoneNames[0]
+                                : initialIndex < 16
+                                    ? zoneNames[1]
+                                    : initialIndex < 17
+                                        ? zoneNames[2]
+                                        : initialIndex < 24
+                                            ? zoneNames[3]
+                                            : initialIndex < 27
+                                                ? zoneNames[4]
+                                                : initialIndex < 30
+                                                    ? zoneNames[5]
+                                                    : initialIndex < 34
+                                                        ? zoneNames[6]
+                                                        : "animal",
+                          ),
                         ),
                       ),
-                    )
+                  )
                   : Expanded(
                       child: isZoneNameSearched
                           ? GridView.builder(
