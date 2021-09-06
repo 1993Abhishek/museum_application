@@ -414,7 +414,7 @@ class _SearchAnimalState extends State<SearchAnimal> {
 
   Widget prefixWidgetSearch() {
     return Container(
-      width: hDimen(263),
+      width: hDimen(270),
       height: hDimen(80),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
