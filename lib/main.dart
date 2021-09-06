@@ -10,12 +10,10 @@ void main() {
       .then((_) {
     runApp(Museum());
   });
-  // runApp(Museum());
 
 }
 
 class Museum extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

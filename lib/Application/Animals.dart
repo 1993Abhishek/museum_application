@@ -80,6 +80,12 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
     await audioPlayer.stop();
   }
 
+  @override
+  void dispose() {
+    stop();
+    super.dispose();
+  }
+
   String audioPath = '';
 
   void getAnimalDetails() async {
@@ -191,156 +197,89 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                   backgroundColor: AppColor.colorPrimary,
                 ),
               )
-            : Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    hSpacing(20),
-                    Expanded(
-                      child: Stack(
-                        children: [
-                          Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(hDimen(20))),
-                            elevation: 3,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(hDimen(20)),
-                              child: Image.asset(
-                                asset,
-                                // height: hDimen(209),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: hDimen(10),
-                            ),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Container(
-                                height: hDimen(50),
-                                width: hDimen(50),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.chevron_left,
-                                    color: Colors.black45,
-                                    size: hDimen(30),
-                                  ),
-                                  onPressed: () {
-                                    print(imageIndex);
-                                    setState(() {
-                                      imageIndex =
-                                          (imageIndex - 1) % assetPaths.length;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              right: hDimen(10),
-                            ),
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Container(
-                                height: hDimen(50),
-                                width: hDimen(50),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.chevron_right,
-                                    color: Colors.black45,
-                                    size: hDimen(30),
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      imageIndex =
-                                          (imageIndex - 1) % assetPaths.length;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  hSpacing(20),
+                  Expanded(
+                    child: Card(
+                      color: Colors.transparent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          hDimen(20),
+                        ),
+                      ),
+                      elevation: 3,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(hDimen(20)),
+                        child: Image.asset(
+                          asset,
+                          height: hDimen(650),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                    hSpacing(hDimen(20)),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                initAnimalName,
-                                style: TextStyle(
-                                  fontSize: hDimen(25),
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                ' ($initScientificName)',
-                                style: TextStyle(
-                                  fontSize: hDimen(25),
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                              )
-                            ],
+                  ),
+                  hSpacing(hDimen(20)),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          initAnimalName,
+                          style: TextStyle(
+                            fontSize: hDimen(25),
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
                           ),
-                          vSpacing(hDimen(20)),
-                          Text(
-                            initDescription,
-                            style: TextStyle(
-                              fontSize: hDimen(20),
-                              color: Colors.black,
-                            ),
+                        ),
+                        vSpacing(hDimen(10)),
+                        Text(
+                          ' ($initScientificName)',
+                          style: TextStyle(
+                            fontSize: hDimen(25),
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
                           ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                        ),
+                        vSpacing(hDimen(20)),
+                        Text(
+                          initDescription,
+                          style: TextStyle(
+                            fontSize: hDimen(20),
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
-        vSpacing(hDimen(40)),
-        Container(
-          // width: hDimen(550),
-          height: hDimen(250),
-          child: ListView.builder(
-            padding: EdgeInsets.only(
-              left: hDimen(25),
-            ),
-            scrollDirection: Axis.horizontal,
-            physics: BouncingScrollPhysics(),
-            itemCount: assetPaths.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.only(
-                  right: hDimen(20),
-                ),
-                child: imageContainer(assetsPath: assetPaths[index]),
-              );
-            },
-          ),
-        ),
-        vSpacing(hDimen(85)),
+        // vSpacing(hDimen(40)),
+        // Container(
+        //   // width: hDimen(550),
+        //   height: hDimen(250),
+        //   child: ListView.builder(
+        //     padding: EdgeInsets.only(
+        //       left: hDimen(25),
+        //     ),
+        //     scrollDirection: Axis.horizontal,
+        //     physics: BouncingScrollPhysics(),
+        //     itemCount: assetPaths.length,
+        //     itemBuilder: (context, index) {
+        //       return Padding(
+        //         padding: EdgeInsets.only(
+        //           right: hDimen(20),
+        //         ),
+        //         child: imageContainer(assetsPath: assetPaths[index]),
+        //       );
+        //     },
+        //   ),
+        // ),
+        vSpacing(hDimen(20)),
       ],
     );
   }
