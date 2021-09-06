@@ -368,7 +368,7 @@ class _SearchAnimalState extends State<SearchAnimal> {
   Widget customDropDown() {
     return Container(
       height: hDimen(40),
-      width: hDimen(230),
+      width: hDimen(235),
       child: DropdownButton<String>(
         value: initialValue,
         onChanged: (value) {
