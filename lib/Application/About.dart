@@ -1,8 +1,13 @@
+import 'dart:io';
+
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:museum_application/utility/app_dimen.dart';
 import 'package:museum_application/utility/appview_helper.dart';
 import 'package:museum_application/widgets/customTextfieldwidget.dart';
+import 'package:path_provider/path_provider.dart';
 
 class AboutUsScreen extends StatefulWidget {
   const AboutUsScreen({Key key}) : super(key: key);
@@ -15,19 +20,72 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
   FocusNode nodeSearchAnimal = FocusNode();
   TextEditingController controllerSearchAnimal = TextEditingController();
 
-  String asset = "assets/loggerhead.jpg";
+  String asset = "assets/about1.png";
   List<String> assetPaths = [
-    "assets/loggerhead.jpg",
-    "assets/national_geographic1.jpg"
+    'assets/about1.png',
+    "assets/about2.png",
+    "assets/about3.png",
+    'assets/about4.png',
+    'assets/about5.png',
+    'assets/about6.png',
+    'assets/about7.png',
   ];
-  int index=0;
+  int index = 0;
+
+  String mp3Uri;
+
+  AudioPlayer audioPlayer = AudioPlayer(
+    mode: PlayerMode.MEDIA_PLAYER,
+  );
+
+  Future<Null> _load() async {
+    final ByteData data = await rootBundle.load(
+      'audio/Background.mp3',
+    );
+    Directory tempDir = await getTemporaryDirectory();
+    File tempFile = File('${tempDir.path}/demo.mp3');
+    await tempFile.writeAsBytes(data.buffer.asUint8List(), flush: true);
+    mp3Uri = tempFile.uri.toString();
+    print('finished loading, uri=$mp3Uri');
+    if (mp3Uri.isNotEmpty) {
+      play();
+    } else {
+      print('Error');
+    }
+  }
+
+  void play() async {
+    int result = await audioPlayer.play(
+      mp3Uri,
+      isLocal: true,
+    );
+    if (result == 1) {
+      print('Success');
+    }
+  }
+
+  void stop() async {
+    await audioPlayer.stop();
+  }
+
+  @override
+  void initState() {
+    _load();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    stop();
+    super.dispose();
+  }
 
   Widget imageContainer({
     String assetsPath,
   }) {
     return Container(
-      height: hDimen(100),
-      width: hDimen(200),
+      // height: hDimen(100),
+      width: hDimen(100),
       color: Colors.transparent,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(hDimen(25)),
@@ -81,29 +139,30 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               Expanded(
                 child: Stack(
                   children: [
-                     Card(
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(
+                          hDimen(20),
+                        ),
+                      ),
+                      child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
                             hDimen(20),
                           ),
                         ),
                         elevation: 3,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                              hDimen(20),
-                            ),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(hDimen(20)),
-                            child: Image.asset(
-                              assetPaths[index],
-                              // height: hDimen(209),
-                              fit: BoxFit.fitWidth,
-                            ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(hDimen(20)),
+                          child: Image.asset(
+                            assetPaths[index],
+                            // height: hDimen(209),
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
+                    ),
                     Padding(
                       padding: EdgeInsets.only(
                         left: hDimen(10),
@@ -126,7 +185,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                             onPressed: () {
                               print(index);
                               setState(() {
-                                index=(index-1)%assetPaths.length;
+                                index = (index - 1) % assetPaths.length;
                               });
                             },
                           ),
@@ -155,7 +214,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                             onPressed: () {
                               print(index);
                               setState(() {
-                                index=(index+1)%assetPaths.length;
+                                index = (index + 1) % assetPaths.length;
                               });
                               print(index);
                             },
@@ -263,10 +322,10 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
             ],
           ),
         ),
-        vSpacing(hDimen(30)),
+        vSpacing(hDimen(10)),
         Container(
           // width: hDimen(550),
-          height: hDimen(250),
+          height: hDimen(100),
           child: ListView.builder(
             padding: EdgeInsets.only(
               left: hDimen(20),
@@ -279,12 +338,14 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 padding: EdgeInsets.only(
                   right: hDimen(20),
                 ),
-                child: imageContainer(assetsPath: assetPaths[index]),
+                child: imageContainer(
+                  assetsPath: assetPaths[index],
+                ),
               );
             },
           ),
         ),
-        vSpacing(hDimen(120)),
+        vSpacing(hDimen(50)),
       ],
     );
   }

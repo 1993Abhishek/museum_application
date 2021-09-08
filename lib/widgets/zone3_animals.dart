@@ -22,7 +22,7 @@ class _Zone3AnimalsState extends State<Zone3Animals> {
    'Bears: Polar Bear'
   ];
   List<String> descriptionsZone3 = [
-    'Polar Bears are the largest land predators in the world and can weigh over\n1,300 pounds. Polar bears or white bears are found in the arctic of North America, as well\nas Eurasia. Adapted to life on the ice as well as the mainland, they are a top predator wherever\nthey are found. These bears have adapted to life in the artic very well: they have black skin\nto absorb the sun, wide feet to help walk on snow as well as swim, and 3 eyelids to help\nprotect their eyes from the elements.  Their closest relative is the Alaskan Brown Bear.',
+    'Polar Bears are the largest land predators in the world and can weigh over 1,300 pounds. Polar bears or white bears are found in the arctic of North America, as well as Eurasia. Adapted to life on the ice as well as the mainland, they are a top predator wherever they are found. These bears have adapted to life in the artic very well: they have black skin to absorb the sun, wide feet to help walk on snow as well as swim, and 3 eyelids to help protect their eyes from the elements.  Their closest relative is the Alaskan Brown Bear.',
    ];
   List<String> scientificNames = [
 'Ursus maritimus',
@@ -140,7 +140,11 @@ class _Zone3AnimalsState extends State<Zone3Animals> {
                 );
                 SharedPreference.saveStringPreference(
                     'scientificName', scientificName,);
-                widget.onExpand();
+                SharedPreference.saveStringPreference(
+                  'zoneName',
+                  'Cave: Zone 3',
+                );
+                widget.onExpand(3);
               },
             ),
             vSpacing(hDimen(20)),

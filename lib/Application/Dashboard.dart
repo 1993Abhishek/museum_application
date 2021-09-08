@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:museum_application/Application/About.dart';
 import 'package:museum_application/Application/Animals.dart';
 import 'package:museum_application/Application/SearchAnimal.dart';
@@ -13,6 +17,7 @@ import 'package:museum_application/widgets/zone4_animals.dart';
 import 'package:museum_application/widgets/zone5_animals.dart';
 import 'package:museum_application/widgets/zone6_animals.dart';
 import 'package:museum_application/widgets/zone7_animal.dart';
+import 'package:path_provider/path_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -38,6 +43,54 @@ class _HomeScreenState extends State<HomeScreen> {
       isZone5Details = false,
       isZone6Details = false,
       isZone7Details = false;
+
+  String mp3Uri;
+
+  AudioPlayer audioPlayer = AudioPlayer(
+    mode: PlayerMode.MEDIA_PLAYER,
+  );
+
+  Future _load() async {
+    final ByteData data = await rootBundle.load(
+      'audio/Background.mp3',
+    );
+    Directory tempDir = await getTemporaryDirectory();
+    File tempFile = File('${tempDir.path}/background.mp3');
+    await tempFile.writeAsBytes(data.buffer.asUint8List(), flush: true);
+    mp3Uri = tempFile.uri.toString();
+    print('finished loading, uri=$mp3Uri');
+    if (mp3Uri.isNotEmpty) {
+      play();
+    } else {
+      print('Error');
+    }
+  }
+
+  void play() async {
+    int result = await audioPlayer.play(
+      mp3Uri,
+      isLocal: true,
+    );
+    if (result == 1) {
+      print('Success');
+    }
+  }
+
+  void stop() async {
+    await audioPlayer.stop();
+  }
+
+  @override
+  void initState() {
+    _load();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    stop();
+    super.dispose();
+  }
 
   Widget exploreButton() {
     return Container(
@@ -68,6 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
     String description,
     String assetsPath,
     Function onExtend,
+    bool isZone6=false,
   }) {
     return Container(
       height: hDimen(400),
@@ -82,47 +136,51 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              vSpacing(hDimen(10)),
-              Center(
-                child: Container(
-                  height: hDimen(170),
-                  width: hDimen(260),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(hDimen(25)),
-                    child: Image.asset(
-                      assetsPath,
-                      fit: BoxFit.cover,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  vSpacing(hDimen(10)),
+                  isZone6 ? Container(
+                    height: hDimen(300),
+                    width: hDimen(275),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(hDimen(25)),
+                      child: Image.asset(
+                        assetsPath,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ):Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(hDimen(25)),
+                      child: Image.asset(
+                        assetsPath,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-              ),
-              vSpacing(hDimen(15)),
-              Text(
-                title,
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                  fontSize: hDimen(20),
-                ),
-              ),
-              vSpacing(hDimen(15)),
-              Expanded(
-                child: Text(
-                  description,
-                  style: TextStyle(
-                    color: Colors.black,
-                    // fontWeight: FontWeight.bold,
-                    fontSize: hDimen(18),
+                  vSpacing(hDimen(15)),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                      fontSize: hDimen(20),
+                    ),
                   ),
+                  vSpacing(hDimen(15)),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom:hDimen(15)),
+                child: GestureDetector(
+                  child: exploreButton(),
+                  onTap: onExtend,
                 ),
               ),
-              GestureDetector(
-                child: exploreButton(),
-                onTap: onExtend,
-              ),
-              vSpacing(hDimen(20)),
             ],
           ),
         ),
@@ -266,6 +324,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   assetsPath: "assets/Wood Bison.jpg",
                   description: "This is the description",
                   title: 'Mezzanine: Zone 6',
+                  isZone6: true,
                   onExtend: () {
                     setState(() {
                       isZone6Details = true;
@@ -378,6 +437,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  int zoneIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -588,8 +649,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: isZone7Details
                     ? Zone7Animals(
-                        onExpand: () {
+                        onExpand: (value) {
                           setState(() {
+                            zoneIndex = value;
                             isZone1Details = false;
                             isZone2Details = false;
                             isZone3Details = false;
@@ -607,8 +669,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     : isZone6Details
                         ? Zone6Animals(
-                            onExpand: () {
+                            onExpand: (value) {
                               setState(() {
+                                zoneIndex = value;
                                 isZone1Details = false;
                                 isZone2Details = false;
                                 isZone3Details = false;
@@ -626,8 +689,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                         : isZone5Details
                             ? Zone5Animals(
-                                onExpand: () {
+                                onExpand: (value) {
                                   setState(() {
+                                    zoneIndex = value;
                                     isZone1Details = false;
                                     isZone2Details = false;
                                     isZone3Details = false;
@@ -645,8 +709,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               )
                             : isZone4Details
                                 ? Zone4Animals(
-                                    onExpand: () {
+                                    onExpand: (value) {
                                       setState(() {
+                                        zoneIndex = value;
                                         isZone1Details = false;
                                         isZone2Details = false;
                                         isZone3Details = false;
@@ -664,8 +729,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   )
                                 : isZone3Details
                                     ? Zone3Animals(
-                                        onExpand: () {
+                                        onExpand: (value) {
                                           setState(() {
+                                            zoneIndex = value;
                                             isZone1Details = false;
                                             isZone2Details = false;
                                             isZone3Details = false;
@@ -683,8 +749,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       )
                                     : isZone2Details
                                         ? Zone2Animals(
-                                            onExpand: () {
+                                            onExpand: (value) {
                                               setState(() {
+                                                zoneIndex = value;
                                                 isZone1Details = false;
                                                 isZone2Details = false;
                                                 isZone3Details = false;
@@ -702,8 +769,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                           )
                                         : isZone1Details
                                             ? Zone1Animals(
-                                                onExpand: () {
+                                                onExpand: (value) {
+                                                  print(value);
                                                   setState(() {
+                                                    zoneIndex = value;
                                                     isZone1Details = false;
                                                     isZone2Details = false;
                                                     isZone3Details = false;
@@ -762,33 +831,217 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         ? AboutUsScreen()
                                                         : isAnimalSelected
                                                             ? AnimalsScreen(
-                                                                onZoneBack: () {
-                                                                  setState(() {
-                                                                    isZone1Details =
-                                                                        false;
-                                                                    isZone2Details =
-                                                                        false;
-                                                                    isZone3Details =
-                                                                        false;
-                                                                    isZone4Details =
-                                                                        false;
-                                                                    isZone5Details =
-                                                                        false;
-                                                                    isZone6Details =
-                                                                        false;
-                                                                    isZone7Details =
-                                                                        false;
-                                                                    isHomeSelected =
-                                                                        true;
-                                                                    isSearchAnimalSelected =
-                                                                        false;
-                                                                    isMapSelected =
-                                                                        false;
-                                                                    isAnimalSelected =
-                                                                        false;
-                                                                    isAboutSelected =
-                                                                        false;
-                                                                  });
+                                                                zoneIndex:
+                                                                    zoneIndex,
+                                                                onZoneBack:
+                                                                    (value) {
+                                                                  print(value);
+                                                                  if (value ==
+                                                                      1) {
+                                                                    setState(
+                                                                        () {
+                                                                      isZone1Details =
+                                                                          true;
+                                                                      isZone2Details =
+                                                                      false;
+                                                                      isZone3Details =
+                                                                      false;
+                                                                      isZone4Details =
+                                                                      false;
+                                                                      isZone5Details =
+                                                                      false;
+                                                                      isZone6Details =
+                                                                      false;
+                                                                      isZone7Details =
+                                                                      false;
+                                                                      isHomeSelected =
+                                                                      false;
+                                                                      isSearchAnimalSelected =
+                                                                      false;
+                                                                      isMapSelected =
+                                                                      false;
+                                                                      isAnimalSelected =
+                                                                      false;
+                                                                      isAboutSelected =
+                                                                      false;
+                                                                    });
+                                                                  }
+                                                                  if (value ==
+                                                                      2) {
+                                                                    setState(
+                                                                        () {
+                                                                      isZone2Details =
+                                                                          true;
+                                                                      isZone1Details =
+                                                                      false;
+                                                                      isZone3Details =
+                                                                      false;
+                                                                      isZone4Details =
+                                                                      false;
+                                                                      isZone5Details =
+                                                                      false;
+                                                                      isZone6Details =
+                                                                      false;
+                                                                      isZone7Details =
+                                                                      false;
+                                                                      isHomeSelected =
+                                                                      false;
+                                                                      isSearchAnimalSelected =
+                                                                      false;
+                                                                      isMapSelected =
+                                                                      false;
+                                                                      isAnimalSelected =
+                                                                      false;
+                                                                      isAboutSelected =
+                                                                      false;
+                                                                    });
+                                                                  }
+                                                                  if (value ==
+                                                                      3) {
+                                                                    setState(() {
+                                                                      isZone1Details =
+                                                                      false;
+                                                                      isZone2Details =
+                                                                      false;
+                                                                      isZone3Details =
+                                                                      true;
+                                                                      isZone4Details =
+                                                                      false;
+                                                                      isZone5Details =
+                                                                      false;
+                                                                      isZone6Details =
+                                                                      false;
+                                                                      isZone7Details =
+                                                                      false;
+                                                                      isHomeSelected =
+                                                                      false;
+                                                                      isSearchAnimalSelected =
+                                                                      false;
+                                                                      isMapSelected =
+                                                                      false;
+                                                                      isAnimalSelected =
+                                                                      false;
+                                                                      isAboutSelected =
+                                                                      false;
+                                                                    });
+                                                                  }
+                                                                  if (value ==
+                                                                      4) {
+                                                                    setState(() {
+                                                                      isZone1Details =
+                                                                      false;
+                                                                      isZone2Details =
+                                                                      false;
+                                                                      isZone3Details =
+                                                                      false;
+                                                                      isZone4Details =
+                                                                      true;
+                                                                      isZone5Details =
+                                                                      false;
+                                                                      isZone6Details =
+                                                                      false;
+                                                                      isZone7Details =
+                                                                      false;
+                                                                      isHomeSelected =
+                                                                      false;
+                                                                      isSearchAnimalSelected =
+                                                                      false;
+                                                                      isMapSelected =
+                                                                      false;
+                                                                      isAnimalSelected =
+                                                                      false;
+                                                                      isAboutSelected =
+                                                                      false;
+                                                                    });
+                                                                  }
+                                                                  if (value ==
+                                                                      5) {
+                                                                    setState(() {
+                                                                      isZone1Details =
+                                                                      false;
+                                                                      isZone2Details =
+                                                                      false;
+                                                                      isZone3Details =
+                                                                      false;
+                                                                      isZone4Details =
+                                                                      false;
+                                                                      isZone5Details =
+                                                                      true;
+                                                                      isZone6Details =
+                                                                      false;
+                                                                      isZone7Details =
+                                                                      false;
+                                                                      isHomeSelected =
+                                                                      false;
+                                                                      isSearchAnimalSelected =
+                                                                      false;
+                                                                      isMapSelected =
+                                                                      false;
+                                                                      isAnimalSelected =
+                                                                      false;
+                                                                      isAboutSelected =
+                                                                      false;
+                                                                    });
+                                                                  }
+                                                                  if (value ==
+                                                                      6) {
+                                                                    setState(() {
+                                                                      isZone1Details =
+                                                                      false;
+                                                                      isZone2Details =
+                                                                      false;
+                                                                      isZone3Details =
+                                                                      false;
+                                                                      isZone4Details =
+                                                                      false;
+                                                                      isZone5Details =
+                                                                      false;
+                                                                      isZone6Details =
+                                                                      true;
+                                                                      isZone7Details =
+                                                                      false;
+                                                                      isHomeSelected =
+                                                                      false;
+                                                                      isSearchAnimalSelected =
+                                                                      false;
+                                                                      isMapSelected =
+                                                                      false;
+                                                                      isAnimalSelected =
+                                                                      false;
+                                                                      isAboutSelected =
+                                                                      false;
+                                                                    });
+                                                                  }
+                                                                  if (value ==
+                                                                      7) {
+                                                                    setState(() {
+                                                                      isZone1Details =
+                                                                      false;
+                                                                      isZone2Details =
+                                                                      false;
+                                                                      isZone3Details =
+                                                                      false;
+                                                                      isZone4Details =
+                                                                      false;
+                                                                      isZone5Details =
+                                                                      false;
+                                                                      isZone6Details =
+                                                                      false;
+                                                                      isZone7Details =
+                                                                      true;
+                                                                      isHomeSelected =
+                                                                      false;
+                                                                      isSearchAnimalSelected =
+                                                                      false;
+                                                                      isMapSelected =
+                                                                      false;
+                                                                      isAnimalSelected =
+                                                                      false;
+                                                                      isAboutSelected =
+                                                                      false;
+                                                                    });
+                                                                  }
+
                                                                 },
                                                               )
                                                             : Container(),

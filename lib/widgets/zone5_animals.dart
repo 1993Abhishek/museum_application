@@ -8,7 +8,8 @@ import 'package:museum_application/helper/shared_preference_service.dart';
 
 class Zone5Animals extends StatefulWidget {
   final Function onExpand;
-  const Zone5Animals({Key key,this.onExpand}) : super(key: key);
+
+  const Zone5Animals({Key key, this.onExpand}) : super(key: key);
 
   @override
   _Zone5AnimalsState createState() => _Zone5AnimalsState();
@@ -26,9 +27,9 @@ class _Zone5AnimalsState extends State<Zone5Animals> {
     'Capercaillie',
   ];
   List<String> descriptionsZone5 = [
-    'Native to Mongolia, these deer have no antlers but large canines that look like\nfangs. The have also adapted longer hooves that allow them to climb trees to forage.\nTheir name derives from their large scent glands, which have led the animals to be poached\nfor black market perfume. Thanks to conservation efforts, their populations\nare on the rebound.',
-    'Lynx are known for two main subspecies: North American and Eurasian.\nNorth American Lynx are found primarily in Canada and Northwest United States, and\nEurasian are found in Europe, Russia, Scandinavia, the Middle East, and Asia. Found in dense\nforests with thick secondary growth as well as rocky mountainous terrain, they are wary\nanimals who live a solitary life. Built to be able to track through heavy snow and as tireless\nwalkers with long legs and big feet, they are mostly nocturnal but can be found covering\ntheir territory throughout the day.',
-    'Capercaillie are the largest of the Grouse species.  They are also known as Wood\nGrouse and as Cock of the Woods. There are two main species of Capercaillie, Ivory and Black\nBilled, with many known subspecies of each. Found throughout Europe, Scandinavia and\nRussia, they live in wooded forests. These large birds are known and sought after to\nwitness their mating rituals and to listen to the songs they sing.'
+    'Native to Mongolia, these deer have no antlers but large canines that look like fangs. The have also adapted longer hooves that allow them to climb trees to forage. Their name derives from their large scent glands, which have led the animals to be poached for black market perfume. Thanks to conservation efforts, their populations are on the rebound.',
+    'Lynx are known for two main subspecies: North American and Eurasian. North American Lynx are found primarily in Canada and Northwest United States, and Eurasian are found in Europe, Russia, Scandinavia, the Middle East, and Asia. Found in dense forests with thick secondary growth as well as rocky mountainous terrain, they are wary animals who live a solitary life. Built to be able to track through heavy snow and as tireless walkers with long legs and big feet, they are mostly nocturnal but can be found covering their territory throughout the day.',
+    'Capercaillie are the largest of the Grouse species.  They are also known as Wood Grouse and as Cock of the Woods. There are two main species of Capercaillie, Ivory and Black Billed, with many known subspecies of each. Found throughout Europe, Scandinavia and Russia, they live in wooded forests. These large birds are known and sought after to witness their mating rituals and to listen to the songs they sing.'
   ];
   List<String> scientificNames = [
     'Moschus moschiferus',
@@ -148,8 +149,14 @@ class _Zone5AnimalsState extends State<Zone5Animals> {
                   audioPath,
                 );
                 SharedPreference.saveStringPreference(
-                  'scientificName', scientificName,);
-                widget.onExpand();
+                  'scientificName',
+                  scientificName,
+                );
+                SharedPreference.saveStringPreference(
+                  'zoneName',
+                  'Stairway Cover: Zone 5',
+                );
+                widget.onExpand(5);
               },
             ),
             vSpacing(hDimen(20)),
@@ -164,9 +171,42 @@ class _Zone5AnimalsState extends State<Zone5Animals> {
     return shortDesc;
   }
 
-  List<String> audioPathsF=['audio/Zone1.1-Leopard.mp3', 'audio/Zone1.10-PatasMonkey.mp3', 'audio/Zone1.2-GreaterKudu.mp3', 'audio/Zone1.3-Sable.mp3', 'audio/Zone1.4-UgandaCobb.mp3', 'audio/Zone1.5%20-JacksonHeartBeast.mp3', 'audio/Zone1.6-Gerenuk.mp3', 'audio/Zone1.7-Korrigum.mp3', 'audio/Zone1.8-WildDog.mp3', 'audio/Zone1.9-Aardwolf.mp3', 'audio/Zone2.1-Argali.mp3', 'audio/Zone2.2-Urials.mp3', 'audio/Zone2.3-NorthAmericanDesertBighorn.mp3', 'audio/Zone2.4-Markhor.mp3', 'audio/Zone2.5-Ibex.mp3', 'audio/Zone2.6-Goats.mp3', 'audio/Zone3.1-Bears(Polar).mp3', 'audio/Zone4.1-Duiker.mp3', 'audio/Zone4.2-DuikerAders.mp3', 'audio/Zone4.3-RoyalAntelope.mp3', 'audio/Zone4.4-Bongo.mp3', 'audio/Zone4.5-WaterBuffalo.mp3', 'audio/Zone4.6-GiantForestHog.mp3', 'audio/Zone4.7-BrocketDeer.mp3', 'audio/Zone5.1-MuskDeer.mp3', 'audio/Zone5.2-Lynx.mp3', 'audio/Zone5.3-CaperCaillie.mp3', 'audio/Zone6.1-WoodBison.mp3', 'audio/Zone6.2-Wolf.mp3', 'audio/Zone6.3-Rhino.mp3', 'audio/Zone7.1-Eland.mp3', 'audio/Zone7.2-Nyala.mp3', 'audio/Zone7.3-ForrestBuffalo.mp3', 'audio/Zone7.4-Gazelle.mp3'];
-
-
+  List<String> audioPathsF = [
+    'audio/Zone1.1-Leopard.mp3',
+    'audio/Zone1.10-PatasMonkey.mp3',
+    'audio/Zone1.2-GreaterKudu.mp3',
+    'audio/Zone1.3-Sable.mp3',
+    'audio/Zone1.4-UgandaCobb.mp3',
+    'audio/Zone1.5%20-JacksonHeartBeast.mp3',
+    'audio/Zone1.6-Gerenuk.mp3',
+    'audio/Zone1.7-Korrigum.mp3',
+    'audio/Zone1.8-WildDog.mp3',
+    'audio/Zone1.9-Aardwolf.mp3',
+    'audio/Zone2.1-Argali.mp3',
+    'audio/Zone2.2-Urials.mp3',
+    'audio/Zone2.3-NorthAmericanDesertBighorn.mp3',
+    'audio/Zone2.4-Markhor.mp3',
+    'audio/Zone2.5-Ibex.mp3',
+    'audio/Zone2.6-Goats.mp3',
+    'audio/Zone3.1-Bears(Polar).mp3',
+    'audio/Zone4.1-Duiker.mp3',
+    'audio/Zone4.2-DuikerAders.mp3',
+    'audio/Zone4.3-RoyalAntelope.mp3',
+    'audio/Zone4.4-Bongo.mp3',
+    'audio/Zone4.5-WaterBuffalo.mp3',
+    'audio/Zone4.6-GiantForestHog.mp3',
+    'audio/Zone4.7-BrocketDeer.mp3',
+    'audio/Zone5.1-MuskDeer.mp3',
+    'audio/Zone5.2-Lynx.mp3',
+    'audio/Zone5.3-CaperCaillie.mp3',
+    'audio/Zone6.1-WoodBison.mp3',
+    'audio/Zone6.2-Wolf.mp3',
+    'audio/Zone6.3-Rhino.mp3',
+    'audio/Zone7.1-Eland.mp3',
+    'audio/Zone7.2-Nyala.mp3',
+    'audio/Zone7.3-ForrestBuffalo.mp3',
+    'audio/Zone7.4-Gazelle.mp3'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -195,13 +235,13 @@ class _Zone5AnimalsState extends State<Zone5Animals> {
                 mainAxisSpacing: hDimen(20),
                 crossAxisSpacing: hDimen(10),
                 crossAxisCount:
-                /*orientation == Orientation.portrait ? 2 :*/ 3,
+                    /*orientation == Orientation.portrait ? 2 :*/ 3,
                 childAspectRatio: 0.9,
               ),
               itemBuilder: ((context, index) {
                 return searchAnimalCard(
                   scientificName: scientificNames[index],
-                  audioPath: audioPathsF[index+24],
+                  audioPath: audioPathsF[index + 24],
                   assetsPath: animalImagesZone5[index],
                   description: descriptionsZone5[index],
                   animalName: animalNamesZone5[index],

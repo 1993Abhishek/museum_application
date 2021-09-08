@@ -13,8 +13,13 @@ import 'package:audioplayers/audioplayers.dart';
 
 class AnimalsScreen extends StatefulWidget {
   final Function onZoneBack;
+  final int zoneIndex;
 
-  const AnimalsScreen({Key key, this.onZoneBack}) : super(key: key);
+  const AnimalsScreen({
+    Key key,
+    this.onZoneBack,
+    this.zoneIndex,
+  }) : super(key: key);
 
   @override
   _AnimalsScreenState createState() => _AnimalsScreenState();
@@ -37,17 +42,18 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
   ];
   int imageIndex = 0;
   bool isGettingDetails = false;
-  String mp3Uri;
-
-  AudioPlayer audioPlayer = AudioPlayer(
-    mode: PlayerMode.MEDIA_PLAYER,
-  );
 
   @override
   void initState() {
     getAnimalDetails();
     super.initState();
   }
+
+  String mp3Uri;
+
+  AudioPlayer audioPlayer = AudioPlayer(
+    mode: PlayerMode.MEDIA_PLAYER,
+  );
 
   Future<Null> _load() async {
     print('Audio Path: $audioPath');
@@ -87,6 +93,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
   }
 
   String audioPath = '';
+  String zoneName = "Back To Zone Name";
 
   void getAnimalDetails() async {
     setState(() {
@@ -100,12 +107,15 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
     String scientificName = await SharedPreference.getStringPreference(
       'scientificName',
     );
-
+    zoneName = await SharedPreference.getStringPreference(
+      'zoneName',
+    );
     if (description.isNotEmpty &&
         animalName.isNotEmpty &&
         imagePath.isNotEmpty &&
         audioPath.isNotEmpty &&
-        scientificName.isNotEmpty) {
+        scientificName.isNotEmpty &&
+        zoneName.isNotEmpty) {
       _load();
       setState(() {
         initDescription = description;
@@ -175,12 +185,12 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
         GestureDetector(
           onTap: () {
             stop();
-            widget.onZoneBack();
+            widget.onZoneBack(widget.zoneIndex);
           },
           child: Padding(
             padding: EdgeInsets.only(left: hDimen(25)),
             child: Text(
-              "Back To Zone Name",
+              'Back to ' + zoneName,
               style: TextStyle(
                 fontSize: hDimen(20),
                 color: Colors.black,
@@ -215,7 +225,6 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                         borderRadius: BorderRadius.circular(hDimen(20)),
                         child: Image.asset(
                           asset,
-                          height: hDimen(650),
                           fit: BoxFit.cover,
                         ),
                       ),

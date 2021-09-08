@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:museum_application/helper/appcolor.dart';
 import 'package:museum_application/helper/shared_preference_service.dart';
 import 'package:museum_application/utility/app_dimen.dart';
 import 'package:museum_application/utility/appview_helper.dart';
 import 'package:museum_application/widgets/customTextfieldwidget.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SearchAnimal extends StatefulWidget {
   final Function onExpand;
@@ -330,11 +333,54 @@ class _SearchAnimalState extends State<SearchAnimal> {
 
   @override
   void initState() {
+    _load();
     initializeAllLists();
     createMenuItem();
+
     // _initAudios();
 
     super.initState();
+  }
+  String mp3Uri;
+
+  AudioPlayer audioPlayer = AudioPlayer(
+    mode: PlayerMode.MEDIA_PLAYER,
+  );
+
+  Future<Null> _load() async {
+    final ByteData data = await rootBundle.load(
+      'audio/Background.mp3',
+    );
+    Directory tempDir = await getTemporaryDirectory();
+    File tempFile = File('${tempDir.path}/demo.mp3');
+    await tempFile.writeAsBytes(data.buffer.asUint8List(), flush: true);
+    mp3Uri = tempFile.uri.toString();
+    print('finished loading, uri=$mp3Uri');
+    if (mp3Uri.isNotEmpty) {
+      play();
+    } else {
+      print('Error');
+    }
+  }
+
+  void play() async {
+    int result = await audioPlayer.play(
+      mp3Uri,
+      isLocal: true,
+    );
+    if (result == 1) {
+      print('Success');
+    }
+  }
+
+  void stop() async {
+    await audioPlayer.stop();
+  }
+
+  @override
+  void dispose() {
+    stop();
+    super.dispose();
   }
 
   void createMenuItem() {

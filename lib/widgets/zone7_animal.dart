@@ -30,10 +30,10 @@ class _Zone7AnimalsState extends State<Zone7Animals> {
     'Gazelle: Saiga Gazelle',
   ];
   List<String> descriptionsZone7 = [
-    'Giant Eland or Lord Derby Eland are the largest of the Antelope species. Found\nin the forested savannas of central Africa, they call parts of Nigeria, Cameroon, Congo, Central\nAfrican Republic and the Sudan home. Living in groups up to 30 animals, they are naturally\nvery alert and wary, making them difficult to get close to and often on the constant move.\nFor a large animal, they can run up to 40mph to escape threats. They are part of the Spiral\nHorns of Africa.',
-    'Mountain Nyala are one of the largest of the Spiral Horned antelope of Africa.\nA Nyala by species, they are referred to by the local Ethiopians as the “highland greater kudu,”\nliving in dense forests of central Ethiopia at altitudes up to 13,000 feet. Very shy and elusive\nanimals, they spend a lot of time in the dense forest away from any human pressure\nand are most active from dusk till dawn searching for food.',
-    'Dwarf Forest Buffalo, also referred to as Dwarf Buffalo or the Congo Buffalo,\nare the smallest species of buffalo in Africa. Their horns do not sweep down, which is typical\nof other buffalo, but they sweep out and back. Their ears are also a unique characteristic\nas they have large tuffs of hair on the ends. They live in dense rainforests and in smaller\ngroups than their cousins, the Cape Buffalo, with numbers ranging in the 30s. They are found\nin west African in different regions of Guinea, Sierra Leone, Ghana, and Nigeria. They’re\nalso found in Central Africa in Central African Republic, Congo, Cameroon, Rio Muni, Gabon,\nand Angola.',
-    'There are two main subspecies of Saiga Antelope. They are a unique looking\nantelope with large noses made to help filter the dust and debris from their nomadic lifestyle.\nIn the winter it also warms the cold air before it’s breathed in. They are found in large herds\ntraveling the grasslands on the footsteps of the mountains of Mongolia, Kazakhstan,\nUzbekistan and regions of Russia. These animals are on the decline due mainly to poaching\nfor their meat as well as their horns for traditional Asian medicine. Large conservation\nefforts are underway to help bring the Saiga antelope back to its large\nnumbers and to continue to be nomadic icons.',
+    'Giant Eland or Lord Derby Eland are the largest of the Antelope species. Found in the forested savannas of central Africa, they call parts of Nigeria, Cameroon, Congo, Central African Republic and the Sudan home. Living in groups up to 30 animals, they are naturally very alert and wary, making them difficult to get close to and often on the constant move. For a large animal, they can run up to 40mph to escape threats. They are part of the Spiral Horns of Africa.',
+    'Mountain Nyala are one of the largest of the Spiral Horned antelope of Africa. A Nyala by species, they are referred to by the local Ethiopians as the “highland greater kudu,” living in dense forests of central Ethiopia at altitudes up to 13,000 feet. Very shy and elusive animals, they spend a lot of time in the dense forest away from any human pressure and are most active from dusk till dawn searching for food.',
+    'Dwarf Forest Buffalo, also referred to as Dwarf Buffalo or the Congo Buffalo, are the smallest species of buffalo in Africa. Their horns do not sweep down, which is typical of other buffalo, but they sweep out and back. Their ears are also a unique characteristic as they have large tuffs of hair on the ends. They live in dense rainforests and in smaller groups than their cousins, the Cape Buffalo, with numbers ranging in the 30s. They are found in west African in different regions of Guinea, Sierra Leone, Ghana, and Nigeria. They’re also found in Central Africa in Central African Republic, Congo, Cameroon, Rio Muni, Gabon, and Angola.',
+    'There are two main subspecies of Saiga Antelope. They are a unique looking antelope with large noses made to help filter the dust and debris from their nomadic lifestyle. In the winter it also warms the cold air before it’s breathed in. They are found in large herds traveling the grasslands on the footsteps of the mountains of Mongolia, Kazakhstan, Uzbekistan and regions of Russia. These animals are on the decline due mainly to poaching for their meat as well as their horns for traditional Asian medicine. Large conservation efforts are underway to help bring the Saiga antelope back to its large numbers and to continue to be nomadic icons.',
   ];
   List<String> scientificNames = [
     'Taurotragus debianus',
@@ -154,8 +154,10 @@ class _Zone7AnimalsState extends State<Zone7Animals> {
                   audioPath,
                 );
                 SharedPreference.saveStringPreference(
-                    'scientificName', scientificName);
-                widget.onExpand();
+                    'scientificName', scientificName,);
+                SharedPreference.saveStringPreference(
+                  'zoneName', 'Old Trophy Room: Zone 7',);
+                widget.onExpand(7);
               },
             ),
             vSpacing(hDimen(20)),

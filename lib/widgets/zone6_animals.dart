@@ -26,23 +26,15 @@ class _Zone6AnimalsState extends State<Zone6Animals> {
     'Rhino',
   ];
   List<String> descriptionsZone6 = [
-    'The largest of the Bison species is the Wood Bison, also called the Wood Buffalo\nor Mountain Buffalo. Found mainly in northern boreal forests, their bodies are a lot denser with\nthicker, darker hair than their cousins, the Plains Bison. Wood Bison are found in Alaska,\nNorthwest Territories, Yukon, Northern British Columbia and Northern Alberta. Due to large\nconservation efforts, their range is expanding with healthy populations.',
-    'The Grey Wolf can be found in North America, Europe and Asia reaching upwards\nof 120 pounds. As very social pack animals, each wolf family has a distinct dynamic with each\nmember having a specific role. Pups are taught to hunt in packs, which have made them very\nproficient and deadly hunters. Due to great conservation efforts, wolf populations are growing\nand thriving throughout their native homelands, which are often in northern\nlatitudes. There are some 24 different subspecies of wolf in North America alone.',
-    'Rhinoceros, or Rhino, are one of the last remaining Megafauna. Getting their name\nfrom the Latin “Nose Horn,” there are 2 remaining species in Africa: the Black and the White\nRhino. With a great sense of hearing and smell but poor eyesight, Rhinos can be easily\nambushed in the proper conditions. They are often poached for their horns, which are used\nas medicine and an aphrodisiac in Asia. Due to significant poaching, the Asian species of\nRhino are under extreme threat.However, thanks to great conservation efforts in Africa,\nthe Black and White Rhino populations are now growing and becoming very healthy in many\nregions.',
+    'The largest of the Bison species is the Wood Bison, also called the Wood Buffalo or Mountain Buffalo. Found mainly in northern boreal forests, their bodies are a lot denser with thicker, darker hair than their cousins, the Plains Bison. Wood Bison are found in Alaska, Northwest Territories, Yukon, Northern British Columbia and Northern Alberta. Due to large conservation efforts, their range is expanding with healthy populations.',
+    'The Grey Wolf can be found in North America, Europe and Asia reaching upwards of 120 pounds. As very social pack animals, each wolf family has a distinct dynamic with each member having a specific role. Pups are taught to hunt in packs, which have made them very proficient and deadly hunters. Due to great conservation efforts, wolf populations are growing and thriving throughout their native homelands, which are often in northern latitudes. There are some 24 different subspecies of wolf in North America alone.',
+    'Rhinoceros, or Rhino, are one of the last remaining Megafauna. Getting their name from the Latin “Nose Horn,” there are 2 remaining species in Africa: the Black and the White Rhino. With a great sense of hearing and smell but poor eyesight, Rhinos can be easily ambushed in the proper conditions. They are often poached for their horns, which are used as medicine and an aphrodisiac in Asia. Due to significant poaching, the Asian species of Rhino are under extreme threat.However, thanks to great conservation efforts in Africa, the Black and White Rhino populations are now growing and becoming very healthy in many regions.',
   ];
   List<String> scientificNames = [
     'Bison bison athabascae',
     'Canis lupis',
     'Rhinocerotidae',
   ];
-
-
-  @override
-  void initState() {
-    // _load();
-    // _initAudios();
-    super.initState();
-  }
 
   Widget exploreButton() {
     return Container(
@@ -150,7 +142,9 @@ class _Zone6AnimalsState extends State<Zone6Animals> {
                 );
                 SharedPreference.saveStringPreference(
                   'scientificName', scientificName,);
-                widget.onExpand();
+                SharedPreference.saveStringPreference(
+                  'zoneName', 'Mezzanine: Zone 6',);
+                widget.onExpand(6);
               },
             ),
             vSpacing(hDimen(20)),
