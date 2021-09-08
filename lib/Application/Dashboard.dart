@@ -123,65 +123,68 @@ class _HomeScreenState extends State<HomeScreen> {
     Function onExtend,
     bool isZone6=false,
   }) {
-    return Container(
-      height: hDimen(400),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            hDimen(20),
+    return GestureDetector(
+      onTap: onExtend,
+      child: Container(
+        height: hDimen(400),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              hDimen(20),
+            ),
           ),
-        ),
-        elevation: 3,
-        child: Padding(
-          padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  vSpacing(hDimen(10)),
-                  isZone6 ? Container(
-                    height: hDimen(300),
-                    width: hDimen(275),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(hDimen(25)),
-                      child: Image.asset(
-                        assetsPath,
-                        fit: BoxFit.cover,
+          elevation: 3,
+          child: Padding(
+            padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    vSpacing(hDimen(10)),
+                    isZone6 ? Container(
+                      height: hDimen(300),
+                      width: hDimen(275),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(hDimen(25)),
+                        child: Image.asset(
+                          assetsPath,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ):Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(hDimen(25)),
+                        child: Image.asset(
+                          assetsPath,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ):Container(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(hDimen(25)),
-                      child: Image.asset(
-                        assetsPath,
-                        fit: BoxFit.cover,
+                    vSpacing(hDimen(15)),
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold,
+                        fontSize: hDimen(20),
                       ),
                     ),
-                  ),
-                  vSpacing(hDimen(15)),
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                      fontSize: hDimen(20),
-                    ),
-                  ),
-                  vSpacing(hDimen(15)),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom:hDimen(15)),
-                child: GestureDetector(
-                  child: exploreButton(),
-                  onTap: onExtend,
+                    vSpacing(hDimen(15)),
+                  ],
                 ),
-              ),
-            ],
+                Padding(
+                  padding: EdgeInsets.only(bottom:hDimen(15)),
+                  child: GestureDetector(
+                    child: exploreButton(),
+                    onTap: onExtend,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

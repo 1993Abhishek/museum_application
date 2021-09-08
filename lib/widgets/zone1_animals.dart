@@ -114,6 +114,7 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
     String assetsPath,
     String audioPath,
     String scientificName,
+    bool isKudu=false,
   }) {
     return Card(
       shape: RoundedRectangleBorder(
@@ -195,6 +196,11 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
                   'zoneName',
                   'African Diorama: Zone 1',
                 );
+                if(isKudu)
+                  {
+                    SharedPreference.saveBoolPreference('kudu', true);
+                  }
+                SharedPreference.saveBoolPreference('kudu', true);
                 widget.onExpand(1);
               },
             ),
@@ -313,6 +319,7 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
               ),
               itemBuilder: ((context, index) {
                 return searchAnimalCard(
+                  isKudu: index==1 ? true: false,
                   scientificName: scientificNames[index],
                   audioPath: audioPathsF[index],
                   assetsPath: animalImagesZone1[index],

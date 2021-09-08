@@ -94,6 +94,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
 
   String audioPath = '';
   String zoneName = "Back To Zone Name";
+  bool isKudu=false;
 
   void getAnimalDetails() async {
     setState(() {
@@ -110,18 +111,24 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
     zoneName = await SharedPreference.getStringPreference(
       'zoneName',
     );
+    bool kudu= await SharedPreference.getBoolPreference('kudu');
+    if(kudu==null)
+      {
+        kudu=false;
+      }
     if (description.isNotEmpty &&
         animalName.isNotEmpty &&
         imagePath.isNotEmpty &&
         audioPath.isNotEmpty &&
         scientificName.isNotEmpty &&
-        zoneName.isNotEmpty) {
+        zoneName.isNotEmpty&&kudu!=null) {
       _load();
       setState(() {
         initDescription = description;
         initAnimalName = animalName;
         asset = imagePath;
         initScientificName = scientificName;
+        isKudu=kudu;
       });
 
       // print(asset);
@@ -212,7 +219,29 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   hSpacing(20),
-                  Expanded(
+                  isKudu? Expanded(
+                    child: Container(
+                      color: Colors.transparent,
+                      height: hDimen(600),
+                      child: Card(
+                        color: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            hDimen(20),
+                          ),
+                        ),
+                        elevation: 3,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(hDimen(20)),
+                          child: Image.asset(
+                            asset,
+                            fit: BoxFit.cover,
+
+                          ),
+                        ),
+                      ),
+                    ),
+                  ): Expanded(
                     child: Card(
                       color: Colors.transparent,
                       shape: RoundedRectangleBorder(
