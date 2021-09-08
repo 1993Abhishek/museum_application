@@ -30,7 +30,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
     'assets/about6.png',
     'assets/about7.png',
   ];
-  int index = 0;
+  int indexImg = 0;
 
   String mp3Uri;
 
@@ -82,16 +82,20 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
 
   Widget imageContainer({
     String assetsPath,
+    Function onTab,
   }) {
-    return Container(
-      // height: hDimen(100),
-      width: hDimen(100),
-      color: Colors.transparent,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(hDimen(25)),
-        child: Image.asset(
-          assetsPath,
-          fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: onTab,
+      child: Container(
+        // height: hDimen(100),
+        width: hDimen(100),
+        color: Colors.transparent,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(hDimen(25)),
+          child: Image.asset(
+            assetsPath,
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );
@@ -156,7 +160,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(hDimen(20)),
                           child: Image.asset(
-                            assetPaths[index],
+                            assetPaths[indexImg],
                             // height: hDimen(209),
                             fit: BoxFit.cover,
                           ),
@@ -183,9 +187,9 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                               size: hDimen(30),
                             ),
                             onPressed: () {
-                              print(index);
+                              print(indexImg);
                               setState(() {
-                                index = (index - 1) % assetPaths.length;
+                                indexImg = (indexImg - 1) % assetPaths.length;
                               });
                             },
                           ),
@@ -212,11 +216,11 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                               size: hDimen(30),
                             ),
                             onPressed: () {
-                              print(index);
+                              print(indexImg);
                               setState(() {
-                                index = (index + 1) % assetPaths.length;
+                                indexImg = (indexImg + 1) % assetPaths.length;
                               });
-                              print(index);
+                              print(indexImg);
                             },
                           ),
                         ),
@@ -340,6 +344,11 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 ),
                 child: imageContainer(
                   assetsPath: assetPaths[index],
+                  onTab: (){
+                    setState(() {
+                      indexImg=index;
+                    });
+                  }
                 ),
               );
             },
