@@ -206,30 +206,30 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          vSpacing(20),
-          Align(
-            alignment: Alignment.topRight,
-            child: CustomTextfieldWidget(
-              isLebelTextNeeded: false,
-              suffixIcon: Icon(
-                Icons.search,
-                color: Colors.black54,
-              ),
-              lebelHeight: hDimen(14),
-              height: hDimen(50),
-              width: hDimen(300),
-              unSelectedColor: Colors.grey[300],
-              inputType: TextInputType.emailAddress,
-              focusNode: nodeSearchAnimal,
-              hintText: "Search by animal",
-              textInputAction: TextInputAction.next,
-              controller: controllerSearchAnimal,
-              onSubmitted: (value) {
-                nodeSearchAnimal.unfocus();
-              },
-            ),
-          ),
-          vSpacing(20),
+          // vSpacing(20),
+          // Align(
+          //   alignment: Alignment.topRight,
+          //   child: CustomTextfieldWidget(
+          //     isLebelTextNeeded: false,
+          //     suffixIcon: Icon(
+          //       Icons.search,
+          //       color: Colors.black54,
+          //     ),
+          //     lebelHeight: hDimen(14),
+          //     height: hDimen(50),
+          //     width: hDimen(300),
+          //     unSelectedColor: Colors.grey[300],
+          //     inputType: TextInputType.emailAddress,
+          //     focusNode: nodeSearchAnimal,
+          //     hintText: "Search by animal",
+          //     textInputAction: TextInputAction.next,
+          //     controller: controllerSearchAnimal,
+          //     onSubmitted: (value) {
+          //       nodeSearchAnimal.unfocus();
+          //     },
+          //   ),
+          // ),
+          vSpacing(40),
           Text(
             "Browse By Zones",
             style: TextStyle(
@@ -244,8 +244,8 @@ class _HomeScreenState extends State<HomeScreen> {
               physics: BouncingScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: orientation == Orientation.landscape ? 3 : 2,
-                mainAxisSpacing: hDimen(20),
-                crossAxisSpacing: hDimen(20),
+                mainAxisSpacing: hDimen(10),
+                crossAxisSpacing: hDimen(10),
                 childAspectRatio: 0.6,
               ),
               children: [
@@ -458,7 +458,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            hSpacing(hDimen(30)),
+            hSpacing(hDimen(20)),
             Container(
               width: hDimen(250),
               child: SingleChildScrollView(

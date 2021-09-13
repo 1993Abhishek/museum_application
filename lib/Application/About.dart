@@ -238,7 +238,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                     Text(
                       "About Keyah Grande",
                       style: TextStyle(
-                        fontSize: hDimen(25),
+                        fontSize: hDimen(20),
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
@@ -247,7 +247,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                     Text(
                       "Keyah Grande is an exclusive luxury destination location. A private villa nested in the heart of Colorado's San Juan Mountains, surrounded by over 4000 acres of pristine, natural beauty and breathtaking views. Keyah Grande connects refined elegance with the rustic, natural elements of South west Colorado o bring guests an unmatched retreat destination perfect for any occasion!\n With its majestic views, beautiful decor, internationally inspired suites and wireless capabilities, Keyah Grande is the ideal destination for weddings, corporate events, reunions, family gatherings, wellness retreats, cowboy gatherings and so much more.\nKeyah Grande offers a wide array of activities both on and off the property. relax in our custom spa while enjoying a treatment or head down to the chuckwagon for a rustic cowboy dinner. If exploration of the property is what you are looking for, book a horseback ride around the ranch with beautiful photos ops all around Keyah Grande is a bucket list destination.",
                       style: TextStyle(
-                        fontSize: hDimen(16),
+                        fontSize: hDimen(14),
                         color: Colors.black,
                       ),
                     ),
@@ -255,7 +255,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                     Text(
                       "Contact Us",
                       style: TextStyle(
-                        fontSize: hDimen(25),
+                        fontSize: hDimen(16),
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
@@ -268,13 +268,13 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                         Icon(
                           Icons.location_on,
                           color: Colors.black87,
-                          size: hDimen(25),
+                          size: hDimen(20),
                         ),
                         hSpacing(20),
                         Text(
                           "13211 W Hwy 160, Pagosa Springs, CO 81147",
                           style: TextStyle(
-                            fontSize: hDimen(18),
+                            fontSize: hDimen(16),
                             color: Colors.black,
                           ),
                         ),
@@ -288,13 +288,13 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                         Icon(
                           Icons.mail_outline_rounded,
                           color: Colors.black87,
-                          size: hDimen(25),
+                          size: hDimen(20),
                         ),
                         hSpacing(20),
                         Text(
                           "theguesthouse@gmail.com",
                           style: TextStyle(
-                            fontSize: hDimen(18),
+                            fontSize: hDimen(16),
                             color: Colors.black,
                           ),
                         ),
@@ -354,7 +354,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
             },
           ),
         ),
-        vSpacing(hDimen(20)),
+        vSpacing(hDimen(10)),
       ],
     );
   }
