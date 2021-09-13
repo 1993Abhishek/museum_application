@@ -90,90 +90,121 @@ class _Zone2AnimalsState extends State<Zone2Animals> {
     String audioPath,
     String scientificName,
   }) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          hDimen(20),
-        ),
-      ),
-      elevation: 3,
-      child: Padding(
-        padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            vSpacing(hDimen(10)),
-            Container(
-              height: hDimen(200),
-              width: double.infinity,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(hDimen(10)),
-                child: Image.asset(
-                  assetsPath,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            vSpacing(hDimen(10)),
-            Expanded(
-              child: Text(
-                animalName,
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                  fontSize: hDimen(20),
-                ),
-              ),
-            ),
-            vSpacing(hDimen(10)),
-            // Expanded(
-            //   child: Text(
-            //     shortDescription(
-            //       description: description,
-            //     ),
-            //     style: TextStyle(
-            //       color: Colors.black,
-            //       // fontWeight: FontWeight.bold,
-            //       fontSize: hDimen(18),
-            //     ),
-            //   ),
-            // ),
-            // vSpacing(hDimen(20)),
-            GestureDetector(
-              child: exploreButton(),
-              onTap: () {
-                print('Hello');
-                SharedPreference.saveStringPreference(
-                  'description',
-                  description,
-                );
-                SharedPreference.saveStringPreference(
-                  'name',
-                  animalName,
-                );
-                SharedPreference.saveStringPreference(
-                  'imgPath',
-                  assetsPath,
-                );
-                SharedPreference.saveStringPreference(
-                  'audioPath',
-                  audioPath,
-                );
-                SharedPreference.saveStringPreference(
-                  'scientificName',
-                  scientificName,
-                );
-                SharedPreference.saveStringPreference(
-                  'zoneName',
-                  'Mountain: Zone 2',
-                );
+    return GestureDetector(
+      onTap: (){
+        print('Hello');
+        SharedPreference.saveStringPreference(
+          'description',
+          description,
+        );
+        SharedPreference.saveStringPreference(
+          'name',
+          animalName,
+        );
+        SharedPreference.saveStringPreference(
+          'imgPath',
+          assetsPath,
+        );
+        SharedPreference.saveStringPreference(
+          'audioPath',
+          audioPath,
+        );
+        SharedPreference.saveStringPreference(
+          'scientificName',
+          scientificName,
+        );
+        SharedPreference.saveStringPreference(
+          'zoneName',
+          'Mountain: Zone 2',
+        );
 
-                widget.onExpand(2);
-              },
-            ),
-            vSpacing(hDimen(20)),
-          ],
+        widget.onExpand(2);
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            hDimen(20),
+          ),
+        ),
+        elevation: 3,
+        child: Padding(
+          padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              vSpacing(hDimen(10)),
+              Container(
+                height: hDimen(200),
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(hDimen(10)),
+                  child: Image.asset(
+                    assetsPath,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              vSpacing(hDimen(10)),
+              Expanded(
+                child: Text(
+                  animalName,
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontSize: hDimen(20),
+                  ),
+                ),
+              ),
+              vSpacing(hDimen(10)),
+              // Expanded(
+              //   child: Text(
+              //     shortDescription(
+              //       description: description,
+              //     ),
+              //     style: TextStyle(
+              //       color: Colors.black,
+              //       // fontWeight: FontWeight.bold,
+              //       fontSize: hDimen(18),
+              //     ),
+              //   ),
+              // ),
+              // vSpacing(hDimen(20)),
+              GestureDetector(
+                child: exploreButton(),
+                onTap: () {
+                  print('Hello');
+                  SharedPreference.saveStringPreference(
+                    'description',
+                    description,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'name',
+                    animalName,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'imgPath',
+                    assetsPath,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'audioPath',
+                    audioPath,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'scientificName',
+                    scientificName,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'zoneName',
+                    'Mountain: Zone 2',
+                  );
+
+                  widget.onExpand(2);
+                },
+              ),
+              vSpacing(hDimen(20)),
+            ],
+          ),
         ),
       ),
     );

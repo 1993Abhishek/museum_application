@@ -75,97 +75,126 @@ class _Zone5AnimalsState extends State<Zone5Animals> {
     String audioPath,
     String scientificName,
   }) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          hDimen(20),
+    return GestureDetector(
+      onTap: (){
+        SharedPreference.saveStringPreference(
+          'description',
+          description,
+        );
+        SharedPreference.saveStringPreference(
+          'name',
+          animalName,
+        );
+        SharedPreference.saveStringPreference(
+          'imgPath',
+          assetsPath,
+        );
+        SharedPreference.saveStringPreference(
+          'audioPath',
+          audioPath,
+        );
+        SharedPreference.saveStringPreference(
+          'scientificName',
+          scientificName,
+        );
+        SharedPreference.saveStringPreference(
+          'zoneName',
+          'Stairway Cover: Zone 5',
+        );
+        widget.onExpand(5);
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            hDimen(20),
+          ),
         ),
-      ),
-      elevation: 3,
-      child: Padding(
-        padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            vSpacing(hDimen(10)),
-            Container(
-              height: hDimen(240),
-              width: double.infinity,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(hDimen(10)),
-                child: Image.asset(
-                  assetsPath,
-                  fit: BoxFit.cover,
+        elevation: 3,
+        child: Padding(
+          padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              vSpacing(hDimen(10)),
+              Container(
+                height: hDimen(240),
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(hDimen(10)),
+                  child: Image.asset(
+                    assetsPath,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            vSpacing(hDimen(10)),
-            Expanded(
-              child: Text(
-                animalName,
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                  fontSize: hDimen(20),
-                ),
-              ),
-            ),
-            // Row(
-            //   crossAxisAlignment: CrossAxisAlignment.center,
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //
-            //
-            //   ],
-            // ),
-            // vSpacing(hDimen(20)),
-            // Expanded(
-            //   child: Text(
-            //     shortDescription(
-            //       description: description,
-            //     ),
-            //     style: TextStyle(
-            //       color: Colors.black,
-            //       // fontWeight: FontWeight.bold,
-            //       fontSize: hDimen(18),
-            //     ),
-            //   ),
-            // ),
-
-            GestureDetector(
-              child: exploreButton(),
-              onTap: () {
-                print('Hello');
-                SharedPreference.saveStringPreference(
-                  'description',
-                  description,
-                );
-                SharedPreference.saveStringPreference(
-                  'name',
+              vSpacing(hDimen(10)),
+              Expanded(
+                child: Text(
                   animalName,
-                );
-                SharedPreference.saveStringPreference(
-                  'imgPath',
-                  assetsPath,
-                );
-                SharedPreference.saveStringPreference(
-                  'audioPath',
-                  audioPath,
-                );
-                SharedPreference.saveStringPreference(
-                  'scientificName',
-                  scientificName,
-                );
-                SharedPreference.saveStringPreference(
-                  'zoneName',
-                  'Stairway Cover: Zone 5',
-                );
-                widget.onExpand(5);
-              },
-            ),
-            vSpacing(hDimen(5)),
-          ],
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontSize: hDimen(20),
+                  ),
+                ),
+              ),
+              // Row(
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //
+              //
+              //   ],
+              // ),
+              // vSpacing(hDimen(20)),
+              // Expanded(
+              //   child: Text(
+              //     shortDescription(
+              //       description: description,
+              //     ),
+              //     style: TextStyle(
+              //       color: Colors.black,
+              //       // fontWeight: FontWeight.bold,
+              //       fontSize: hDimen(18),
+              //     ),
+              //   ),
+              // ),
+
+              GestureDetector(
+                child: exploreButton(),
+                onTap: () {
+                  print('Hello');
+                  SharedPreference.saveStringPreference(
+                    'description',
+                    description,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'name',
+                    animalName,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'imgPath',
+                    assetsPath,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'audioPath',
+                    audioPath,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'scientificName',
+                    scientificName,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'zoneName',
+                    'Stairway Cover: Zone 5',
+                  );
+                  widget.onExpand(5);
+                },
+              ),
+              vSpacing(hDimen(5)),
+            ],
+          ),
         ),
       ),
     );

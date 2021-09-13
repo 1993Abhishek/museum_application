@@ -116,93 +116,127 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
     String scientificName,
     bool isKudu=false,
   }) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          hDimen(20),
+    return GestureDetector(
+      onTap: (){
+        SharedPreference.saveStringPreference(
+          'description',
+          description,
+        );
+        SharedPreference.saveStringPreference(
+          'name',
+          animalName,
+        );
+        SharedPreference.saveStringPreference(
+          'imgPath',
+          assetsPath,
+        );
+        SharedPreference.saveStringPreference(
+          'audioPath',
+          audioPath,
+        );
+        SharedPreference.saveStringPreference(
+          'scientificName',
+          scientificName,
+        );
+        SharedPreference.saveStringPreference(
+          'zoneName',
+          'African Diorama: Zone 1',
+        );
+        if(isKudu)
+        {
+          SharedPreference.saveBoolPreference('kudu', true);
+        }
+        SharedPreference.saveBoolPreference('kudu', true);
+        widget.onExpand(1);
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            hDimen(20),
+          ),
         ),
-      ),
-      elevation: 3,
-      child: Padding(
-        padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            vSpacing(hDimen(10)),
-            Container(
-              height: hDimen(200),
-              width: double.infinity,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(hDimen(10)),
-                child: Image.asset(
-                  assetsPath,
-                  fit: BoxFit.fill,
+        elevation: 3,
+        child: Padding(
+          padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              vSpacing(hDimen(10)),
+              Container(
+                height: hDimen(200),
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(hDimen(10)),
+                  child: Image.asset(
+                    assetsPath,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
-            ),
-            vSpacing(hDimen(20)),
-            Expanded(
-              child: Text(
-                animalName,
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                  fontSize: hDimen(20),
-                ),
-              ),
-            ),
-            // vSpacing(hDimen(20)),
-            // Expanded(
-            //   child: Text(
-            //     shortDescription(
-            //       description: description,
-            //     ),
-            //     style: TextStyle(
-            //       color: Colors.black,
-            //       // fontWeight: FontWeight.bold,
-            //       fontSize: hDimen(18),
-            //     ),
-            //   ),
-            // ),
-            vSpacing(hDimen(20)),
-            GestureDetector(
-              child: exploreButton(),
-              onTap: () {
-                SharedPreference.saveStringPreference(
-                  'description',
-                  description,
-                );
-                SharedPreference.saveStringPreference(
-                  'name',
+              vSpacing(hDimen(20)),
+              Expanded(
+                child: Text(
                   animalName,
-                );
-                SharedPreference.saveStringPreference(
-                  'imgPath',
-                  assetsPath,
-                );
-                SharedPreference.saveStringPreference(
-                  'audioPath',
-                  audioPath,
-                );
-                SharedPreference.saveStringPreference(
-                  'scientificName',
-                  scientificName,
-                );
-                SharedPreference.saveStringPreference(
-                  'zoneName',
-                  'African Diorama: Zone 1',
-                );
-                if(isKudu)
-                  {
-                    SharedPreference.saveBoolPreference('kudu', true);
-                  }
-                SharedPreference.saveBoolPreference('kudu', true);
-                widget.onExpand(1);
-              },
-            ),
-            vSpacing(hDimen(20)),
-          ],
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontSize: hDimen(20),
+                  ),
+                ),
+              ),
+              // vSpacing(hDimen(20)),
+              // Expanded(
+              //   child: Text(
+              //     shortDescription(
+              //       description: description,
+              //     ),
+              //     style: TextStyle(
+              //       color: Colors.black,
+              //       // fontWeight: FontWeight.bold,
+              //       fontSize: hDimen(18),
+              //     ),
+              //   ),
+              // ),
+              vSpacing(hDimen(20)),
+              GestureDetector(
+                child: exploreButton(),
+                onTap: () {
+                  SharedPreference.saveStringPreference(
+                    'description',
+                    description,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'name',
+                    animalName,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'imgPath',
+                    assetsPath,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'audioPath',
+                    audioPath,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'scientificName',
+                    scientificName,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'zoneName',
+                    'African Diorama: Zone 1',
+                  );
+                  if(isKudu)
+                    {
+                      SharedPreference.saveBoolPreference('kudu', true);
+                    }
+                  SharedPreference.saveBoolPreference('kudu', true);
+                  widget.onExpand(1);
+                },
+              ),
+              vSpacing(hDimen(20)),
+            ],
+          ),
         ),
       ),
     );
