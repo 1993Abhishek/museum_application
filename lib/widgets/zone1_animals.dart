@@ -131,7 +131,7 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
           children: [
             vSpacing(hDimen(10)),
             Container(
-              height: hDimen(200),
+              height: hDimen(210),
               width: double.infinity,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(hDimen(10)),
@@ -312,7 +312,7 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
                 crossAxisSpacing: hDimen(10),
                 crossAxisCount:
                     /*orientation == Orientation.portrait ? 2 :*/ 3,
-                childAspectRatio: 0.9,
+                childAspectRatio: 0.6,
               ),
               itemBuilder: ((context, index) {
                 return searchAnimalCard(

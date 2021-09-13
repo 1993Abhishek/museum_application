@@ -195,7 +195,7 @@ class _Zone6AnimalsState extends State<Zone6Animals> {
                 crossAxisSpacing: hDimen(10),
                 crossAxisCount:
                 /*orientation == Orientation.portrait ? 2 :*/ 3,
-                childAspectRatio: 0.9,
+                childAspectRatio: 0.6,
               ),
               itemBuilder: ((context, index) {
                 return searchAnimalCard(

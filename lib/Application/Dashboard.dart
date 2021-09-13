@@ -246,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisCount: orientation == Orientation.landscape ? 3 : 2,
                 mainAxisSpacing: hDimen(20),
                 crossAxisSpacing: hDimen(20),
-                childAspectRatio: 0.9,
+                childAspectRatio: 0.6,
               ),
               children: [
                 homeCard(

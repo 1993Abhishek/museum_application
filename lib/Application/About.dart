@@ -243,15 +243,15 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    vSpacing(hDimen(15)),
+                    vSpacing(hDimen(10)),
                     Text(
-                      "Keyah Grande is an exclusive luxury destination location. A private villa nested in the heart of Colorado's San Juan Mountains, surrounded by over 4000 acres of pristine, natural beauty and breathtaking views. Keyah Grande connects refined elegance with the rustic, natural elements of South west Colorado o bring guests an unmatched retreat destination perfect for any occasion!\n\n With its majestic views, beautiful decor, internationally inspired suites and wireless capabilities, Keyah Grande is the ideal destination for weddings, corporate events, reunions, family gatherings, wellness retreats, cowboy gatherings and so much more.\n\n Keyah Grande offers a wide array of activities both on and off the property. relax in our custom spa while enjoying a treatment or head down to the chuckwagon for a rustic cowboy dinner. If exploration of the property is what you are looking for, book a horseback ride around the ranch with beautiful photos ops all around Keyah Grande is a bucket list destination.",
+                      "Keyah Grande is an exclusive luxury destination location. A private villa nested in the heart of Colorado's San Juan Mountains, surrounded by over 4000 acres of pristine, natural beauty and breathtaking views. Keyah Grande connects refined elegance with the rustic, natural elements of South west Colorado o bring guests an unmatched retreat destination perfect for any occasion!\n With its majestic views, beautiful decor, internationally inspired suites and wireless capabilities, Keyah Grande is the ideal destination for weddings, corporate events, reunions, family gatherings, wellness retreats, cowboy gatherings and so much more.\nKeyah Grande offers a wide array of activities both on and off the property. relax in our custom spa while enjoying a treatment or head down to the chuckwagon for a rustic cowboy dinner. If exploration of the property is what you are looking for, book a horseback ride around the ranch with beautiful photos ops all around Keyah Grande is a bucket list destination.",
                       style: TextStyle(
                         fontSize: hDimen(16),
                         color: Colors.black,
                       ),
                     ),
-                    vSpacing(hDimen(20)),
+                    vSpacing(hDimen(10)),
                     Text(
                       "Contact Us",
                       style: TextStyle(
@@ -260,7 +260,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    vSpacing(hDimen(20)),
+                    vSpacing(hDimen(10)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -280,7 +280,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                         ),
                       ],
                     ),
-                    vSpacing(hDimen(20)),
+                    vSpacing(hDimen(10)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -300,7 +300,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                         ),
                       ],
                     ),
-                    vSpacing(hDimen(20)),
+                    vSpacing(hDimen(10)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -354,7 +354,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
             },
           ),
         ),
-        vSpacing(hDimen(50)),
+        vSpacing(hDimen(20)),
       ],
     );
   }
