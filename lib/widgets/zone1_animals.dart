@@ -131,7 +131,7 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
           children: [
             vSpacing(hDimen(10)),
             Container(
-              height: hDimen(190),
+              height: hDimen(185),
               width: double.infinity,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(hDimen(10)),
