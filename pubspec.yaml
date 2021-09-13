@@ -31,6 +31,9 @@ dependencies:
   audioplayers:
   path_provider:
   shared_preferences:
+  webview_flutter:
+  data_connection_checker:
+  fluttertoast:
 
 dev_dependencies:
   flutter_test:

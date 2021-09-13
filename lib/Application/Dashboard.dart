@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:museum_application/Application/About.dart';
 import 'package:museum_application/Application/Animals.dart';
+import 'package:museum_application/Application/Map.dart';
 import 'package:museum_application/Application/SearchAnimal.dart';
 import 'package:museum_application/helper/appcolor.dart';
 import 'package:museum_application/helper/shared_preference_service.dart';
@@ -146,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
     String description,
     String assetsPath,
     Function onExtend,
-    bool isZone6=false,
+    bool isZone6 = false,
   }) {
     return GestureDetector(
       onTap: onExtend,
@@ -170,27 +171,29 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     vSpacing(hDimen(10)),
-                    isZone6 ? Container(
-                      height: hDimen(200),
-                      width: MediaQuery.of(context).size.width-20,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(hDimen(25)),
-                        child: Image.asset(
-                          assetsPath,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ):Container(
-                      height: hDimen(200),
-                      width: MediaQuery.of(context).size.width-20,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(hDimen(25)),
-                        child: Image.asset(
-                          assetsPath,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
+                    isZone6
+                        ? Container(
+                            height: hDimen(200),
+                            width: MediaQuery.of(context).size.width - 20,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(hDimen(25)),
+                              child: Image.asset(
+                                assetsPath,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          )
+                        : Container(
+                            height: hDimen(200),
+                            width: MediaQuery.of(context).size.width - 20,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(hDimen(25)),
+                              child: Image.asset(
+                                assetsPath,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
                     vSpacing(hDimen(15)),
                     Text(
                       title,
@@ -204,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(bottom:hDimen(15)),
+                  padding: EdgeInsets.only(bottom: hDimen(15)),
                   child: GestureDetector(
                     child: exploreButton(),
                     onTap: onExtend,
@@ -829,7 +832,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           // print('selected:$value');
                                                           // print('Dashboard:$animalName');
                                                           setState(() {
-                                                            zoneIndex=value;
+                                                            zoneIndex = value;
                                                             isZone1Details =
                                                                 false;
                                                             isZone2Details =
@@ -873,27 +876,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       isZone1Details =
                                                                           true;
                                                                       isZone2Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone3Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone4Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone5Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone6Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone7Details =
-                                                                      false;
+                                                                          false;
                                                                       isHomeSelected =
-                                                                      false;
+                                                                          false;
                                                                       isSearchAnimalSelected =
-                                                                      false;
+                                                                          false;
                                                                       isMapSelected =
-                                                                      false;
+                                                                          false;
                                                                       isAnimalSelected =
-                                                                      false;
+                                                                          false;
                                                                       isAboutSelected =
-                                                                      false;
+                                                                          false;
                                                                     });
                                                                   }
                                                                   if (value ==
@@ -903,178 +906,184 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       isZone2Details =
                                                                           true;
                                                                       isZone1Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone3Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone4Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone5Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone6Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone7Details =
-                                                                      false;
+                                                                          false;
                                                                       isHomeSelected =
-                                                                      false;
+                                                                          false;
                                                                       isSearchAnimalSelected =
-                                                                      false;
+                                                                          false;
                                                                       isMapSelected =
-                                                                      false;
+                                                                          false;
                                                                       isAnimalSelected =
-                                                                      false;
+                                                                          false;
                                                                       isAboutSelected =
-                                                                      false;
+                                                                          false;
                                                                     });
                                                                   }
                                                                   if (value ==
                                                                       3) {
-                                                                    setState(() {
+                                                                    setState(
+                                                                        () {
                                                                       isZone1Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone2Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone3Details =
-                                                                      true;
+                                                                          true;
                                                                       isZone4Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone5Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone6Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone7Details =
-                                                                      false;
+                                                                          false;
                                                                       isHomeSelected =
-                                                                      false;
+                                                                          false;
                                                                       isSearchAnimalSelected =
-                                                                      false;
+                                                                          false;
                                                                       isMapSelected =
-                                                                      false;
+                                                                          false;
                                                                       isAnimalSelected =
-                                                                      false;
+                                                                          false;
                                                                       isAboutSelected =
-                                                                      false;
+                                                                          false;
                                                                     });
                                                                   }
                                                                   if (value ==
                                                                       4) {
-                                                                    setState(() {
+                                                                    setState(
+                                                                        () {
                                                                       isZone1Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone2Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone3Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone4Details =
-                                                                      true;
+                                                                          true;
                                                                       isZone5Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone6Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone7Details =
-                                                                      false;
+                                                                          false;
                                                                       isHomeSelected =
-                                                                      false;
+                                                                          false;
                                                                       isSearchAnimalSelected =
-                                                                      false;
+                                                                          false;
                                                                       isMapSelected =
-                                                                      false;
+                                                                          false;
                                                                       isAnimalSelected =
-                                                                      false;
+                                                                          false;
                                                                       isAboutSelected =
-                                                                      false;
+                                                                          false;
                                                                     });
                                                                   }
                                                                   if (value ==
                                                                       5) {
-                                                                    setState(() {
+                                                                    setState(
+                                                                        () {
                                                                       isZone1Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone2Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone3Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone4Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone5Details =
-                                                                      true;
+                                                                          true;
                                                                       isZone6Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone7Details =
-                                                                      false;
+                                                                          false;
                                                                       isHomeSelected =
-                                                                      false;
+                                                                          false;
                                                                       isSearchAnimalSelected =
-                                                                      false;
+                                                                          false;
                                                                       isMapSelected =
-                                                                      false;
+                                                                          false;
                                                                       isAnimalSelected =
-                                                                      false;
+                                                                          false;
                                                                       isAboutSelected =
-                                                                      false;
+                                                                          false;
                                                                     });
                                                                   }
                                                                   if (value ==
                                                                       6) {
-                                                                    setState(() {
+                                                                    setState(
+                                                                        () {
                                                                       isZone1Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone2Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone3Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone4Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone5Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone6Details =
-                                                                      true;
+                                                                          true;
                                                                       isZone7Details =
-                                                                      false;
+                                                                          false;
                                                                       isHomeSelected =
-                                                                      false;
+                                                                          false;
                                                                       isSearchAnimalSelected =
-                                                                      false;
+                                                                          false;
                                                                       isMapSelected =
-                                                                      false;
+                                                                          false;
                                                                       isAnimalSelected =
-                                                                      false;
+                                                                          false;
                                                                       isAboutSelected =
-                                                                      false;
+                                                                          false;
                                                                     });
                                                                   }
                                                                   if (value ==
                                                                       7) {
-                                                                    setState(() {
+                                                                    setState(
+                                                                        () {
                                                                       isZone1Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone2Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone3Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone4Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone5Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone6Details =
-                                                                      false;
+                                                                          false;
                                                                       isZone7Details =
-                                                                      true;
+                                                                          true;
                                                                       isHomeSelected =
-                                                                      false;
+                                                                          false;
                                                                       isSearchAnimalSelected =
-                                                                      false;
+                                                                          false;
                                                                       isMapSelected =
-                                                                      false;
+                                                                          false;
                                                                       isAnimalSelected =
-                                                                      false;
+                                                                          false;
                                                                       isAboutSelected =
-                                                                      false;
+                                                                          false;
                                                                     });
                                                                   }
-
                                                                 },
                                                               )
-                                                            : Container(),
+                                                            : isMapSelected
+                                                                ? MapScreen()
+                                                                : Container(),
               ),
             )
           ],
