@@ -146,21 +146,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     vSpacing(hDimen(10)),
                     isZone6 ? Container(
-                      height: hDimen(300),
-                      width: hDimen(275),
+                      height: hDimen(200),
+                      width: MediaQuery.of(context).size.width-20,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(hDimen(25)),
                         child: Image.asset(
                           assetsPath,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                         ),
                       ),
                     ):Container(
+                      height: hDimen(200),
+                      width: MediaQuery.of(context).size.width-20,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(hDimen(25)),
                         child: Image.asset(
                           assetsPath,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                         ),
                       ),
                     ),
@@ -244,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisCount: orientation == Orientation.landscape ? 3 : 2,
                 mainAxisSpacing: hDimen(20),
                 crossAxisSpacing: hDimen(20),
-                childAspectRatio: 0.7,
+                childAspectRatio: 0.9,
               ),
               children: [
                 homeCard(

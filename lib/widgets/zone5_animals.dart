@@ -89,45 +89,50 @@ class _Zone5AnimalsState extends State<Zone5Animals> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             vSpacing(hDimen(10)),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  animalName,
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: hDimen(20),
-                  ),
-                ),
-                Container(
-                  height: hDimen(60),
-                  width: hDimen(60),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(hDimen(10)),
-                    child: Image.asset(
-                      assetsPath,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            vSpacing(hDimen(20)),
-            Expanded(
-              child: Text(
-                shortDescription(
-                  description: description,
-                ),
-                style: TextStyle(
-                  color: Colors.black,
-                  // fontWeight: FontWeight.bold,
-                  fontSize: hDimen(18),
+            Container(
+              height: hDimen(240),
+              width: double.infinity,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(hDimen(10)),
+                child: Image.asset(
+                  assetsPath,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
-            vSpacing(hDimen(20)),
+            vSpacing(hDimen(10)),
+            Expanded(
+              child: Text(
+                animalName,
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold,
+                  fontSize: hDimen(20),
+                ),
+              ),
+            ),
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //
+            //
+            //   ],
+            // ),
+            // vSpacing(hDimen(20)),
+            // Expanded(
+            //   child: Text(
+            //     shortDescription(
+            //       description: description,
+            //     ),
+            //     style: TextStyle(
+            //       color: Colors.black,
+            //       // fontWeight: FontWeight.bold,
+            //       fontSize: hDimen(18),
+            //     ),
+            //   ),
+            // ),
+
             GestureDetector(
               child: exploreButton(),
               onTap: () {
@@ -159,7 +164,7 @@ class _Zone5AnimalsState extends State<Zone5Animals> {
                 widget.onExpand(5);
               },
             ),
-            vSpacing(hDimen(20)),
+            vSpacing(hDimen(5)),
           ],
         ),
       ),
