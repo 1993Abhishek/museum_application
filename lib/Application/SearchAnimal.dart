@@ -280,15 +280,15 @@ class _SearchAnimalState extends State<SearchAnimal> {
 
   List<String> audioPathsF = [
     'audio/Zone1.1-Leopard.mp3',
-    'audio/Zone1.10-PatasMonkey.mp3',
     'audio/Zone1.2-GreaterKudu.mp3',
     'audio/Zone1.3-Sable.mp3',
     'audio/Zone1.4-UgandaCobb.mp3',
-    'audio/Zone1.5%20-JacksonHeartBeast.mp3',
+    'audio/Zone1.5-JacksonHeartBeast.mp3',
     'audio/Zone1.6-Gerenuk.mp3',
     'audio/Zone1.7-Korrigum.mp3',
     'audio/Zone1.8-WildDog.mp3',
     'audio/Zone1.9-Aardwolf.mp3',
+    'audio/Zone1.10-PatasMonkey.mp3',
     'audio/Zone2.1-Argali.mp3',
     'audio/Zone2.2-Urials.mp3',
     'audio/Zone2.3-NorthAmericanDesertBighorn.mp3',
@@ -669,105 +669,134 @@ class _SearchAnimalState extends State<SearchAnimal> {
     String scientificName,
     int zoneIndex,
   }) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          hDimen(20),
+    return GestureDetector(
+      onTap: ()
+      {
+        print('Audio path: ${audioPath}');
+        SharedPreference.saveStringPreference(
+          'description',
+          description,
+        );
+        SharedPreference.saveStringPreference(
+          'name',
+          animalName,
+        );
+        SharedPreference.saveStringPreference(
+          'imgPath',
+          assetsPath,
+        );
+        SharedPreference.saveStringPreference(
+          'audioPath',
+          audioPath,
+        );
+        SharedPreference.saveStringPreference(
+            'scientificName', scientificName);
+        SharedPreference.saveStringPreference(
+          'zoneName',
+          zoneName,
+        );
+        widget.onExpand(zoneIndex);
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            hDimen(20),
+          ),
         ),
-      ),
-      elevation: 3,
-      child: Padding(
-        padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            vSpacing(hDimen(10)),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      zoneName,
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: hDimen(18),
+        elevation: 3,
+        child: Padding(
+          padding: EdgeInsets.only(left: hDimen(10), right: hDimen(10)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              vSpacing(hDimen(10)),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        zoneName,
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: hDimen(18),
+                        ),
+                        textAlign: TextAlign.start,
                       ),
-                      textAlign: TextAlign.start,
-                    ),
-                    vSpacing(5),
-                    Text(
-                      animalName,
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontWeight: FontWeight.bold,
-                        fontSize: hDimen(20),
+                      vSpacing(5),
+                      Text(
+                        animalName,
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.bold,
+                          fontSize: hDimen(20),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Container(
-                  height: hDimen(60),
-                  width: hDimen(60),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(hDimen(10)),
-                    child: Image.asset(
-                      assetsPath,
-                      fit: BoxFit.cover,
+                    ],
+                  ),
+                  Container(
+                    height: hDimen(60),
+                    width: hDimen(60),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(hDimen(10)),
+                      child: Image.asset(
+                        assetsPath,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            vSpacing(hDimen(20)),
-            Expanded(
-              child: Text(
-                shortDescription(
-                  description: description,
-                ),
-                style: TextStyle(
-                  color: Colors.black,
-                  // fontWeight: FontWeight.bold,
-                  fontSize: hDimen(18),
+                ],
+              ),
+              vSpacing(hDimen(20)),
+              Expanded(
+                child: Text(
+                  shortDescription(
+                    description: description,
+                  ),
+                  style: TextStyle(
+                    color: Colors.black,
+                    // fontWeight: FontWeight.bold,
+                    fontSize: hDimen(18),
+                  ),
                 ),
               ),
-            ),
-            vSpacing(hDimen(20)),
-            GestureDetector(
-              child: exploreButton(),
-              onTap: () {
-                print('Hello');
-                SharedPreference.saveStringPreference(
-                  'description',
-                  description,
-                );
-                SharedPreference.saveStringPreference(
-                  'name',
-                  animalName,
-                );
-                SharedPreference.saveStringPreference(
-                  'imgPath',
-                  assetsPath,
-                );
-                SharedPreference.saveStringPreference(
-                  'audioPath',
-                  audioPath,
-                );
-                SharedPreference.saveStringPreference(
-                    'scientificName', scientificName);
-                SharedPreference.saveStringPreference(
-                  'zoneName',
-                  zoneName,
-                );
-                widget.onExpand(zoneIndex);
-              },
-            ),
-            vSpacing(hDimen(20)),
-          ],
+              vSpacing(hDimen(20)),
+              GestureDetector(
+                child: exploreButton(),
+                onTap: () {
+                  print('Hello');
+                  SharedPreference.saveStringPreference(
+                    'description',
+                    description,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'name',
+                    animalName,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'imgPath',
+                    assetsPath,
+                  );
+                  SharedPreference.saveStringPreference(
+                    'audioPath',
+                    audioPath,
+                  );
+                  SharedPreference.saveStringPreference(
+                      'scientificName', scientificName);
+                  SharedPreference.saveStringPreference(
+                    'zoneName',
+                    zoneName,
+                  );
+                  widget.onExpand(zoneIndex);
+                },
+              ),
+              vSpacing(hDimen(20)),
+            ],
+          ),
         ),
       ),
     );

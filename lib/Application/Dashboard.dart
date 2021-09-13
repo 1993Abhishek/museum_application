@@ -800,7 +800,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         : isZone1Details
                                             ? Zone1Animals(
                                                 onExpand: (value) {
-                                                  print(value);
+                                                  // print(value);
                                                   setState(() {
                                                     zoneIndex = value;
                                                     isZone1Details = false;
@@ -826,7 +826,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 : isSearchAnimalSelected
                                                     ? SearchAnimal(
                                                         onExpand: (value) {
-                                                          print('selected:$value');
+                                                          // print('selected:$value');
                                                           // print('Dashboard:$animalName');
                                                           setState(() {
                                                             zoneIndex=value;
@@ -865,7 +865,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                     zoneIndex,
                                                                 onZoneBack:
                                                                     (value) {
-                                                                  print(value);
+                                                                  // print(value);
                                                                   if (value ==
                                                                       1) {
                                                                     setState(
