@@ -7,6 +7,7 @@ import 'package:museum_application/Application/About.dart';
 import 'package:museum_application/Application/Animals.dart';
 import 'package:museum_application/Application/SearchAnimal.dart';
 import 'package:museum_application/helper/appcolor.dart';
+import 'package:museum_application/helper/shared_preference_service.dart';
 import 'package:museum_application/utility/app_dimen.dart';
 import 'package:museum_application/utility/appview_helper.dart';
 import 'package:museum_application/widgets/customTextfieldwidget.dart';
@@ -82,6 +83,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    SharedPreference.saveStringPreference(
+      'description',
+      '',
+    );
+    SharedPreference.saveStringPreference(
+      'name',
+      '',
+    );
+    SharedPreference.saveStringPreference(
+      'imgPath',
+      '',
+    );
+    SharedPreference.saveStringPreference(
+      'audioPath',
+      '',
+    );
+    SharedPreference.saveStringPreference(
+      'scientificName',
+      '',
+    );
+    SharedPreference.saveStringPreference(
+      'zoneName',
+      '',
+    );
     _load();
     super.initState();
   }

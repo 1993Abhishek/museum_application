@@ -31,11 +31,12 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
 
   FocusNode nodeSearchAnimal = FocusNode();
   TextEditingController controllerSearchAnimal = TextEditingController();
-  String initDescription = '';
-  String initAnimalName = '';
-  String initScientificName = '';
+  String initDescription = 'The Leopard has a very large distribution throughout central and southern Africa, with 12 known subspecies. As largely solitary animals, they are known to be nocturnal in their hunting. With some of their best senses being smell and hearing, these cats are very wary. The largest specimens can weigh over 170 pounds and live from 10 to 15 years.';
+  String initAnimalName = 'Leopard';
+  String initScientificName = 'Panthera pardus pardus';
 
-  String asset = "assets/loggerhead.jpg";
+  String asset = "assets/Leopard.jpg";
+
   List<String> assetPaths = [
     "assets/loggerhead.jpg",
     "assets/national_geographic1.jpg"
@@ -92,8 +93,8 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
     super.dispose();
   }
 
-  String audioPath = '';
-  String zoneName = "Back To Zone Name";
+  String audioPath = 'audio/Zone1.1-Leopard.mp3';
+  String zoneName = "";
   bool isKudu=false;
 
   void getAnimalDetails() async {
@@ -104,7 +105,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
         await SharedPreference.getStringPreference('description');
     String animalName = await SharedPreference.getStringPreference('name');
     String imagePath = await SharedPreference.getStringPreference('imgPath');
-    audioPath = await SharedPreference.getStringPreference('audioPath');
+    String audioPath2 = await SharedPreference.getStringPreference('audioPath');
     String scientificName = await SharedPreference.getStringPreference(
       'scientificName',
     );
@@ -119,21 +120,22 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
     if (description.isNotEmpty &&
         animalName.isNotEmpty &&
         imagePath.isNotEmpty &&
-        audioPath.isNotEmpty &&
+        audioPath2.isNotEmpty &&
         scientificName.isNotEmpty &&
         zoneName.isNotEmpty&&kudu!=null) {
-      _load();
       setState(() {
         initDescription = description;
         initAnimalName = animalName;
         asset = imagePath;
         initScientificName = scientificName;
         isKudu=kudu;
+        audioPath=audioPath2;
       });
 
       // print(asset);
     } else
       print('Error getting details');
+    _load();
     setState(() {
       isGettingDetails = false;
     });
@@ -163,32 +165,33 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         vSpacing(hDimen(20)),
-        Padding(
-          padding: EdgeInsets.only(right: hDimen(20)),
-          child: Align(
-            alignment: Alignment.topRight,
-            child: CustomTextfieldWidget(
-              isLebelTextNeeded: false,
-              suffixIcon: Icon(
-                Icons.search,
-                color: Colors.black54,
-              ),
-              lebelHeight: hDimen(14),
-              height: hDimen(50),
-              width: hDimen(300),
-              unSelectedColor: Color(0xFFe3e3e3),
-              inputType: TextInputType.emailAddress,
-              focusNode: nodeSearchAnimal,
-              hintText: "Search by animal",
-              textInputAction: TextInputAction.next,
-              controller: controllerSearchAnimal,
-              onSubmitted: (value) {
-                nodeSearchAnimal.unfocus();
-              },
-            ),
-          ),
-        ),
+        // Padding(
+        //   padding: EdgeInsets.only(right: hDimen(20)),
+        //   child: Align(
+        //     alignment: Alignment.topRight,
+        //     child: CustomTextfieldWidget(
+        //       isLebelTextNeeded: false,
+        //       suffixIcon: Icon(
+        //         Icons.search,
+        //         color: Colors.black54,
+        //       ),
+        //       lebelHeight: hDimen(14),
+        //       height: hDimen(50),
+        //       width: hDimen(300),
+        //       unSelectedColor: Color(0xFFe3e3e3),
+        //       inputType: TextInputType.emailAddress,
+        //       focusNode: nodeSearchAnimal,
+        //       hintText: "Search by animal",
+        //       textInputAction: TextInputAction.next,
+        //       controller: controllerSearchAnimal,
+        //       onSubmitted: (value) {
+        //         nodeSearchAnimal.unfocus();
+        //       },
+        //     ),
+        //   ),
+        // ),
         vSpacing(30),
+        zoneName.isNotEmpty ?
         GestureDetector(
           onTap: () {
             stop();
@@ -206,7 +209,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
               ),
             ),
           ),
-        ),
+        ):Container(),
         vSpacing(20),
         isGettingDetails
             ? Center(
@@ -235,7 +238,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
                           borderRadius: BorderRadius.circular(hDimen(20)),
                           child: Image.asset(
                             asset,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
 
                           ),
                         ),
