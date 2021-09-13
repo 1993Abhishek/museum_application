@@ -131,13 +131,13 @@ class _Zone1AnimalsState extends State<Zone1Animals> {
           children: [
             vSpacing(hDimen(10)),
             Container(
-              height: hDimen(185),
+              height: hDimen(200),
               width: double.infinity,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(hDimen(10)),
                 child: Image.asset(
                   assetsPath,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
