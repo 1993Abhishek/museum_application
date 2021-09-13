@@ -112,7 +112,10 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
     zoneName = await SharedPreference.getStringPreference(
       'zoneName',
     );
+
+
     bool kudu= await SharedPreference.getBoolPreference('kudu');
+    print('Scientific Name:$zoneName');
     if(kudu==null)
       {
         kudu=false;
@@ -123,6 +126,7 @@ class _AnimalsScreenState extends State<AnimalsScreen> {
         audioPath2.isNotEmpty &&
         scientificName.isNotEmpty &&
         zoneName.isNotEmpty&&kudu!=null) {
+      print('All Ok');
       setState(() {
         initDescription = description;
         initAnimalName = animalName;

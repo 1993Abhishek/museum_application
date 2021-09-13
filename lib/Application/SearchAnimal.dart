@@ -333,6 +333,30 @@ class _SearchAnimalState extends State<SearchAnimal> {
 
   @override
   void initState() {
+    SharedPreference.saveStringPreference(
+      'description',
+      '',
+    );
+    SharedPreference.saveStringPreference(
+      'name',
+      '',
+    );
+    SharedPreference.saveStringPreference(
+      'imgPath',
+      '',
+    );
+    SharedPreference.saveStringPreference(
+      'audioPath',
+      '',
+    );
+    SharedPreference.saveStringPreference(
+      'scientificName',
+      '',
+    );
+    SharedPreference.saveStringPreference(
+      'zoneName',
+      '',
+    );
     _load();
     initializeAllLists();
     createMenuItem();
@@ -733,6 +757,10 @@ class _SearchAnimalState extends State<SearchAnimal> {
                 );
                 SharedPreference.saveStringPreference(
                     'scientificName', scientificName);
+                SharedPreference.saveStringPreference(
+                  'zoneName',
+                  zoneName,
+                );
                 widget.onExpand();
               },
             ),
@@ -890,24 +918,41 @@ class _SearchAnimalState extends State<SearchAnimal> {
                                                               : descriptionsZone1[
                                                                   index],
                                   zoneName: zoneIndex == 0
+                                      ? zoneNames[0]
+                                      : zoneIndex == 1
+                                          ? zoneNames[1]
+                                          : zoneIndex == 2
+                                              ? zoneNames[2]
+                                              : zoneIndex == 3
+                                                  ? zoneNames[3]
+                                                  : zoneIndex == 4
+                                                      ? zoneNames[4]
+                                                      : zoneIndex == 5
+                                                          ? zoneNames[
+                                                              5]
+                                                          : zoneIndex == 6
+                                                              ? zoneNames[
+                                                                  6]
+                                                              : zoneNames[
+                                                                  7],
+                                  animalName: zoneIndex == 0
                                       ? animalNamesZone1[index]
                                       : zoneIndex == 1
-                                          ? animalNamesZone2[index]
-                                          : zoneIndex == 2
-                                              ? animalNamesZone3[index]
-                                              : zoneIndex == 3
-                                                  ? animalNamesZone4[index]
-                                                  : zoneIndex == 4
-                                                      ? animalNamesZone5[index]
-                                                      : zoneIndex == 5
-                                                          ? animalNamesZone6[
-                                                              index]
-                                                          : zoneIndex == 6
-                                                              ? animalNamesZone7[
-                                                                  index]
-                                                              : animalNamesZone1[
-                                                                  index],
-                                  animalName: allAnimalNames[index],
+                                      ? animalNamesZone2[index]
+                                      : zoneIndex == 2
+                                      ? animalNamesZone3[index]
+                                      : zoneIndex == 3
+                                      ? animalNamesZone4[index]
+                                      : zoneIndex == 4
+                                      ? animalNamesZone5[index]
+                                      : zoneIndex == 5
+                                      ? animalNamesZone6[
+                                  index]
+                                      : zoneIndex == 6
+                                      ? animalNamesZone7[
+                                  index]
+                                      : animalNamesZone1[
+                                  index],
                                 );
                               }),
                               itemCount: zoneIndex == 0
