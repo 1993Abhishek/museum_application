@@ -825,11 +825,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   )
                                                 : isSearchAnimalSelected
                                                     ? SearchAnimal(
-                                                        onExpand: (
-                                                            /*description,animalName,animalImage*/) {
-                                                          print('selected');
+                                                        onExpand: (value) {
+                                                          print('selected:$value');
                                                           // print('Dashboard:$animalName');
                                                           setState(() {
+                                                            zoneIndex=value;
                                                             isZone1Details =
                                                                 false;
                                                             isZone2Details =

@@ -365,6 +365,7 @@ class _SearchAnimalState extends State<SearchAnimal> {
 
     super.initState();
   }
+
   String mp3Uri;
 
   AudioPlayer audioPlayer = AudioPlayer(
@@ -666,6 +667,7 @@ class _SearchAnimalState extends State<SearchAnimal> {
     String assetsPath,
     String audioPath,
     String scientificName,
+    int zoneIndex,
   }) {
     return Card(
       shape: RoundedRectangleBorder(
@@ -761,7 +763,7 @@ class _SearchAnimalState extends State<SearchAnimal> {
                   'zoneName',
                   zoneName,
                 );
-                widget.onExpand();
+                widget.onExpand(zoneIndex);
               },
             ),
             vSpacing(hDimen(20)),
@@ -800,12 +802,27 @@ class _SearchAnimalState extends State<SearchAnimal> {
                 )
               : isSearched
                   ? SingleChildScrollView(
-                    child: Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(hDimen(20)),
                         child: Container(
                           height: hDimen(340),
                           width: hDimen(335),
                           child: searchAnimalCard(
+                            zoneIndex: initialIndex < 10
+                                ? 1
+                                : initialIndex < 16
+                                    ? 2
+                                    : initialIndex < 17
+                                        ? 3
+                                        : initialIndex < 24
+                                            ? 4
+                                            : initialIndex < 27
+                                                ? 5
+                                                : initialIndex < 30
+                                                    ? 6
+                                                    : initialIndex < 34
+                                                        ? 7
+                                                        : "animal",
                             scientificName:
                                 allAnimalScientificNames[initialIndex],
                             audioPath: audioPathsF[initialIndex],
@@ -830,7 +847,7 @@ class _SearchAnimalState extends State<SearchAnimal> {
                           ),
                         ),
                       ),
-                  )
+                    )
                   : Expanded(
                       child: isZoneNameSearched
                           ? GridView.builder(
@@ -844,6 +861,21 @@ class _SearchAnimalState extends State<SearchAnimal> {
                               ),
                               itemBuilder: ((context, index) {
                                 return searchAnimalCard(
+                                  zoneIndex: zoneIndex == 0
+                                      ? 1
+                                      : zoneIndex == 1
+                                          ? 2
+                                          : zoneIndex == 2
+                                              ? 3
+                                              : zoneIndex == 3
+                                                  ? 4
+                                                  : zoneIndex == 4
+                                                      ? 5
+                                                      : zoneIndex == 5
+                                                          ? 6
+                                                          : zoneIndex == 6
+                                                              ? 7
+                                                              : 0,
                                   audioPath: zoneIndex == 0
                                       ? audioPathsF[index]
                                       : zoneIndex == 1
@@ -928,31 +960,28 @@ class _SearchAnimalState extends State<SearchAnimal> {
                                                   : zoneIndex == 4
                                                       ? zoneNames[4]
                                                       : zoneIndex == 5
-                                                          ? zoneNames[
-                                                              5]
+                                                          ? zoneNames[5]
                                                           : zoneIndex == 6
-                                                              ? zoneNames[
-                                                                  6]
-                                                              : zoneNames[
-                                                                  7],
+                                                              ? zoneNames[6]
+                                                              : zoneNames[7],
                                   animalName: zoneIndex == 0
                                       ? animalNamesZone1[index]
                                       : zoneIndex == 1
-                                      ? animalNamesZone2[index]
-                                      : zoneIndex == 2
-                                      ? animalNamesZone3[index]
-                                      : zoneIndex == 3
-                                      ? animalNamesZone4[index]
-                                      : zoneIndex == 4
-                                      ? animalNamesZone5[index]
-                                      : zoneIndex == 5
-                                      ? animalNamesZone6[
-                                  index]
-                                      : zoneIndex == 6
-                                      ? animalNamesZone7[
-                                  index]
-                                      : animalNamesZone1[
-                                  index],
+                                          ? animalNamesZone2[index]
+                                          : zoneIndex == 2
+                                              ? animalNamesZone3[index]
+                                              : zoneIndex == 3
+                                                  ? animalNamesZone4[index]
+                                                  : zoneIndex == 4
+                                                      ? animalNamesZone5[index]
+                                                      : zoneIndex == 5
+                                                          ? animalNamesZone6[
+                                                              index]
+                                                          : zoneIndex == 6
+                                                              ? animalNamesZone7[
+                                                                  index]
+                                                              : animalNamesZone1[
+                                                                  index],
                                 );
                               }),
                               itemCount: zoneIndex == 0
@@ -985,7 +1014,23 @@ class _SearchAnimalState extends State<SearchAnimal> {
                               ),
                               itemBuilder: ((context, index) {
                                 return searchAnimalCard(
-                                  scientificName: allAnimalScientificNames[index],
+                                  zoneIndex: index < 10
+                                      ? 1
+                                      : index < 16
+                                          ? 2
+                                          : index < 17
+                                              ? 3
+                                              : index < 24
+                                                  ? 4
+                                                  : index < 27
+                                                      ? 5
+                                                      : index < 30
+                                                          ? 6
+                                                          : index < 34
+                                                              ? 7
+                                                              : 0,
+                                  scientificName:
+                                      allAnimalScientificNames[index],
                                   audioPath: audioPathsF[index],
                                   assetsPath: allAnimalImages[index],
                                   description: allAnimalDescriptions[index],
