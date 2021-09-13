@@ -107,32 +107,32 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        vSpacing(hDimen(20)),
-        Padding(
-          padding: EdgeInsets.only(right: hDimen(20)),
-          child: Align(
-            alignment: Alignment.topRight,
-            child: CustomTextfieldWidget(
-              isLebelTextNeeded: false,
-              suffixIcon: Icon(
-                Icons.search,
-                color: Colors.black54,
-              ),
-              lebelHeight: hDimen(14),
-              height: hDimen(50),
-              width: hDimen(300),
-              unSelectedColor: Color(0xFFe3e3e3),
-              inputType: TextInputType.emailAddress,
-              focusNode: nodeSearchAnimal,
-              hintText: "Search by animal",
-              textInputAction: TextInputAction.next,
-              controller: controllerSearchAnimal,
-              onSubmitted: (value) {
-                nodeSearchAnimal.unfocus();
-              },
-            ),
-          ),
-        ),
+        // vSpacing(hDimen(20)),
+        // Padding(
+        //   padding: EdgeInsets.only(right: hDimen(20)),
+        //   child: Align(
+        //     alignment: Alignment.topRight,
+        //     child: CustomTextfieldWidget(
+        //       isLebelTextNeeded: false,
+        //       suffixIcon: Icon(
+        //         Icons.search,
+        //         color: Colors.black54,
+        //       ),
+        //       lebelHeight: hDimen(14),
+        //       height: hDimen(50),
+        //       width: hDimen(300),
+        //       unSelectedColor: Color(0xFFe3e3e3),
+        //       inputType: TextInputType.emailAddress,
+        //       focusNode: nodeSearchAnimal,
+        //       hintText: "Search by animal",
+        //       textInputAction: TextInputAction.next,
+        //       controller: controllerSearchAnimal,
+        //       onSubmitted: (value) {
+        //         nodeSearchAnimal.unfocus();
+        //       },
+        //     ),
+        //   ),
+        // ),
         vSpacing(30),
         Expanded(
           child: Row(
