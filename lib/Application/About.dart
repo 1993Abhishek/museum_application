@@ -250,6 +250,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                         fontSize: hDimen(14),
                         color: Colors.black,
                       ),
+                      textAlign: TextAlign.justify,
                     ),
                     vSpacing(hDimen(10)),
                     Text(
@@ -272,7 +273,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                         ),
                         hSpacing(20),
                         Text(
-                          "13211 W Hwy 160, Pagosa Springs, CO 81147",
+                          "13211 W Hwy 160, Pagosa Springs,\nCO 81147",
                           style: TextStyle(
                             fontSize: hDimen(16),
                             color: Colors.black,
