@@ -34,6 +34,7 @@ dependencies:
   webview_flutter:
   data_connection_checker:
   fluttertoast:
+  app_settings:
 
 dev_dependencies:
   flutter_test:

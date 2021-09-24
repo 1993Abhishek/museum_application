@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app_settings/app_settings.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:museum_application/helper/static_widget_helper.dart';
@@ -13,7 +14,6 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  StreamSubscription _connectionChangeStream;
 
   bool isOnline = false;
 
@@ -29,6 +29,7 @@ class _MapScreenState extends State<MapScreen> {
     if(!isOnline)
       {
         WidgetHelper.showToastMessage('Please turn on your internet connection to show this page.');
+        AppSettings.openAppSettings();
       }
     else
       {
