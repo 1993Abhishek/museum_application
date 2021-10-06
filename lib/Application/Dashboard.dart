@@ -489,13 +489,13 @@ class _HomeScreenState extends State<HomeScreen> {
             hSpacing(hDimen(20)),
             Container(
               width: hDimen(250),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    vSpacing(hDimen(25)),
-                    Column(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  vSpacing(hDimen(25)),
+                  Expanded(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -576,7 +576,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         ),
                         // vSpacing(hDimen(20)),
-                        drawerItem(
+                        /*drawerItem(
                           assetPath: "assets/Map.png",
                           labelText: "Map",
                           isSelected: isMapSelected,
@@ -597,7 +597,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               isAboutSelected = false;
                             });
                           },
-                        ),
+                        ),*/
                         // vSpacing(hDimen(20)),
                         drawerItem(
                           assetPath: "assets/Animals.png",
@@ -646,29 +646,29 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    Container(
-                      width: hDimen(150),
-                      height: hDimen(150),
-                      child: Image.asset(
-                        "assets/feather1.png",
-                        fit: BoxFit.contain,
+                  ),
+                  Container(
+                    width: hDimen(150),
+                    height: hDimen(150),
+                    child: Image.asset(
+                      "assets/feather1.png",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: hDimen(30),
+                      bottom: hDimen(20),
+                    ),
+                    child: Text(
+                      "Copyright 2021",
+                      style: TextStyle(
+                        fontSize: hDimen(15),
+                        color: Colors.black,
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: hDimen(30),
-                        bottom: hDimen(20),
-                      ),
-                      child: Text(
-                        "Copyright 2021",
-                        style: TextStyle(
-                          fontSize: hDimen(15),
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             Expanded(
@@ -1081,8 +1081,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   }
                                                                 },
                                                               )
-                                                            : isMapSelected
-                                                                ? MapScreen()
+                                                            /*: isMapSelected
+                                                                ? MapScreen()*/
                                                                 : Container(),
               ),
             )

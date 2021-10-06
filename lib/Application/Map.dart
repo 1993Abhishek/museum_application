@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:app_settings/app_settings.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
+import 'package:museum_application/helper/appcolor.dart';
 import 'package:museum_application/helper/static_widget_helper.dart';
 import 'package:museum_application/widgets/web_view.dart';
 
@@ -19,9 +20,11 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   initState() {
+
     checkConnection();
     super.initState();
   }
+  bool isGettingObj=false;
 
   void checkConnection() async
   {
@@ -33,24 +36,34 @@ class _MapScreenState extends State<MapScreen> {
       }
     else
       {
-        print('Online');
-        setState(() {
+
+        Timer(Duration(seconds: 5), () {
+          setState(() {
+            isGettingObj=false;
+          });
         });
       }
 
   }
-  static Future<bool> isInternetConnectionAvailable() async {
-    print('hello');
+   Future<bool> isInternetConnectionAvailable() async {
+    setState(() {
+      isGettingObj=true;
+    });
     return await DataConnectionChecker().hasConnection;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:isOnline ? WebSiteView(
-        url: 'https://p3d.in/lquD0',
-        key: widget.key,
-      ):Container(),
+      backgroundColor: Colors.white,
+      body:isGettingObj ? Center(child: CircularProgressIndicator(backgroundColor: AppColor.colorPrimary,),):Container(
+        height: double.infinity,
+        width: double.infinity,
+        child: WebSiteView(
+          url: 'https://object.devci.vidinitechnology.com',
+          key: widget.key,
+        ),
+      ),
     );
   }
 }
